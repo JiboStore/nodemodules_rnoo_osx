@@ -1,8 +1,9 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.tests;
@@ -67,7 +68,7 @@ public class CatalystMultitouchHandlingTestCase extends ReactAppInstrumentationT
         assertEquals(-1, endEventIndex);
         endEventIndex = i;
       } else if (call.equals("move;2")) {
-        // this will happen more than once, let's just capture the last occurrence
+        // this will happen more than once, let's just capture the last occurence
         moveWithBothPointersEventIndex = i;
       }
     }

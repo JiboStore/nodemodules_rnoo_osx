@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTAnimatedNode.h"
@@ -11,8 +13,8 @@
 
 @implementation RCTAnimatedNode
 {
-  NSMapTable<NSNumber *, RCTAnimatedNode *> *_childNodes;
-  NSMapTable<NSNumber *, RCTAnimatedNode *> *_parentNodes;
+  NSMutableDictionary<NSNumber *, RCTAnimatedNode *> *_childNodes;
+  NSMutableDictionary<NSNumber *, RCTAnimatedNode *> *_parentNodes;
 }
 
 - (instancetype)initWithTag:(NSNumber *)tag
@@ -27,12 +29,12 @@
 
 RCT_NOT_IMPLEMENTED(- (instancetype)init)
 
-- (NSMapTable<NSNumber *, RCTAnimatedNode *> *)childNodes
+- (NSDictionary<NSNumber *, RCTAnimatedNode *> *)childNodes
 {
   return _childNodes;
 }
 
-- (NSMapTable<NSNumber *, RCTAnimatedNode *> *)parentNodes
+- (NSDictionary<NSNumber *, RCTAnimatedNode *> *)parentNodes
 {
   return _parentNodes;
 }
@@ -40,10 +42,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 - (void)addChild:(RCTAnimatedNode *)child
 {
   if (!_childNodes) {
-    _childNodes = [NSMapTable strongToWeakObjectsMapTable];
+    _childNodes = [NSMutableDictionary new];
   }
   if (child) {
-    [_childNodes setObject:child forKey:child.nodeTag];
+    _childNodes[child.nodeTag] = child;
     [child onAttachedToNode:self];
   }
 }
@@ -62,10 +64,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 - (void)onAttachedToNode:(RCTAnimatedNode *)parent
 {
   if (!_parentNodes) {
-    _parentNodes = [NSMapTable strongToWeakObjectsMapTable];
+    _parentNodes = [NSMutableDictionary new];
   }
   if (parent) {
-    [_parentNodes setObject:parent forKey:parent.nodeTag];
+    _parentNodes[parent.nodeTag] = parent;
   }
 }
 
@@ -81,10 +83,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 
 - (void)detachNode
 {
-  for (RCTAnimatedNode *parent in _parentNodes.objectEnumerator) {
+  for (RCTAnimatedNode *parent in _parentNodes.allValues) {
     [parent removeChild:self];
   }
-  for (RCTAnimatedNode *child in _childNodes.objectEnumerator) {
+  for (RCTAnimatedNode *child in _childNodes.allValues) {
     [self removeChild:child];
   }
 }
@@ -92,7 +94,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 - (void)setNeedsUpdate
 {
   _needsUpdate = YES;
-  for (RCTAnimatedNode *child in _childNodes.objectEnumerator) {
+  for (RCTAnimatedNode *child in _childNodes.allValues) {
     [child setNeedsUpdate];
   }
 }
@@ -100,7 +102,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 - (void)updateNodeIfNecessary
 {
   if (_needsUpdate) {
-    for (RCTAnimatedNode *parent in _parentNodes.objectEnumerator) {
+    for (RCTAnimatedNode *parent in _parentNodes.allValues) {
       [parent updateNodeIfNecessary];
     }
     [self performUpdate];

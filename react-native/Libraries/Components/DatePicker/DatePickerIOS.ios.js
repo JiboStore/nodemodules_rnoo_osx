@@ -1,109 +1,33 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * @providesModule DatePickerIOS
+ * @flow
  *
  * This is a controlled component version of RCTDatePickerIOS
- *
- * @format
- * @flow strict-local
  */
-
 'use strict';
 
+const NativeMethodsMixin = require('NativeMethodsMixin');
 const React = require('React');
+const PropTypes = require('prop-types');
 const StyleSheet = require('StyleSheet');
 const View = require('View');
+const ViewPropTypes = require('ViewPropTypes');
 
-const invariant = require('invariant');
+const createReactClass = require('create-react-class');
+const requireNativeComponent = require('requireNativeComponent');
 
-import type {ViewProps} from 'ViewPropTypes';
-import type {SyntheticEvent} from 'CoreEventTypes';
+type DefaultProps = {
+  mode: 'date' | 'time' | 'datetime',
+};
 
-const RCTDatePickerNativeComponent = require('RCTDatePickerNativeComponent');
-
-type Event = SyntheticEvent<
-  $ReadOnly<{|
-    timestamp: number,
-  |}>,
->;
-
-type Props = $ReadOnly<{|
-  ...ViewProps,
-
-  /**
-   * The currently selected date.
-   */
-  date?: ?Date,
-
-  /**
-   * Provides an initial value that will change when the user starts selecting
-   * a date. It is useful for simple use-cases where you do not want to deal
-   * with listening to events and updating the date prop to keep the
-   * controlled state in sync. The controlled state has known bugs which
-   * causes it to go out of sync with native. The initialDate prop is intended
-   * to allow you to have native be source of truth.
-   */
-  initialDate?: ?Date,
-
-  /**
-   * The date picker locale.
-   */
-  locale?: ?string,
-
-  /**
-   * Maximum date.
-   *
-   * Restricts the range of possible date/time values.
-   */
-  maximumDate?: ?Date,
-
-  /**
-   * Minimum date.
-   *
-   * Restricts the range of possible date/time values.
-   */
-  minimumDate?: ?Date,
-
-  /**
-   * The interval at which minutes can be selected.
-   */
-  minuteInterval?: ?(1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30),
-
-  /**
-   * The date picker mode.
-   */
-  mode?: ?('date' | 'time' | 'datetime'),
-
-  /**
-   * Date change handler.
-   *
-   * This is called when the user changes the date or time in the UI.
-   * The first and only argument is an Event. For getting the date the picker
-   * was changed to, use onDateChange instead.
-   */
-  onChange?: ?(event: Event) => void,
-
-  /**
-   * Date change handler.
-   *
-   * This is called when the user changes the date or time in the UI.
-   * The first and only argument is a Date object representing the new
-   * date and time.
-   */
-  onDateChange: (date: Date) => void,
-
-  /**
-   * Timezone offset in minutes.
-   *
-   * By default, the date picker will use the device's timezone. With this
-   * parameter, it is possible to force a certain timezone offset. For
-   * instance, to show times in Pacific Standard Time, pass -7 * 60.
-   */
-  timeZoneOffsetInMinutes?: ?number,
-|}>;
+type Event = Object;
 
 /**
  * Use `DatePickerIOS` to render a date/time picker (selector) on iOS.  This is
@@ -112,57 +36,98 @@ type Props = $ReadOnly<{|
  * the user's change will be reverted immediately to reflect `props.date` as the
  * source of truth.
  */
-class DatePickerIOS extends React.Component<Props> {
-  static DefaultProps = {
-    mode: 'datetime',
-  };
+// $FlowFixMe(>=0.41.0)
+const DatePickerIOS = createReactClass({
+  displayName: 'DatePickerIOS',
+  // TOOD: Put a better type for _picker
+  _picker: (undefined: ?$FlowFixMe),
 
-  _picker: ?React.ElementRef<typeof RCTDatePickerNativeComponent> = null;
+  mixins: [NativeMethodsMixin],
 
-  componentDidUpdate() {
-    if (this.props.date) {
-      const propsTimeStamp = this.props.date.getTime();
-      if (this._picker) {
-        this._picker.setNativeProps({
-          date: propsTimeStamp,
-        });
-      }
-    }
-  }
+  propTypes: {
+    ...ViewPropTypes,
+    /**
+     * The currently selected date.
+     */
+    date: PropTypes.instanceOf(Date).isRequired,
 
-  _onChange = (event: Event) => {
+    /**
+     * Date change handler.
+     *
+     * This is called when the user changes the date or time in the UI.
+     * The first and only argument is a Date object representing the new
+     * date and time.
+     */
+    onDateChange: PropTypes.func.isRequired,
+
+    /**
+     * Maximum date.
+     *
+     * Restricts the range of possible date/time values.
+     */
+    maximumDate: PropTypes.instanceOf(Date),
+
+    /**
+     * Minimum date.
+     *
+     * Restricts the range of possible date/time values.
+     */
+    minimumDate: PropTypes.instanceOf(Date),
+
+    /**
+     * The date picker mode.
+     */
+    mode: PropTypes.oneOf(['date', 'time', 'datetime']),
+
+    /**
+     * The interval at which minutes can be selected.
+     */
+    minuteInterval: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30]),
+
+    /**
+     * Timezone offset in minutes.
+     *
+     * By default, the date picker will use the device's timezone. With this
+     * parameter, it is possible to force a certain timezone offset. For
+     * instance, to show times in Pacific Standard Time, pass -7 * 60.
+     */
+    timeZoneOffsetInMinutes: PropTypes.number,
+  },
+
+  getDefaultProps: function(): DefaultProps {
+    return {
+      mode: 'datetime',
+    };
+  },
+
+  _onChange: function(event: Event) {
     const nativeTimeStamp = event.nativeEvent.timestamp;
-    this.props.onDateChange &&
-      this.props.onDateChange(new Date(nativeTimeStamp));
-    this.props.onChange && this.props.onChange(event);
-  };
-
-  render() {
-    const props = this.props;
-    invariant(
-      props.date || props.initialDate,
-      'A selected date or initial date should be specified.',
+    this.props.onDateChange && this.props.onDateChange(
+      new Date(nativeTimeStamp)
     );
+    // $FlowFixMe(>=0.41.0)
+    this.props.onChange && this.props.onChange(event);
+
+    // We expect the onChange* handlers to be in charge of updating our `date`
+    // prop. That way they can also disallow/undo/mutate the selection of
+    // certain values. In other words, the embedder of this component should
+    // be the source of truth, not the native component.
+    const propsTimeStamp = this.props.date.getTime();
+    if (this._picker && nativeTimeStamp !== propsTimeStamp) {
+      this._picker.setNativeProps({
+        date: propsTimeStamp,
+      });
+    }
+  },
+
+  render: function() {
+    const props = this.props;
     return (
       <View style={props.style}>
-        <RCTDatePickerNativeComponent
-          testID={props.testID}
-          ref={picker => {
-            this._picker = picker;
-          }}
+        <RCTDatePickerIOS
+          ref={ picker => { this._picker = picker; } }
           style={styles.datePickerIOS}
-          date={
-            props.date
-              ? props.date.getTime()
-              : props.initialDate
-                ? props.initialDate.getTime()
-                : undefined
-          }
-          locale={
-            props.locale != null && props.locale !== ''
-              ? props.locale
-              : undefined
-          }
+          date={props.date.getTime()}
           maximumDate={
             props.maximumDate ? props.maximumDate.getTime() : undefined
           }
@@ -179,12 +144,23 @@ class DatePickerIOS extends React.Component<Props> {
       </View>
     );
   }
-}
+});
 
 const styles = StyleSheet.create({
   datePickerIOS: {
     height: 216,
   },
+});
+
+const RCTDatePickerIOS = requireNativeComponent('RCTDatePicker', {
+  propTypes: {
+    ...DatePickerIOS.propTypes,
+    date: PropTypes.number,
+    minimumDate: PropTypes.number,
+    maximumDate: PropTypes.number,
+    onDateChange: () => null,
+    onChange: PropTypes.func,
+  }
 });
 
 module.exports = DatePickerIOS;

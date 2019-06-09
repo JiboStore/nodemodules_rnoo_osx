@@ -5,28 +5,18 @@
       "active": "md-add"
     },
     "ios": {
-      "default": "ios-add",
+      "default": "ios-add-outline",
       "active": "ios-add"
     }
   },
   "add-circle": {
     "android": {
-      "default": "md-add-circle-outline",
+      "default": "md-add-circle",
       "active": "md-add-circle"
     },
     "ios": {
       "default": "ios-add-circle-outline",
       "active": "ios-add-circle"
-    }
-  },
-  "airplane": {
-    "android": {
-      "default": "md-airplane",
-      "active": "md-airplane"
-    },
-    "ios": {
-      "default": "ios-airplane",
-      "active": "ios-airplane"
     }
   },
   "alarm": {
@@ -35,7 +25,7 @@
       "active": "md-alarm"
     },
     "ios": {
-      "default": "ios-alarm",
+      "default": "ios-alarm-outline",
       "active": "ios-alarm"
     }
   },
@@ -45,7 +35,7 @@
       "active": "md-albums"
     },
     "ios": {
-      "default": "ios-albums",
+      "default": "ios-albums-outline",
       "active": "ios-albums"
     }
   },
@@ -55,7 +45,7 @@
       "active": "md-alert"
     },
     "ios": {
-      "default": "ios-alert",
+      "default": "ios-alert-outline",
       "active": "ios-alert"
     }
   },
@@ -65,7 +55,7 @@
       "active": "md-american-football"
     },
     "ios": {
-      "default": "ios-american-football",
+      "default": "ios-american-football-outline",
       "active": "ios-american-football"
     }
   },
@@ -75,7 +65,7 @@
       "active": "md-analytics"
     },
     "ios": {
-      "default": "ios-analytics",
+      "default": "ios-analytics-outline",
       "active": "ios-analytics"
     }
   },
@@ -85,7 +75,7 @@
       "active": "md-aperture"
     },
     "ios": {
-      "default": "ios-aperture",
+      "default": "ios-aperture-outline",
       "active": "ios-aperture"
     }
   },
@@ -95,7 +85,7 @@
       "active": "md-apps"
     },
     "ios": {
-      "default": "ios-apps",
+      "default": "ios-apps-outline",
       "active": "ios-apps"
     }
   },
@@ -105,7 +95,7 @@
       "active": "md-appstore"
     },
     "ios": {
-      "default": "ios-appstore",
+      "default": "ios-appstore-outline",
       "active": "ios-apps"
     }
   },
@@ -115,7 +105,7 @@
       "active": "md-archive"
     },
     "ios": {
-      "default": "ios-archive",
+      "default": "ios-archive-outline",
       "active": "ios-archive"
     }
   },
@@ -125,7 +115,7 @@
       "active": "md-arrow-back"
     },
     "ios": {
-      "default": "ios-arrow-back",
+      "default": "ios-arrow-back-outline",
       "active": "ios-arrow-back"
     }
   },
@@ -135,7 +125,7 @@
       "active": "md-arrow-down"
     },
     "ios": {
-      "default": "ios-arrow-down",
+      "default": "ios-arrow-down-outline",
       "active": "ios-arrow-down"
     }
   },
@@ -145,7 +135,7 @@
       "active": "md-arrow-dropdown"
     },
     "ios": {
-      "default": "ios-arrow-dropdown",
+      "default": "ios-arrow-dropdown-outline",
       "active": "ios-arrow-dropdown"
     }
   },
@@ -155,7 +145,7 @@
       "active": "md-arrow-dropdown-circle"
     },
     "ios": {
-      "default": "ios-arrow-dropdown-circle",
+      "default": "ios-arrow-dropdown-circle-outline",
       "active": "ios-arrow-dropdown-circle"
     }
   },
@@ -165,7 +155,7 @@
       "active": "md-arrow-dropleft"
     },
     "ios": {
-      "default": "ios-arrow-dropleft",
+      "default": "ios-arrow-dropleft-outline",
       "active": "ios-arrow-dropleft"
     }
   },
@@ -175,7 +165,7 @@
       "active": "md-arrow-dropleft-circle"
     },
     "ios": {
-      "default": "ios-arrow-dropleft-circle",
+      "default": "ios-arrow-dropleft-circle-outline",
       "active": "ios-arrow-dropleft-circle"
     }
   },
@@ -185,7 +175,7 @@
       "active": "md-arrow-dropright"
     },
     "ios": {
-      "default": "ios-arrow-dropright",
+      "default": "ios-arrow-dropright-outline",
       "active": "ios-arrow-dropright"
     }
   },
@@ -195,7 +185,7 @@
       "active": "md-arrow-dropright-circle"
     },
     "ios": {
-      "default": "ios-arrow-dropright-circle",
+      "default": "ios-arrow-dropright-circle-outline",
       "active": "ios-arrow-dropright-circle"
     }
   },
@@ -205,7 +195,7 @@
       "active": "md-arrow-dropup"
     },
     "ios": {
-      "default": "ios-arrow-dropup",
+      "default": "ios-arrow-dropup-outline",
       "active": "ios-arrow-dropup"
     }
   },
@@ -215,7 +205,7 @@
       "active": "md-arrow-dropup-circle"
     },
     "ios": {
-      "default": "ios-arrow-dropup-circle",
+      "default": "ios-arrow-dropup-circle-outline",
       "active": "ios-arrow-dropup-circle"
     }
   },
@@ -225,7 +215,7 @@
       "active": "md-arrow-forward"
     },
     "ios": {
-      "default": "ios-arrow-forward",
+      "default": "ios-arrow-forward-outline",
       "active": "ios-arrow-forward"
     }
   },
@@ -235,7 +225,7 @@
       "active": "md-arrow-round-back"
     },
     "ios": {
-      "default": "ios-arrow-round-back",
+      "default": "ios-arrow-round-back-outline",
       "active": "ios-arrow-round-back"
     }
   },
@@ -245,7 +235,7 @@
       "active": "md-arrow-round-down"
     },
     "ios": {
-      "default": "ios-arrow-round-down",
+      "default": "ios-arrow-round-down-outline",
       "active": "ios-arrow-round-down"
     }
   },
@@ -255,7 +245,7 @@
       "active": "md-arrow-round-forward"
     },
     "ios": {
-      "default": "ios-arrow-round-forward",
+      "default": "ios-arrow-round-forward-outline",
       "active": "ios-arrow-round-forward"
     }
   },
@@ -265,7 +255,7 @@
       "active": "md-arrow-round-up"
     },
     "ios": {
-      "default": "ios-arrow-round-up",
+      "default": "ios-arrow-round-up-outline",
       "active": "ios-arrow-round-up"
     }
   },
@@ -275,7 +265,7 @@
       "active": "md-arrow-up"
     },
     "ios": {
-      "default": "ios-arrow-up",
+      "default": "ios-arrow-up-outline",
       "active": "ios-arrow-up"
     }
   },
@@ -285,7 +275,7 @@
       "active": "md-at"
     },
     "ios": {
-      "default": "ios-at",
+      "default": "ios-at-outline",
       "active": "ios-at"
     }
   },
@@ -295,7 +285,7 @@
       "active": "md-attach"
     },
     "ios": {
-      "default": "ios-attach",
+      "default": "ios-attach-outline",
       "active": "ios-attach"
     }
   },
@@ -305,7 +295,7 @@
       "active": "md-backspace"
     },
     "ios": {
-      "default": "ios-backspace",
+      "default": "ios-backspace-outline",
       "active": "ios-backspace"
     }
   },
@@ -315,7 +305,7 @@
       "active": "md-barcode"
     },
     "ios": {
-      "default": "ios-barcode",
+      "default": "ios-barcode-outline",
       "active": "ios-barcode"
     }
   },
@@ -325,7 +315,7 @@
       "active": "md-baseball"
     },
     "ios": {
-      "default": "ios-baseball",
+      "default": "ios-baseball-outline",
       "active": "ios-baseball"
     }
   },
@@ -335,7 +325,7 @@
       "active": "md-basket"
     },
     "ios": {
-      "default": "ios-basket",
+      "default": "ios-basket-outline",
       "active": "ios-basket"
     }
   },
@@ -345,7 +335,7 @@
       "active": "md-basketball"
     },
     "ios": {
-      "default": "ios-basketball",
+      "default": "ios-basketball-outline",
       "active": "ios-basketball"
     }
   },
@@ -355,7 +345,7 @@
       "active": "md-battery-charging"
     },
     "ios": {
-      "default": "ios-battery-charging",
+      "default": "ios-battery-charging-outline",
       "active": "ios-battery-charging"
     }
   },
@@ -365,7 +355,7 @@
       "active": "md-battery-dead"
     },
     "ios": {
-      "default": "ios-battery-dead",
+      "default": "ios-battery-dead-outline",
       "active": "ios-battery-dead"
     }
   },
@@ -375,7 +365,7 @@
       "active": "md-battery-full"
     },
     "ios": {
-      "default": "ios-battery-full",
+      "default": "ios-battery-full-outline",
       "active": "ios-battery-full"
     }
   },
@@ -385,18 +375,8 @@
       "active": "md-beaker"
     },
     "ios": {
-      "default": "ios-beaker",
+      "default": "ios-beaker-outline",
       "active": "ios-beaker"
-    }
-  },
-  "bed": {
-    "android": {
-      "default": "md-bed",
-      "active": "md-bed"
-    },
-    "ios": {
-      "default": "ios-bed",
-      "active": "ios-bed"
     }
   },
   "beer": {
@@ -405,7 +385,7 @@
       "active": "md-beer"
     },
     "ios": {
-      "default": "ios-beer",
+      "default": "ios-beer-outline",
       "active": "ios-beer"
     }
   },
@@ -415,7 +395,7 @@
       "active": "md-bicycle"
     },
     "ios": {
-      "default": "ios-bicycle",
+      "default": "ios-bicycle-outline",
       "active": "ios-bicycle"
     }
   },
@@ -425,7 +405,7 @@
       "active": "md-bluetooth"
     },
     "ios": {
-      "default": "ios-bluetooth",
+      "default": "ios-bluetooth-outline",
       "active": "ios-bluetooth"
     }
   },
@@ -435,7 +415,7 @@
       "active": "md-boat"
     },
     "ios": {
-      "default": "ios-boat",
+      "default": "ios-boat-outline",
       "active": "ios-boat"
     }
   },
@@ -445,7 +425,7 @@
       "active": "md-body"
     },
     "ios": {
-      "default": "ios-body",
+      "default": "ios-body-outline",
       "active": "ios-body"
     }
   },
@@ -455,7 +435,7 @@
       "active": "md-bonfire"
     },
     "ios": {
-      "default": "ios-bonfire",
+      "default": "ios-bonfire-outline",
       "active": "ios-bonfire"
     }
   },
@@ -465,7 +445,7 @@
       "active": "md-book"
     },
     "ios": {
-      "default": "ios-book",
+      "default": "ios-book-outline",
       "active": "ios-book"
     }
   },
@@ -475,7 +455,7 @@
       "active": "md-bookmark"
     },
     "ios": {
-      "default": "ios-bookmark",
+      "default": "ios-bookmark-outline",
       "active": "ios-bookmark"
     }
   },
@@ -485,7 +465,7 @@
       "active": "md-bookmarks"
     },
     "ios": {
-      "default": "ios-bookmarks",
+      "default": "ios-bookmarks-outline",
       "active": "ios-bookmarks"
     }
   },
@@ -495,7 +475,7 @@
       "active": "md-bowtie"
     },
     "ios": {
-      "default": "ios-bowtie",
+      "default": "ios-bowtie-outline",
       "active": "ios-bowtie"
     }
   },
@@ -505,7 +485,7 @@
       "active": "md-briefcase"
     },
     "ios": {
-      "default": "ios-briefcase",
+      "default": "ios-briefcase-outline",
       "active": "ios-briefcase"
     }
   },
@@ -515,7 +495,7 @@
       "active": "md-browsers"
     },
     "ios": {
-      "default": "ios-browsers",
+      "default": "ios-browsers-outline",
       "active": "ios-browsers"
     }
   },
@@ -525,7 +505,7 @@
       "active": "md-brush"
     },
     "ios": {
-      "default": "ios-brush",
+      "default": "ios-brush-outline",
       "active": "ios-brush"
     }
   },
@@ -535,7 +515,7 @@
       "active": "md-bug"
     },
     "ios": {
-      "default": "ios-bug",
+      "default": "ios-bug-outline",
       "active": "ios-bug"
     }
   },
@@ -545,7 +525,7 @@
       "active": "md-build"
     },
     "ios": {
-      "default": "ios-build",
+      "default": "ios-build-outline",
       "active": "ios-build"
     }
   },
@@ -555,7 +535,7 @@
       "active": "md-bulb"
     },
     "ios": {
-      "default": "ios-bulb",
+      "default": "ios-bulb-outline",
       "active": "ios-bulb"
     }
   },
@@ -565,18 +545,8 @@
       "active": "md-bus"
     },
     "ios": {
-      "default": "ios-bus",
+      "default": "ios-bus-outline",
       "active": "ios-bus"
-    }
-  },
-  "business": {
-    "android": {
-      "default": "md-business",
-      "active": "md-business"
-    },
-    "ios": {
-      "default": "ios-business",
-      "active": "ios-business"
     }
   },
   "cafe": {
@@ -585,7 +555,7 @@
       "active": "md-cafe"
     },
     "ios": {
-      "default": "ios-cafe",
+      "default": "ios-cafe-outline",
       "active": "ios-cafe"
     }
   },
@@ -595,7 +565,7 @@
       "active": "md-calculator"
     },
     "ios": {
-      "default": "ios-calculator",
+      "default": "ios-calculator-outline",
       "active": "ios-calculator"
     }
   },
@@ -605,7 +575,7 @@
       "active": "md-calendar"
     },
     "ios": {
-      "default": "ios-calendar",
+      "default": "ios-calendar-outline",
       "active": "ios-calendar"
     }
   },
@@ -615,7 +585,7 @@
       "active": "md-call"
     },
     "ios": {
-      "default": "ios-call",
+      "default": "ios-call-outline",
       "active": "ios-call"
     }
   },
@@ -625,7 +595,7 @@
       "active": "md-camera"
     },
     "ios": {
-      "default": "ios-camera",
+      "default": "ios-camera-outline",
       "active": "ios-camera"
     }
   },
@@ -635,7 +605,7 @@
       "active": "md-car"
     },
     "ios": {
-      "default": "ios-car",
+      "default": "ios-car-outline",
       "active": "ios-car"
     }
   },
@@ -645,7 +615,7 @@
       "active": "md-card"
     },
     "ios": {
-      "default": "ios-card",
+      "default": "ios-card-outline",
       "active": "ios-card"
     }
   },
@@ -655,7 +625,7 @@
       "active": "md-cart"
     },
     "ios": {
-      "default": "ios-cart",
+      "default": "ios-cart-outline",
       "active": "ios-cart"
     }
   },
@@ -665,18 +635,8 @@
       "active": "md-cash"
     },
     "ios": {
-      "default": "ios-cash",
+      "default": "ios-cash-outline",
       "active": "ios-cash"
-    }
-  },
-  "cellular": {
-    "android": {
-      "default": "md-cellular",
-      "active": "md-cellular"
-    },
-    "ios": {
-      "default": "ios-cellular",
-      "active": "ios-cellular"
     }
   },
   "chatboxes": {
@@ -685,7 +645,7 @@
       "active": "md-chatboxes"
     },
     "ios": {
-      "default": "ios-chatboxes",
+      "default": "ios-chatboxes-outline",
       "active": "ios-chatboxes"
     }
   },
@@ -695,7 +655,7 @@
       "active": "md-chatbubbles"
     },
     "ios": {
-      "default": "ios-chatbubbles",
+      "default": "ios-chatbubbles-outline",
       "active": "ios-chatbubbles"
     }
   },
@@ -715,28 +675,18 @@
       "active": "md-checkmark"
     },
     "ios": {
-      "default": "ios-checkmark",
+      "default": "ios-checkmark-outline",
       "active": "ios-checkmark"
     }
   },
   "checkmark-circle": {
     "android": {
-      "default": "md-checkmark-circle",
+      "default": "md-checkmark-circle-outline",
       "active": "md-checkmark-circle"
     },
     "ios": {
-      "default": "ios-checkmark-circle",
-      "active": "ios-checkmark-circle"
-    }
-  },
-  "checkmark-circle-outline": {
-    "android": {
-      "default": "md-checkmark-circle-outline",
-      "active": "md-checkmark-circle-outline"
-    },
-    "ios": {
       "default": "ios-checkmark-circle-outline",
-      "active": "ios-checkmark-circle-outline"
+      "active": "ios-checkmark-circle"
     }
   },
   "clipboard": {
@@ -745,7 +695,7 @@
       "active": "md-clipboard"
     },
     "ios": {
-      "default": "ios-clipboard",
+      "default": "ios-clipboard-outline",
       "active": "ios-clipboard"
     }
   },
@@ -755,7 +705,7 @@
       "active": "md-clock"
     },
     "ios": {
-      "default": "ios-clock",
+      "default": "ios-clock-outline",
       "active": "ios-clock"
     }
   },
@@ -765,7 +715,7 @@
       "active": "md-close"
     },
     "ios": {
-      "default": "ios-close",
+      "default": "ios-close-outline",
       "active": "ios-close"
     }
   },
@@ -775,18 +725,8 @@
       "active": "md-close-circle"
     },
     "ios": {
-      "default": "ios-close-circle",
-      "active": "ios-close-circle"
-    }
-  },
-  "close-circle-outline": {
-    "android": {
-      "default": "md-close-circle-outline",
-      "active": "md-close-circle-outline"
-    },
-    "ios": {
       "default": "ios-close-circle-outline",
-      "active": "ios-close-circle-outline"
+      "active": "ios-close-circle"
     }
   },
   "cloud": {
@@ -795,7 +735,7 @@
       "active": "md-cloud"
     },
     "ios": {
-      "default": "ios-cloud",
+      "default": "ios-cloud-outline",
       "active": "ios-cloud"
     }
   },
@@ -805,7 +745,7 @@
       "active": "md-cloud-circle"
     },
     "ios": {
-      "default": "ios-cloud-circle",
+      "default": "ios-cloud-circle-outline",
       "active": "ios-cloud-circle"
     }
   },
@@ -815,7 +755,7 @@
       "active": "md-cloud-done"
     },
     "ios": {
-      "default": "ios-cloud-done",
+      "default": "ios-cloud-done-outline",
       "active": "ios-cloud-done"
     }
   },
@@ -825,7 +765,7 @@
       "active": "md-cloud-download"
     },
     "ios": {
-      "default": "ios-cloud-download",
+      "default": "ios-cloud-download-outline",
       "active": "ios-cloud-download"
     }
   },
@@ -835,7 +775,7 @@
       "active": "md-cloud-outline"
     },
     "ios": {
-      "default": "ios-cloud-outline",
+      "default": "ios-cloud-outline-outline",
       "active": "ios-cloud-outline"
     }
   },
@@ -845,7 +785,7 @@
       "active": "md-cloud-upload"
     },
     "ios": {
-      "default": "ios-cloud-upload",
+      "default": "ios-cloud-upload-outline",
       "active": "ios-cloud-upload"
     }
   },
@@ -855,7 +795,7 @@
       "active": "md-cloudy"
     },
     "ios": {
-      "default": "ios-cloudy",
+      "default": "ios-cloudy-outline",
       "active": "ios-cloudy"
     }
   },
@@ -865,7 +805,7 @@
       "active": "md-cloudy-night"
     },
     "ios": {
-      "default": "ios-cloudy-night",
+      "default": "ios-cloudy-night-outline",
       "active": "ios-cloudy-night"
     }
   },
@@ -875,7 +815,7 @@
       "active": "md-code"
     },
     "ios": {
-      "default": "ios-code",
+      "default": "ios-code-outline",
       "active": "ios-code"
     }
   },
@@ -885,7 +825,7 @@
       "active": "md-code-download"
     },
     "ios": {
-      "default": "ios-code-download",
+      "default": "ios-code-download-outline",
       "active": "ios-code-download"
     }
   },
@@ -895,7 +835,7 @@
       "active": "md-code-working"
     },
     "ios": {
-      "default": "ios-code-working",
+      "default": "ios-code-working-outline",
       "active": "ios-code-working"
     }
   },
@@ -905,7 +845,7 @@
       "active": "md-cog"
     },
     "ios": {
-      "default": "ios-cog",
+      "default": "ios-cog-outline",
       "active": "ios-cog"
     }
   },
@@ -915,7 +855,7 @@
       "active": "md-color-fill"
     },
     "ios": {
-      "default": "ios-color-fill",
+      "default": "ios-color-fill-outline",
       "active": "ios-color-fill"
     }
   },
@@ -925,7 +865,7 @@
       "active": "md-color-filter"
     },
     "ios": {
-      "default": "ios-color-filter",
+      "default": "ios-color-filter-outline",
       "active": "ios-color-filter"
     }
   },
@@ -935,7 +875,7 @@
       "active": "md-color-palette"
     },
     "ios": {
-      "default": "ios-color-palette",
+      "default": "ios-color-palette-outline",
       "active": "ios-color-palette"
     }
   },
@@ -945,7 +885,7 @@
       "active": "md-color-wand"
     },
     "ios": {
-      "default": "ios-color-wand",
+      "default": "ios-color-wand-outline",
       "active": "ios-color-wand"
     }
   },
@@ -955,7 +895,7 @@
       "active": "md-compass"
     },
     "ios": {
-      "default": "ios-compass",
+      "default": "ios-compass-outline",
       "active": "ios-compass"
     }
   },
@@ -965,7 +905,7 @@
       "active": "md-construct"
     },
     "ios": {
-      "default": "ios-construct",
+      "default": "ios-construct-outline",
       "active": "ios-construct"
     }
   },
@@ -975,7 +915,7 @@
       "active": "md-contact"
     },
     "ios": {
-      "default": "ios-contact",
+      "default": "ios-contact-outline",
       "active": "ios-contact"
     }
   },
@@ -985,7 +925,7 @@
       "active": "md-contacts"
     },
     "ios": {
-      "default": "ios-contacts",
+      "default": "ios-contacts-outline",
       "active": "ios-contacts"
     }
   },
@@ -995,7 +935,7 @@
       "active": "md-contract"
     },
     "ios": {
-      "default": "ios-contract",
+      "default": "ios-contract-outline",
       "active": "ios-contract"
     }
   },
@@ -1005,7 +945,7 @@
       "active": "md-contrast"
     },
     "ios": {
-      "default": "ios-contrast",
+      "default": "ios-contrast-outline",
       "active": "ios-contrast"
     }
   },
@@ -1015,7 +955,7 @@
       "active": "md-copy"
     },
     "ios": {
-      "default": "ios-copy",
+      "default": "ios-copy-outline",
       "active": "ios-copy"
     }
   },
@@ -1025,7 +965,7 @@
       "active": "md-create"
     },
     "ios": {
-      "default": "ios-create",
+      "default": "ios-create-outline",
       "active": "ios-create"
     }
   },
@@ -1035,7 +975,7 @@
       "active": "md-crop"
     },
     "ios": {
-      "default": "ios-crop",
+      "default": "ios-crop-outline",
       "active": "ios-crop"
     }
   },
@@ -1045,7 +985,7 @@
       "active": "md-cube"
     },
     "ios": {
-      "default": "ios-cube",
+      "default": "ios-cube-outline",
       "active": "ios-cube"
     }
   },
@@ -1055,7 +995,7 @@
       "active": "md-cut"
     },
     "ios": {
-      "default": "ios-cut",
+      "default": "ios-cut-outline",
       "active": "ios-cut"
     }
   },
@@ -1065,7 +1005,7 @@
       "active": "md-desktop"
     },
     "ios": {
-      "default": "ios-desktop",
+      "default": "ios-desktop-outline",
       "active": "ios-desktop"
     }
   },
@@ -1075,7 +1015,7 @@
       "active": "md-disc"
     },
     "ios": {
-      "default": "ios-disc",
+      "default": "ios-disc-outline",
       "active": "ios-disc"
     }
   },
@@ -1085,7 +1025,7 @@
       "active": "md-document"
     },
     "ios": {
-      "default": "ios-document",
+      "default": "ios-document-outline",
       "active": "ios-document"
     }
   },
@@ -1095,7 +1035,7 @@
       "active": "md-done-all"
     },
     "ios": {
-      "default": "ios-done-all",
+      "default": "ios-done-all-outline",
       "active": "ios-done-all"
     }
   },
@@ -1105,7 +1045,7 @@
       "active": "md-download"
     },
     "ios": {
-      "default": "ios-download",
+      "default": "ios-download-outline",
       "active": "ios-download"
     }
   },
@@ -1115,7 +1055,7 @@
       "active": "md-easel"
     },
     "ios": {
-      "default": "ios-easel",
+      "default": "ios-easel-outline",
       "active": "ios-easel"
     }
   },
@@ -1125,7 +1065,7 @@
       "active": "md-egg"
     },
     "ios": {
-      "default": "ios-egg",
+      "default": "ios-egg-outline",
       "active": "ios-egg"
     }
   },
@@ -1135,7 +1075,7 @@
       "active": "md-exit"
     },
     "ios": {
-      "default": "ios-exit",
+      "default": "ios-exit-outline",
       "active": "ios-exit"
     }
   },
@@ -1145,7 +1085,7 @@
       "active": "md-expand"
     },
     "ios": {
-      "default": "ios-expand",
+      "default": "ios-expand-outline",
       "active": "ios-expand"
     }
   },
@@ -1155,7 +1095,7 @@
       "active": "md-eye"
     },
     "ios": {
-      "default": "ios-eye",
+      "default": "ios-eye-outline",
       "active": "ios-eye"
     }
   },
@@ -1165,7 +1105,7 @@
       "active": "md-eye-off"
     },
     "ios": {
-      "default": "ios-eye-off",
+      "default": "ios-eye-off-outline",
       "active": "ios-eye-off"
     }
   },
@@ -1175,7 +1115,7 @@
       "active": "md-fastforward"
     },
     "ios": {
-      "default": "ios-fastforward",
+      "default": "ios-fastforward-outline",
       "active": "ios-fastforward"
     }
   },
@@ -1185,7 +1125,7 @@
       "active": "md-female"
     },
     "ios": {
-      "default": "ios-female",
+      "default": "ios-female-outline",
       "active": "ios-female"
     }
   },
@@ -1195,7 +1135,7 @@
       "active": "md-filing"
     },
     "ios": {
-      "default": "ios-filing",
+      "default": "ios-filing-outline",
       "active": "ios-filing"
     }
   },
@@ -1205,7 +1145,7 @@
       "active": "md-film"
     },
     "ios": {
-      "default": "ios-film",
+      "default": "ios-film-outline",
       "active": "ios-film"
     }
   },
@@ -1215,18 +1155,8 @@
       "active": "md-finger-print"
     },
     "ios": {
-      "default": "ios-finger-print",
+      "default": "ios-finger-print-outline",
       "active": "ios-finger-print"
-    }
-  },
-  "fitness": {
-    "android": {
-      "default": "md-fitness",
-      "active": "md-fitness"
-    },
-    "ios": {
-      "default": "ios-fitness",
-      "active": "ios-fitness"
     }
   },
   "flag": {
@@ -1235,7 +1165,7 @@
       "active": "md-flag"
     },
     "ios": {
-      "default": "ios-flag",
+      "default": "ios-flag-outline",
       "active": "ios-flag"
     }
   },
@@ -1245,7 +1175,7 @@
       "active": "md-flame"
     },
     "ios": {
-      "default": "ios-flame",
+      "default": "ios-flame-outline",
       "active": "ios-flame"
     }
   },
@@ -1255,28 +1185,8 @@
       "active": "md-flash"
     },
     "ios": {
-      "default": "ios-flash",
+      "default": "ios-flash-outline",
       "active": "ios-flash"
-    }
-  },
-  "flash-off": {
-    "android": {
-      "default": "md-flash-off",
-      "active": "md-flash-off"
-    },
-    "ios": {
-      "default": "ios-flash-off",
-      "active": "ios-flash-off"
-    }
-  },
-  "flashlight": {
-    "android": {
-      "default": "md-flashlight",
-      "active": "md-flashlight"
-    },
-    "ios": {
-      "default": "ios-flashlight",
-      "active": "ios-flashlight"
     }
   },
   "flask": {
@@ -1285,7 +1195,7 @@
       "active": "md-flask"
     },
     "ios": {
-      "default": "ios-flask",
+      "default": "ios-flask-outline",
       "active": "ios-flask"
     }
   },
@@ -1295,7 +1205,7 @@
       "active": "md-flower"
     },
     "ios": {
-      "default": "ios-flower",
+      "default": "ios-flower-outline",
       "active": "ios-flower"
     }
   },
@@ -1305,7 +1215,7 @@
       "active": "md-folder"
     },
     "ios": {
-      "default": "ios-folder",
+      "default": "ios-folder-outline",
       "active": "ios-folder"
     }
   },
@@ -1315,7 +1225,7 @@
       "active": "md-folder-open"
     },
     "ios": {
-      "default": "ios-folder-open",
+      "default": "ios-folder-open-outline",
       "active": "ios-folder-open"
     }
   },
@@ -1325,7 +1235,7 @@
       "active": "md-football"
     },
     "ios": {
-      "default": "ios-football",
+      "default": "ios-football-outline",
       "active": "ios-football"
     }
   },
@@ -1335,18 +1245,28 @@
       "active": "md-funnel"
     },
     "ios": {
-      "default": "ios-funnel",
+      "default": "ios-funnel-outline",
       "active": "ios-funnel"
     }
   },
-  "gift": {
+  "game-controller-a": {
     "android": {
-      "default": "md-gift",
-      "active": "md-gift"
+      "default": "md-game-controller-a",
+      "active": "md-game-controller-a"
     },
     "ios": {
-      "default": "ios-gift",
-      "active": "ios-gift"
+      "default": "ios-game-controller-a-outline",
+      "active": "ios-game-controller-a"
+    }
+  },
+  "game-controller-b": {
+    "android": {
+      "default": "md-game-controller-b",
+      "active": "md-game-controller-b"
+    },
+    "ios": {
+      "default": "ios-game-controller-b-outline",
+      "active": "ios-game-controller-b"
     }
   },
   "git-branch": {
@@ -1355,7 +1275,7 @@
       "active": "md-git-branch"
     },
     "ios": {
-      "default": "ios-git-branch",
+      "default": "ios-git-branch-outline",
       "active": "ios-git-branch"
     }
   },
@@ -1365,18 +1285,8 @@
       "active": "md-git-commit"
     },
     "ios": {
-      "default": "ios-git-commit",
+      "default": "ios-git-commit-outline",
       "active": "ios-git-commit"
-    }
-  },
-  "git-compare": {
-    "android": {
-      "default": "md-git-compare",
-      "active": "md-git-compare"
-    },
-    "ios": {
-      "default": "ios-git-compare",
-      "active": "ios-git-compare"
     }
   },
   "git-merge": {
@@ -1385,8 +1295,18 @@
       "active": "md-git-merge"
     },
     "ios": {
-      "default": "ios-git-merge",
+      "default": "ios-git-merge-outline",
       "active": "ios-git-merge"
+    }
+  },
+  "git-compare": {
+    "android": {
+      "default": "md-git-compare",
+      "active": "md-git-compare"
+    },
+    "ios": {
+      "default": "ios-git-compare-outline",
+      "active": "ios-git-compare"
     }
   },
   "git-network": {
@@ -1395,7 +1315,7 @@
       "active": "md-git-network"
     },
     "ios": {
-      "default": "ios-git-network",
+      "default": "ios-git-network-outline",
       "active": "ios-git-network"
     }
   },
@@ -1405,7 +1325,7 @@
       "active": "md-git-pull-request"
     },
     "ios": {
-      "default": "ios-git-pull-request",
+      "default": "ios-git-pull-request-outline",
       "active": "ios-git-pull-request"
     }
   },
@@ -1415,7 +1335,7 @@
       "active": "md-glasses"
     },
     "ios": {
-      "default": "ios-glasses",
+      "default": "ios-glasses-outline",
       "active": "ios-glasses"
     }
   },
@@ -1425,7 +1345,7 @@
       "active": "md-globe"
     },
     "ios": {
-      "default": "ios-globe",
+      "default": "ios-globe-outline",
       "active": "ios-globe"
     }
   },
@@ -1435,7 +1355,7 @@
       "active": "md-grid"
     },
     "ios": {
-      "default": "ios-grid",
+      "default": "ios-grid-outline",
       "active": "ios-grid"
     }
   },
@@ -1445,7 +1365,7 @@
       "active": "md-hammer"
     },
     "ios": {
-      "default": "ios-hammer",
+      "default": "ios-hammer-outline",
       "active": "ios-hammer"
     }
   },
@@ -1455,18 +1375,8 @@
       "active": "md-hand"
     },
     "ios": {
-      "default": "ios-hand",
+      "default": "ios-hand-outline",
       "active": "ios-hand"
-    }
-  },
-  "happy": {
-    "android": {
-      "default": "md-happy",
-      "active": "md-happy"
-    },
-    "ios": {
-      "default": "ios-happy",
-      "active": "ios-happy"
     }
   },
   "headset": {
@@ -1475,7 +1385,7 @@
       "active": "md-headset"
     },
     "ios": {
-      "default": "ios-headset",
+      "default": "ios-headset-outline",
       "active": "ios-headset"
     }
   },
@@ -1485,38 +1395,18 @@
       "active": "md-heart"
     },
     "ios": {
-      "default": "ios-heart",
+      "default": "ios-heart-outline",
       "active": "ios-heart"
     }
   },
-  "heart-dislike": {
+  "happy": {
     "android": {
-      "default": "md-heart-dislike",
-      "active": "md-heart-dislike"
+      "default": "md-happy-outline",
+      "active": "md-happy"
     },
     "ios": {
-      "default": "ios-heart-dislike",
-      "active": "ios-heart-dislike"
-    }
-  },
-  "heart-empty": {
-    "android": {
-      "default": "md-heart-empty",
-      "active": "md-heart-empty"
-    },
-    "ios": {
-      "default": "ios-heart-empty",
-      "active": "ios-heart-empty"
-    }
-  },
-  "heart-half": {
-    "android": {
-      "default": "md-heart-half",
-      "active": "md-heart-half"
-    },
-    "ios": {
-      "default": "ios-heart-half",
-      "active": "ios-heart-half"
+      "default": "ios-happy-outline",
+      "active": "ios-happy"
     }
   },
   "help": {
@@ -1525,7 +1415,7 @@
       "active": "md-help"
     },
     "ios": {
-      "default": "ios-help",
+      "default": "ios-help-outline",
       "active": "ios-help"
     }
   },
@@ -1535,7 +1425,7 @@
       "active": "md-help-buoy"
     },
     "ios": {
-      "default": "ios-help-buoy",
+      "default": "ios-help-buoy-outline",
       "active": "ios-help-buoy"
     }
   },
@@ -1545,18 +1435,8 @@
       "active": "md-help-circle"
     },
     "ios": {
-      "default": "ios-help-circle",
-      "active": "ios-help-circle"
-    }
-  },
-  "help-circle-outline": {
-    "android": {
-      "default": "md-help-circle-outline",
-      "active": "md-help-circle-outline"
-    },
-    "ios": {
       "default": "ios-help-circle-outline",
-      "active": "ios-help-circle-outline"
+      "active": "ios-help-circle"
     }
   },
   "home": {
@@ -1565,18 +1445,8 @@
       "active": "md-home"
     },
     "ios": {
-      "default": "ios-home",
+      "default": "ios-home-outline",
       "active": "ios-home"
-    }
-  },
-  "hourglass": {
-    "android": {
-      "default": "md-hourglass",
-      "active": "md-hourglass"
-    },
-    "ios": {
-      "default": "ios-hourglass",
-      "active": "ios-hourglass"
     }
   },
   "ice-cream": {
@@ -1585,7 +1455,7 @@
       "active": "md-ice-cream"
     },
     "ios": {
-      "default": "ios-ice-cream",
+      "default": "ios-ice-cream-outline",
       "active": "ios-ice-cream"
     }
   },
@@ -1595,7 +1465,7 @@
       "active": "md-image"
     },
     "ios": {
-      "default": "ios-image",
+      "default": "ios-image-outline",
       "active": "ios-image"
     }
   },
@@ -1605,7 +1475,7 @@
       "active": "md-images"
     },
     "ios": {
-      "default": "ios-images",
+      "default": "ios-images-outline",
       "active": "ios-images"
     }
   },
@@ -1639,14 +1509,24 @@
       "active": "ios-information-circle"
     }
   },
-  "information-circle-outline": {
+  "ionic": {
     "android": {
-      "default": "md-information-circle-outline",
-      "active": "md-information-circle-outline"
+      "default": "md-ionic",
+      "active": "md-ionic"
     },
     "ios": {
-      "default": "ios-information-circle-outline",
-      "active": "ios-information-circle-outline"
+      "default": "ios-ionic-outline",
+      "active": "ios-ionic"
+    }
+  },
+  "ionitron": {
+    "android": {
+      "default": "md-ionitron",
+      "active": "md-ionitron"
+    },
+    "ios": {
+      "default": "ios-ionitron-outline",
+      "active": "ios-ionitron"
     }
   },
   "jet": {
@@ -1655,18 +1535,8 @@
       "active": "md-jet"
     },
     "ios": {
-      "default": "ios-jet",
+      "default": "ios-jet-outline",
       "active": "ios-jet"
-    }
-  },
-  "journal": {
-    "android": {
-      "default": "md-journal",
-      "active": "md-journal"
-    },
-    "ios": {
-      "default": "ios-journal",
-      "active": "ios-journal"
     }
   },
   "key": {
@@ -1675,7 +1545,7 @@
       "active": "md-key"
     },
     "ios": {
-      "default": "ios-key",
+      "default": "ios-key-outline",
       "active": "ios-key"
     }
   },
@@ -1685,7 +1555,7 @@
       "active": "md-keypad"
     },
     "ios": {
-      "default": "ios-keypad",
+      "default": "ios-keypad-outline",
       "active": "ios-keypad"
     }
   },
@@ -1695,7 +1565,7 @@
       "active": "md-laptop"
     },
     "ios": {
-      "default": "ios-laptop",
+      "default": "ios-laptop-outline",
       "active": "ios-laptop"
     }
   },
@@ -1705,7 +1575,7 @@
       "active": "md-leaf"
     },
     "ios": {
-      "default": "ios-leaf",
+      "default": "ios-leaf-outline",
       "active": "ios-leaf"
     }
   },
@@ -1715,7 +1585,7 @@
       "active": "md-link"
     },
     "ios": {
-      "default": "ios-link",
+      "default": "ios-link-outline",
       "active": "ios-link"
     }
   },
@@ -1725,7 +1595,7 @@
       "active": "md-list"
     },
     "ios": {
-      "default": "ios-list",
+      "default": "ios-list-outline",
       "active": "ios-list"
     }
   },
@@ -1735,7 +1605,7 @@
       "active": "md-list-box"
     },
     "ios": {
-      "default": "ios-list-box",
+      "default": "ios-list-box-outline",
       "active": "ios-list-box"
     }
   },
@@ -1745,7 +1615,7 @@
       "active": "md-locate"
     },
     "ios": {
-      "default": "ios-locate",
+      "default": "ios-locate-outline",
       "active": "ios-locate"
     }
   },
@@ -1755,7 +1625,7 @@
       "active": "md-lock"
     },
     "ios": {
-      "default": "ios-lock",
+      "default": "ios-lock-outline",
       "active": "ios-lock"
     }
   },
@@ -1765,7 +1635,7 @@
       "active": "md-log-in"
     },
     "ios": {
-      "default": "ios-log-in",
+      "default": "ios-log-in-outline",
       "active": "ios-log-in"
     }
   },
@@ -1775,7 +1645,7 @@
       "active": "md-log-out"
     },
     "ios": {
-      "default": "ios-log-out",
+      "default": "ios-log-out-outline",
       "active": "ios-log-out"
     }
   },
@@ -1785,7 +1655,7 @@
       "active": "md-magnet"
     },
     "ios": {
-      "default": "ios-magnet",
+      "default": "ios-magnet-outline",
       "active": "ios-magnet"
     }
   },
@@ -1795,7 +1665,7 @@
       "active": "md-mail"
     },
     "ios": {
-      "default": "ios-mail",
+      "default": "ios-mail-outline",
       "active": "ios-mail"
     }
   },
@@ -1805,18 +1675,8 @@
       "active": "md-mail-open"
     },
     "ios": {
-      "default": "ios-mail-open",
+      "default": "ios-mail-open-outline",
       "active": "ios-mail-open"
-    }
-  },
-  "mail-unread": {
-    "android": {
-      "default": "md-mail-unread",
-      "active": "md-mail-unread"
-    },
-    "ios": {
-      "default": "ios-mail-unread",
-      "active": "ios-mail-unread"
     }
   },
   "male": {
@@ -1825,7 +1685,7 @@
       "active": "md-male"
     },
     "ios": {
-      "default": "ios-male",
+      "default": "ios-male-outline",
       "active": "ios-male"
     }
   },
@@ -1835,7 +1695,7 @@
       "active": "md-man"
     },
     "ios": {
-      "default": "ios-man",
+      "default": "ios-man-outline",
       "active": "ios-man"
     }
   },
@@ -1845,7 +1705,7 @@
       "active": "md-map"
     },
     "ios": {
-      "default": "ios-map",
+      "default": "ios-map-outline",
       "active": "ios-map"
     }
   },
@@ -1855,7 +1715,7 @@
       "active": "md-medal"
     },
     "ios": {
-      "default": "ios-medal",
+      "default": "ios-medal-outline",
       "active": "ios-medal"
     }
   },
@@ -1865,7 +1725,7 @@
       "active": "md-medical"
     },
     "ios": {
-      "default": "ios-medical",
+      "default": "ios-medical-outline",
       "active": "ios-medical"
     }
   },
@@ -1875,7 +1735,7 @@
       "active": "md-medkit"
     },
     "ios": {
-      "default": "ios-medkit",
+      "default": "ios-medkit-outline",
       "active": "ios-medkit"
     }
   },
@@ -1885,7 +1745,7 @@
       "active": "md-megaphone"
     },
     "ios": {
-      "default": "ios-megaphone",
+      "default": "ios-megaphone-outline",
       "active": "ios-megaphone"
     }
   },
@@ -1895,7 +1755,7 @@
       "active": "md-menu"
     },
     "ios": {
-      "default": "ios-menu",
+      "default": "ios-menu-outline",
       "active": "ios-menu"
     }
   },
@@ -1905,7 +1765,7 @@
       "active": "md-mic"
     },
     "ios": {
-      "default": "ios-mic",
+      "default": "ios-mic-outline",
       "active": "ios-mic"
     }
   },
@@ -1915,7 +1775,7 @@
       "active": "md-mic-off"
     },
     "ios": {
-      "default": "ios-mic-off",
+      "default": "ios-mic-off-outline",
       "active": "ios-mic-off"
     }
   },
@@ -1925,7 +1785,7 @@
       "active": "md-microphone"
     },
     "ios": {
-      "default": "ios-microphone",
+      "default": "ios-microphone-outline",
       "active": "ios-microphone"
     }
   },
@@ -1935,7 +1795,7 @@
       "active": "md-moon"
     },
     "ios": {
-      "default": "ios-moon",
+      "default": "ios-moon-outline",
       "active": "ios-moon"
     }
   },
@@ -1945,7 +1805,7 @@
       "active": "md-more"
     },
     "ios": {
-      "default": "ios-more",
+      "default": "ios-more-outline",
       "active": "ios-more"
     }
   },
@@ -1955,7 +1815,7 @@
       "active": "md-move"
     },
     "ios": {
-      "default": "ios-move",
+      "default": "ios-move-outline",
       "active": "ios-move"
     }
   },
@@ -1965,7 +1825,7 @@
       "active": "md-musical-note"
     },
     "ios": {
-      "default": "ios-musical-note",
+      "default": "ios-musical-note-outline",
       "active": "ios-musical-note"
     }
   },
@@ -1975,7 +1835,7 @@
       "active": "md-musical-notes"
     },
     "ios": {
-      "default": "ios-musical-notes",
+      "default": "ios-musical-notes-outline",
       "active": "ios-musical-notes"
     }
   },
@@ -1985,17 +1845,27 @@
       "active": "md-navigate"
     },
     "ios": {
-      "default": "ios-navigate",
+      "default": "ios-navigate-outline",
       "active": "ios-navigate"
+    }
+  },
+  "no-smoking": {
+    "android": {
+      "default": "md-no-smoking",
+      "active": "md-no-smoking"
+    },
+    "ios": {
+      "default": "ios-no-smoking-outline",
+      "active": "ios-no-smoking"
     }
   },
   "notifications": {
     "android": {
-      "default": "md-notifications",
+      "default": "md-notifications-outline",
       "active": "md-notifications"
     },
     "ios": {
-      "default": "ios-notifications",
+      "default": "ios-notifications-outline",
       "active": "ios-notifications"
     }
   },
@@ -2005,18 +1875,8 @@
       "active": "md-notifications-off"
     },
     "ios": {
-      "default": "ios-notifications-off",
+      "default": "ios-notifications-off-outline",
       "active": "ios-notifications-off"
-    }
-  },
-  "notifications-outline": {
-    "android": {
-      "default": "md-notifications-outline",
-      "active": "md-notifications-outline"
-    },
-    "ios": {
-      "default": "ios-notifications-outline",
-      "active": "ios-notifications-outline"
     }
   },
   "nuclear": {
@@ -2025,7 +1885,7 @@
       "active": "md-nuclear"
     },
     "ios": {
-      "default": "ios-nuclear",
+      "default": "ios-nuclear-outline",
       "active": "ios-nuclear"
     }
   },
@@ -2035,7 +1895,7 @@
       "active": "md-nutrition"
     },
     "ios": {
-      "default": "ios-nutrition",
+      "default": "ios-nutrition-outline",
       "active": "ios-nutrition"
     }
   },
@@ -2045,7 +1905,7 @@
       "active": "md-open"
     },
     "ios": {
-      "default": "ios-open",
+      "default": "ios-open-outline",
       "active": "ios-open"
     }
   },
@@ -2055,7 +1915,7 @@
       "active": "md-options"
     },
     "ios": {
-      "default": "ios-options",
+      "default": "ios-options-outline",
       "active": "ios-options"
     }
   },
@@ -2065,7 +1925,7 @@
       "active": "md-outlet"
     },
     "ios": {
-      "default": "ios-outlet",
+      "default": "ios-outlet-outline",
       "active": "ios-outlet"
     }
   },
@@ -2075,7 +1935,7 @@
       "active": "md-paper"
     },
     "ios": {
-      "default": "ios-paper",
+      "default": "ios-paper-outline",
       "active": "ios-paper"
     }
   },
@@ -2085,7 +1945,7 @@
       "active": "md-paper-plane"
     },
     "ios": {
-      "default": "ios-paper-plane",
+      "default": "ios-paper-plane-outline",
       "active": "ios-paper-plane"
     }
   },
@@ -2095,7 +1955,7 @@
       "active": "md-partly-sunny"
     },
     "ios": {
-      "default": "ios-partly-sunny",
+      "default": "ios-partly-sunny-outline",
       "active": "ios-partly-sunny"
     }
   },
@@ -2105,7 +1965,7 @@
       "active": "md-pause"
     },
     "ios": {
-      "default": "ios-pause",
+      "default": "ios-pause-outline",
       "active": "ios-pause"
     }
   },
@@ -2115,7 +1975,7 @@
       "active": "md-paw"
     },
     "ios": {
-      "default": "ios-paw",
+      "default": "ios-paw-outline",
       "active": "ios-paw"
     }
   },
@@ -2125,7 +1985,7 @@
       "active": "md-people"
     },
     "ios": {
-      "default": "ios-people",
+      "default": "ios-people-outline",
       "active": "ios-people"
     }
   },
@@ -2135,7 +1995,7 @@
       "active": "md-person"
     },
     "ios": {
-      "default": "ios-person",
+      "default": "ios-person-outline",
       "active": "ios-person"
     }
   },
@@ -2145,7 +2005,7 @@
       "active": "md-person-add"
     },
     "ios": {
-      "default": "ios-person-add",
+      "default": "ios-person-add-outline",
       "active": "ios-person-add"
     }
   },
@@ -2155,7 +2015,7 @@
       "active": "md-phone-landscape"
     },
     "ios": {
-      "default": "ios-phone-landscape",
+      "default": "ios-phone-landscape-outline",
       "active": "ios-phone-landscape"
     }
   },
@@ -2165,7 +2025,7 @@
       "active": "md-phone-portrait"
     },
     "ios": {
-      "default": "ios-phone-portrait",
+      "default": "ios-phone-portrait-outline",
       "active": "ios-phone-portrait"
     }
   },
@@ -2175,7 +2035,7 @@
       "active": "md-photos"
     },
     "ios": {
-      "default": "ios-photos",
+      "default": "ios-photos-outline",
       "active": "ios-photos"
     }
   },
@@ -2185,7 +2045,7 @@
       "active": "md-pie"
     },
     "ios": {
-      "default": "ios-pie",
+      "default": "ios-pie-outline",
       "active": "ios-pie"
     }
   },
@@ -2195,7 +2055,7 @@
       "active": "md-pin"
     },
     "ios": {
-      "default": "ios-pin",
+      "default": "ios-pin-outline",
       "active": "ios-pin"
     }
   },
@@ -2205,7 +2065,7 @@
       "active": "md-pint"
     },
     "ios": {
-      "default": "ios-pint",
+      "default": "ios-pint-outline",
       "active": "ios-pint"
     }
   },
@@ -2215,8 +2075,18 @@
       "active": "md-pizza"
     },
     "ios": {
-      "default": "ios-pizza",
+      "default": "ios-pizza-outline",
       "active": "ios-pizza"
+    }
+  },
+  "plane": {
+    "android": {
+      "default": "md-plane",
+      "active": "md-plane"
+    },
+    "ios": {
+      "default": "ios-plane-outline",
+      "active": "ios-plane"
     }
   },
   "planet": {
@@ -2225,18 +2095,8 @@
       "active": "md-planet"
     },
     "ios": {
-      "default": "ios-planet",
+      "default": "ios-planet-outline",
       "active": "ios-planet"
-    }
-  },
-  "play-circle": {
-    "android": {
-      "default": "md-play-circle",
-      "active": "md-play-circle"
-    },
-    "ios": {
-      "default": "ios-play-circle",
-      "active": "ios-play-circle"
     }
   },
   "play": {
@@ -2245,7 +2105,7 @@
       "active": "md-play"
     },
     "ios": {
-      "default": "ios-play",
+      "default": "ios-play-outline",
       "active": "ios-play"
     }
   },
@@ -2255,7 +2115,7 @@
       "active": "md-podium"
     },
     "ios": {
-      "default": "ios-podium",
+      "default": "ios-podium-outline",
       "active": "ios-podium"
     }
   },
@@ -2265,7 +2125,7 @@
       "active": "md-power"
     },
     "ios": {
-      "default": "ios-power",
+      "default": "ios-power-outline",
       "active": "ios-power"
     }
   },
@@ -2275,7 +2135,7 @@
       "active": "md-pricetag"
     },
     "ios": {
-      "default": "ios-pricetag",
+      "default": "ios-pricetag-outline",
       "active": "ios-pricetag"
     }
   },
@@ -2285,7 +2145,7 @@
       "active": "md-pricetags"
     },
     "ios": {
-      "default": "ios-pricetags",
+      "default": "ios-pricetags-outline",
       "active": "ios-pricetags"
     }
   },
@@ -2295,7 +2155,7 @@
       "active": "md-print"
     },
     "ios": {
-      "default": "ios-print",
+      "default": "ios-print-outline",
       "active": "ios-print"
     }
   },
@@ -2305,7 +2165,7 @@
       "active": "md-pulse"
     },
     "ios": {
-      "default": "ios-pulse",
+      "default": "ios-pulse-outline",
       "active": "ios-pulse"
     }
   },
@@ -2315,7 +2175,7 @@
       "active": "md-qr-scanner"
     },
     "ios": {
-      "default": "ios-qr-scanner",
+      "default": "ios-qr-scanner-outline",
       "active": "ios-qr-scanner"
     }
   },
@@ -2325,7 +2185,7 @@
       "active": "md-quote"
     },
     "ios": {
-      "default": "ios-quote",
+      "default": "ios-quote-outline",
       "active": "ios-quote"
     }
   },
@@ -2335,7 +2195,7 @@
       "active": "md-radio"
     },
     "ios": {
-      "default": "ios-radio",
+      "default": "ios-radio-outline",
       "active": "ios-radio"
     }
   },
@@ -2345,7 +2205,7 @@
       "active": "md-radio-button-off"
     },
     "ios": {
-      "default": "ios-radio-button-off",
+      "default": "ios-radio-button-off-outline",
       "active": "ios-radio-button-off"
     }
   },
@@ -2355,7 +2215,7 @@
       "active": "md-radio-button-on"
     },
     "ios": {
-      "default": "ios-radio-button-on",
+      "default": "ios-radio-button-on-outline",
       "active": "ios-radio-button-on"
     }
   },
@@ -2365,7 +2225,7 @@
       "active": "md-rainy"
     },
     "ios": {
-      "default": "ios-rainy",
+      "default": "ios-rainy-outline",
       "active": "ios-rainy"
     }
   },
@@ -2375,7 +2235,7 @@
       "active": "md-recording"
     },
     "ios": {
-      "default": "ios-recording",
+      "default": "ios-recording-outline",
       "active": "ios-recording"
     }
   },
@@ -2385,7 +2245,7 @@
       "active": "md-redo"
     },
     "ios": {
-      "default": "ios-redo",
+      "default": "ios-redo-outline",
       "active": "ios-redo"
     }
   },
@@ -2395,18 +2255,8 @@
       "active": "md-refresh"
     },
     "ios": {
-      "default": "ios-refresh",
+      "default": "ios-refresh-outline",
       "active": "ios-refresh"
-    }
-  },
-  "refresh-circle": {
-    "android": {
-      "default": "md-refresh-circle",
-      "active": "md-refresh-circle"
-    },
-    "ios": {
-      "default": "ios-refresh-circle",
-      "active": "ios-refresh-circle"
     }
   },
   "remove": {
@@ -2415,7 +2265,7 @@
       "active": "md-remove"
     },
     "ios": {
-      "default": "ios-remove",
+      "default": "ios-remove-outline",
       "active": "ios-remove"
     }
   },
@@ -2425,18 +2275,8 @@
       "active": "md-remove-circle"
     },
     "ios": {
-      "default": "ios-remove-circle",
-      "active": "ios-remove-circle"
-    }
-  },
-  "remove-circle-outline": {
-    "android": {
-      "default": "md-remove-circle-outline",
-      "active": "md-remove-circle-outline"
-    },
-    "ios": {
       "default": "ios-remove-circle-outline",
-      "active": "ios-remove-circle-outline"
+      "active": "ios-remove-circle"
     }
   },
   "reorder": {
@@ -2445,7 +2285,7 @@
       "active": "md-reorder"
     },
     "ios": {
-      "default": "ios-reorder",
+      "default": "ios-reorder-outline",
       "active": "ios-reorder"
     }
   },
@@ -2455,7 +2295,7 @@
       "active": "md-repeat"
     },
     "ios": {
-      "default": "ios-repeat",
+      "default": "ios-repeat-outline",
       "active": "ios-repeat"
     }
   },
@@ -2465,7 +2305,7 @@
       "active": "md-resize"
     },
     "ios": {
-      "default": "ios-resize",
+      "default": "ios-resize-outline",
       "active": "ios-resize"
     }
   },
@@ -2475,7 +2315,7 @@
       "active": "md-restaurant"
     },
     "ios": {
-      "default": "ios-restaurant",
+      "default": "ios-restaurant-outline",
       "active": "ios-restaurant"
     }
   },
@@ -2485,7 +2325,7 @@
       "active": "md-return-left"
     },
     "ios": {
-      "default": "ios-return-left",
+      "default": "ios-return-left-outline",
       "active": "ios-return-left"
     }
   },
@@ -2495,7 +2335,7 @@
       "active": "md-return-right"
     },
     "ios": {
-      "default": "ios-return-right",
+      "default": "ios-return-right-outline",
       "active": "ios-return-right"
     }
   },
@@ -2505,7 +2345,7 @@
       "active": "md-reverse-camera"
     },
     "ios": {
-      "default": "ios-reverse-camera",
+      "default": "ios-reverse-camera-outline",
       "active": "ios-reverse-camera"
     }
   },
@@ -2515,7 +2355,7 @@
       "active": "md-rewind"
     },
     "ios": {
-      "default": "ios-rewind",
+      "default": "ios-rewind-outline",
       "active": "ios-rewind"
     }
   },
@@ -2525,18 +2365,8 @@
       "active": "md-ribbon"
     },
     "ios": {
-      "default": "ios-ribbon",
+      "default": "ios-ribbon-outline",
       "active": "ios-ribbon"
-    }
-  },
-  "rocket": {
-    "android": {
-      "default": "md-rocket",
-      "active": "md-rocket"
-    },
-    "ios": {
-      "default": "ios-rocket",
-      "active": "ios-rocket"
     }
   },
   "rose": {
@@ -2545,7 +2375,7 @@
       "active": "md-rose"
     },
     "ios": {
-      "default": "ios-rose",
+      "default": "ios-rose-outline",
       "active": "ios-rose"
     }
   },
@@ -2555,18 +2385,8 @@
       "active": "md-sad"
     },
     "ios": {
-      "default": "ios-sad",
+      "default": "ios-sad-outline",
       "active": "ios-sad"
-    }
-  },
-  "save": {
-    "android": {
-      "default": "md-save",
-      "active": "md-save"
-    },
-    "ios": {
-      "default": "ios-save",
-      "active": "ios-save"
     }
   },
   "school": {
@@ -2575,7 +2395,7 @@
       "active": "md-school"
     },
     "ios": {
-      "default": "ios-school",
+      "default": "ios-school-outline",
       "active": "ios-school"
     }
   },
@@ -2585,7 +2405,7 @@
       "active": "md-search"
     },
     "ios": {
-      "default": "ios-search",
+      "default": "ios-search-outline",
       "active": "ios-search"
     }
   },
@@ -2595,7 +2415,7 @@
       "active": "md-send"
     },
     "ios": {
-      "default": "ios-send",
+      "default": "ios-send-outline",
       "active": "ios-send"
     }
   },
@@ -2605,7 +2425,7 @@
       "active": "md-settings"
     },
     "ios": {
-      "default": "ios-settings",
+      "default": "ios-settings-outline",
       "active": "ios-settings"
     }
   },
@@ -2615,18 +2435,18 @@
       "active": "md-share"
     },
     "ios": {
-      "default": "ios-share",
+      "default": "ios-share-outline",
       "active": "ios-share"
     }
   },
-  "share-alt": {
+  "share-all": {
     "android": {
-      "default": "md-share-alt",
-      "active": "md-share-alt"
+      "default": "md-share-all",
+      "active": "md-share-all"
     },
     "ios": {
-      "default": "ios-share-alt",
-      "active": "ios-share-alt"
+      "default": "ios-share-all-outline",
+      "active": "ios-share-all"
     }
   },
   "shirt": {
@@ -2635,7 +2455,7 @@
       "active": "md-shirt"
     },
     "ios": {
-      "default": "ios-shirt",
+      "default": "ios-shirt-outline",
       "active": "ios-shirt"
     }
   },
@@ -2645,7 +2465,7 @@
       "active": "md-shuffle"
     },
     "ios": {
-      "default": "ios-shuffle",
+      "default": "ios-shuffle-outline",
       "active": "ios-shuffle"
     }
   },
@@ -2655,7 +2475,7 @@
       "active": "md-skip-backward"
     },
     "ios": {
-      "default": "ios-skip-backward",
+      "default": "ios-skip-backward-outline",
       "active": "ios-skip-backward"
     }
   },
@@ -2665,7 +2485,7 @@
       "active": "md-skip-forward"
     },
     "ios": {
-      "default": "ios-skip-forward",
+      "default": "ios-skip-forward-outline",
       "active": "ios-skip-forward"
     }
   },
@@ -2675,7 +2495,7 @@
       "active": "md-snow"
     },
     "ios": {
-      "default": "ios-snow",
+      "default": "ios-snow-outline",
       "active": "ios-snow"
     }
   },
@@ -2685,37 +2505,27 @@
       "active": "md-speedometer"
     },
     "ios": {
-      "default": "ios-speedometer",
+      "default": "ios-speedometer-outline",
       "active": "ios-speedometer"
     }
   },
   "square": {
     "android": {
-      "default": "md-square",
+      "default": "md-square-outline",
       "active": "md-square"
     },
     "ios": {
-      "default": "ios-square",
-      "active": "ios-square"
-    }
-  },
-  "square-outline": {
-    "android": {
-      "default": "md-square-outline",
-      "active": "md-square-outline"
-    },
-    "ios": {
       "default": "ios-square-outline",
-      "active": "ios-square-outline"
+      "active": "ios-square"
     }
   },
   "star": {
     "android": {
-      "default": "md-star",
+      "default": "md-star-outline",
       "active": "md-star"
     },
     "ios": {
-      "default": "ios-star",
+      "default": "ios-star-outline",
       "active": "ios-star"
     }
   },
@@ -2725,18 +2535,8 @@
       "active": "md-star-half"
     },
     "ios": {
-      "default": "ios-star-half",
+      "default": "ios-star-half-outline",
       "active": "ios-star-half"
-    }
-  },
-  "star-outline": {
-    "android": {
-      "default": "md-star-outline",
-      "active": "md-star-outline"
-    },
-    "ios": {
-      "default": "ios-star-outline",
-      "active": "ios-star-outline"
     }
   },
   "stats": {
@@ -2745,7 +2545,7 @@
       "active": "md-stats"
     },
     "ios": {
-      "default": "ios-stats",
+      "default": "ios-stats-outline",
       "active": "ios-stats"
     }
   },
@@ -2755,7 +2555,7 @@
       "active": "md-stopwatch"
     },
     "ios": {
-      "default": "ios-stopwatch",
+      "default": "ios-stopwatch-outline",
       "active": "ios-stopwatch"
     }
   },
@@ -2765,7 +2565,7 @@
       "active": "md-subway"
     },
     "ios": {
-      "default": "ios-subway",
+      "default": "ios-subway-outline",
       "active": "ios-subway"
     }
   },
@@ -2775,7 +2575,7 @@
       "active": "md-sunny"
     },
     "ios": {
-      "default": "ios-sunny",
+      "default": "ios-sunny-outline",
       "active": "ios-sunny"
     }
   },
@@ -2785,7 +2585,7 @@
       "active": "md-swap"
     },
     "ios": {
-      "default": "ios-swap",
+      "default": "ios-swap-outline",
       "active": "ios-swap"
     }
   },
@@ -2795,7 +2595,7 @@
       "active": "md-switch"
     },
     "ios": {
-      "default": "ios-switch",
+      "default": "ios-switch-outline",
       "active": "ios-switch"
     }
   },
@@ -2805,7 +2605,7 @@
       "active": "md-sync"
     },
     "ios": {
-      "default": "ios-sync",
+      "default": "ios-sync-outline",
       "active": "ios-sync"
     }
   },
@@ -2815,7 +2615,7 @@
       "active": "md-tablet-landscape"
     },
     "ios": {
-      "default": "ios-tablet-landscape",
+      "default": "ios-tablet-landscape-outline",
       "active": "ios-tablet-landscape"
     }
   },
@@ -2825,7 +2625,7 @@
       "active": "md-tablet-portrait"
     },
     "ios": {
-      "default": "ios-tablet-portrait",
+      "default": "ios-tablet-portrait-outline",
       "active": "ios-tablet-portrait"
     }
   },
@@ -2835,7 +2635,7 @@
       "active": "md-tennisball"
     },
     "ios": {
-      "default": "ios-tennisball",
+      "default": "ios-tennisball-outline",
       "active": "ios-tennisball"
     }
   },
@@ -2845,7 +2645,7 @@
       "active": "md-text"
     },
     "ios": {
-      "default": "ios-text",
+      "default": "ios-text-outline",
       "active": "ios-text"
     }
   },
@@ -2855,7 +2655,7 @@
       "active": "md-thermometer"
     },
     "ios": {
-      "default": "ios-thermometer",
+      "default": "ios-thermometer-outline",
       "active": "ios-thermometer"
     }
   },
@@ -2865,7 +2665,7 @@
       "active": "md-thumbs-down"
     },
     "ios": {
-      "default": "ios-thumbs-down",
+      "default": "ios-thumbs-down-outline",
       "active": "ios-thumbs-down"
     }
   },
@@ -2875,7 +2675,7 @@
       "active": "md-thumbs-up"
     },
     "ios": {
-      "default": "ios-thumbs-up",
+      "default": "ios-thumbs-up-outline",
       "active": "ios-thumbs-up"
     }
   },
@@ -2885,7 +2685,7 @@
       "active": "md-thunderstorm"
     },
     "ios": {
-      "default": "ios-thunderstorm",
+      "default": "ios-thunderstorm-outline",
       "active": "ios-thunderstorm"
     }
   },
@@ -2895,7 +2695,7 @@
       "active": "md-time"
     },
     "ios": {
-      "default": "ios-time",
+      "default": "ios-time-outline",
       "active": "ios-time"
     }
   },
@@ -2905,18 +2705,8 @@
       "active": "md-timer"
     },
     "ios": {
-      "default": "ios-timer",
+      "default": "ios-timer-outline",
       "active": "ios-timer"
-    }
-  },
-  "today": {
-    "android": {
-      "default": "md-today",
-      "active": "md-today"
-    },
-    "ios": {
-      "default": "ios-today",
-      "active": "ios-today"
     }
   },
   "train": {
@@ -2925,7 +2715,7 @@
       "active": "md-train"
     },
     "ios": {
-      "default": "ios-train",
+      "default": "ios-train-outline",
       "active": "ios-train"
     }
   },
@@ -2935,7 +2725,7 @@
       "active": "md-transgender"
     },
     "ios": {
-      "default": "ios-transgender",
+      "default": "ios-transgender-outline",
       "active": "ios-transgender"
     }
   },
@@ -2945,7 +2735,7 @@
       "active": "md-trash"
     },
     "ios": {
-      "default": "ios-trash",
+      "default": "ios-trash-outline",
       "active": "ios-trash"
     }
   },
@@ -2955,7 +2745,7 @@
       "active": "md-trending-down"
     },
     "ios": {
-      "default": "ios-trending-down",
+      "default": "ios-trending-down-outline",
       "active": "ios-trending-down"
     }
   },
@@ -2965,7 +2755,7 @@
       "active": "md-trending-up"
     },
     "ios": {
-      "default": "ios-trending-up",
+      "default": "ios-trending-up-outline",
       "active": "ios-trending-up"
     }
   },
@@ -2975,18 +2765,8 @@
       "active": "md-trophy"
     },
     "ios": {
-      "default": "ios-trophy",
+      "default": "ios-trophy-outline",
       "active": "ios-trophy"
-    }
-  },
-  "tv": {
-    "android": {
-      "default": "md-tv",
-      "active": "md-tv"
-    },
-    "ios": {
-      "default": "ios-tv",
-      "active": "ios-tv"
     }
   },
   "umbrella": {
@@ -2995,7 +2775,7 @@
       "active": "md-umbrella"
     },
     "ios": {
-      "default": "ios-umbrella",
+      "default": "ios-umbrella-outline",
       "active": "ios-umbrella"
     }
   },
@@ -3005,7 +2785,7 @@
       "active": "md-undo"
     },
     "ios": {
-      "default": "ios-undo",
+      "default": "ios-undo-outline",
       "active": "ios-undo"
     }
   },
@@ -3015,7 +2795,7 @@
       "active": "md-unlock"
     },
     "ios": {
-      "default": "ios-unlock",
+      "default": "ios-unlock-outline",
       "active": "ios-unlock"
     }
   },
@@ -3025,28 +2805,28 @@
       "active": "md-videocam"
     },
     "ios": {
-      "default": "ios-videocam",
+      "default": "ios-videocam-outline",
       "active": "ios-videocam"
     }
   },
-  "volume-high": {
+  "volume-down": {
     "android": {
-      "default": "md-volume-high",
-      "active": "md-volume-high"
+      "default": "md-volume-down",
+      "active": "md-volume-down"
     },
     "ios": {
-      "default": "ios-volume-high",
-      "active": "ios-volume-high"
+      "default": "ios-volume-down-outline",
+      "active": "ios-volume-down"
     }
   },
-  "volume-low": {
+  "volume-up": {
     "android": {
-      "default": "md-volume-low",
-      "active": "md-volume-low"
+      "default": "md-volume-up",
+      "active": "md-volume-up"
     },
     "ios": {
-      "default": "ios-volume-low",
-      "active": "ios-volume-low"
+      "default": "ios-volume-up-outline",
+      "active": "ios-volume-up"
     }
   },
   "volume-mute": {
@@ -3055,7 +2835,7 @@
       "active": "md-volume-mute"
     },
     "ios": {
-      "default": "ios-volume-mute",
+      "default": "ios-volume-mute-outline",
       "active": "ios-volume-mute"
     }
   },
@@ -3065,7 +2845,7 @@
       "active": "md-volume-off"
     },
     "ios": {
-      "default": "ios-volume-off",
+      "default": "ios-volume-off-outline",
       "active": "ios-volume-off"
     }
   },
@@ -3075,18 +2855,8 @@
       "active": "md-walk"
     },
     "ios": {
-      "default": "ios-walk",
+      "default": "ios-walk-outline",
       "active": "ios-walk"
-    }
-  },
-  "wallet": {
-    "android": {
-      "default": "md-wallet",
-      "active": "md-wallet"
-    },
-    "ios": {
-      "default": "ios-wallet",
-      "active": "ios-wallet"
     }
   },
   "warning": {
@@ -3095,7 +2865,7 @@
       "active": "md-warning"
     },
     "ios": {
-      "default": "ios-warning",
+      "default": "ios-warning-outline",
       "active": "ios-warning"
     }
   },
@@ -3105,7 +2875,7 @@
       "active": "md-watch"
     },
     "ios": {
-      "default": "ios-watch",
+      "default": "ios-watch-outline",
       "active": "ios-watch"
     }
   },
@@ -3115,7 +2885,7 @@
       "active": "md-water"
     },
     "ios": {
-      "default": "ios-water",
+      "default": "ios-water-outline",
       "active": "ios-water"
     }
   },
@@ -3125,7 +2895,7 @@
       "active": "md-wifi"
     },
     "ios": {
-      "default": "ios-wifi",
+      "default": "ios-wifi-outline",
       "active": "ios-wifi"
     }
   },
@@ -3135,7 +2905,7 @@
       "active": "md-wine"
     },
     "ios": {
-      "default": "ios-wine",
+      "default": "ios-wine-outline",
       "active": "ios-wine"
     }
   },
@@ -3145,7 +2915,7 @@
       "active": "md-woman"
     },
     "ios": {
-      "default": "ios-woman",
+      "default": "ios-woman-outline",
       "active": "ios-woman"
     }
   }

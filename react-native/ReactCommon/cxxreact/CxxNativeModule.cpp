@@ -1,13 +1,10 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "CxxNativeModule.h"
 #include "Instance.h"
 
 #include <iterator>
-#include <glog/logging.h>
+
 #include <folly/json.h>
 
 #include "JsArgumentHelpers.h"
@@ -15,16 +12,17 @@
 #include "MessageQueueThread.h"
 
 using facebook::xplat::module::CxxModule;
+
 namespace facebook {
 namespace react {
 
 std::function<void(folly::dynamic)> makeCallback(
     std::weak_ptr<Instance> instance, const folly::dynamic& callbackId) {
-  if (!callbackId.isNumber()) {
+  if (!callbackId.isInt()) {
     throw std::invalid_argument("Expected callback(s) as final argument");
   }
 
-  auto id = callbackId.asInt();
+  auto id = callbackId.getInt();
   return [winstance = std::move(instance), id](folly::dynamic args) {
     if (auto instance = winstance.lock()) {
       instance->callJSCallback(id, std::move(args));
@@ -59,7 +57,9 @@ std::vector<MethodDescriptor> CxxNativeModule::getMethods() {
 
   std::vector<MethodDescriptor> descs;
   for (auto& method : methods_) {
-    descs.emplace_back(method.name, method.getType());
+    assert(method.func || method.syncFunc);
+    auto methodType = method.func ? (method.callbacks == 2 ? "promise" : "async") : "sync";
+    descs.emplace_back(method.name, methodType);
   }
   return descs;
 }
@@ -113,7 +113,7 @@ void CxxNativeModule::invoke(unsigned int reactMethodId, folly::dynamic&& params
   params.resize(params.size() - method.callbacks);
 
   // I've got a few flawed options here.  I can let the C++ exception
-  // propagate, and the registry will log/convert them to java exceptions.
+  // propogate, and the registry will log/convert them to java exceptions.
   // This lets all the java and red box handling work ok, but the only info I
   // can capture about the C++ exception is the what() string, not the stack.
   // I can std::terminate() the app.  This causes the full, accurate C++
@@ -136,22 +136,15 @@ void CxxNativeModule::invoke(unsigned int reactMethodId, folly::dynamic&& params
     if (callId != -1) {
       fbsystrace_end_async_flow(TRACE_TAG_REACT_APPS, "native", callId);
     }
-  #else
-    (void)(callId);
   #endif
     SystraceSection s(method.name.c_str());
     try {
       method.func(std::move(params), first, second);
     } catch (const facebook::xplat::JsArgumentException& ex) {
       throw;
-    } catch (std::exception& e) {
-      LOG(ERROR) << "std::exception. Method call " << method.name.c_str() << " failed: " << e.what();
-      std::terminate();
-    } catch (std::string& error) {
-      LOG(ERROR) << "std::string. Method call " << method.name.c_str() << " failed: " << error.c_str();
-      std::terminate();
     } catch (...) {
-      LOG(ERROR) << "Method call " << method.name.c_str() << " failed. unknown error";
+      // This means some C++ code is buggy.  As above, we fail hard so the C++
+      // developer can debug and fix it.
       std::terminate();
     }
   });

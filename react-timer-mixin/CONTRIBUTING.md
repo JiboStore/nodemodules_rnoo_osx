@@ -40,4 +40,4 @@ outlined on that page and do not file a public issue.
 
 ## License
 By contributing to react-timer-mixin, you agree that your contributions will be licensed
-under its MIT license.
+under its BSD license.

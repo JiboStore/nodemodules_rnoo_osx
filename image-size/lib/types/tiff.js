@@ -48,7 +48,6 @@ function nextTag (buffer) {
 }
 
 // Extract IFD tags from TIFF metadata
-/* eslint-disable complexity */
 function extractTags (buffer, isBigEndian) {
   var tags = {};
   var code, type, length;
@@ -64,7 +63,7 @@ function extractTags (buffer, isBigEndian) {
     } else {
       // 256 is width, 257 is height
       // if (code === 256 || code === 257) {
-      if (length === 1 && (type === 3 || type === 4)) {
+      if (length === 1 && type === 3) {
         tags[code] = readValue(buffer, isBigEndian);
       }
 
@@ -74,7 +73,6 @@ function extractTags (buffer, isBigEndian) {
   }
   return tags;
 }
-/* eslint-enable complexity */
 
 // Test if the TIFF is Big Endian or Little Endian
 function determineEndianness (buffer) {

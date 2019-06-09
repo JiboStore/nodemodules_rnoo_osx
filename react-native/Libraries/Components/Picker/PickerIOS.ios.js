@@ -1,97 +1,55 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * @providesModule PickerIOS
  *
  * This is a controlled component version of RCTPickerIOS
- *
- * @format
- * @flow
  */
-
 'use strict';
 
-const React = require('React');
-const ReactNative = require('ReactNative');
-const StyleSheet = require('StyleSheet');
-const View = require('View');
-const processColor = require('processColor');
-const RCTPickerNativeComponent = require('RCTPickerNativeComponent');
+var NativeMethodsMixin = require('NativeMethodsMixin');
+var React = require('React');
+const PropTypes = require('prop-types');
+var StyleSheet = require('StyleSheet');
+var StyleSheetPropType = require('StyleSheetPropType');
+var TextStylePropTypes = require('TextStylePropTypes');
+var View = require('View');
+const ViewPropTypes = require('ViewPropTypes');
+var processColor = require('processColor');
 
-import type {SyntheticEvent} from 'CoreEventTypes';
-import type {ColorValue} from 'StyleSheetTypes';
-import type {ViewProps} from 'ViewPropTypes';
-import type {TextStyleProp} from 'StyleSheet';
+var createReactClass = require('create-react-class');
+var itemStylePropType = StyleSheetPropType(TextStylePropTypes);
+var requireNativeComponent = require('requireNativeComponent');
 
-type PickerIOSChangeEvent = SyntheticEvent<
-  $ReadOnly<{|
-    newValue: number | string,
-    newIndex: number,
-  |}>,
->;
+var PickerIOS = createReactClass({
+  displayName: 'PickerIOS',
+  mixins: [NativeMethodsMixin],
 
-type RCTPickerIOSItemType = $ReadOnly<{|
-  label: ?Label,
-  value: ?(number | string),
-  textColor: ?number,
-|}>;
+  propTypes: {
+    ...ViewPropTypes,
+    itemStyle: itemStylePropType,
+    onValueChange: PropTypes.func,
+    selectedValue: PropTypes.any, // string or integer basically
+  },
 
-type RCTPickerIOSType = Class<
-  ReactNative.NativeComponent<
-    $ReadOnly<{|
-      items: $ReadOnlyArray<RCTPickerIOSItemType>,
-      onChange: (event: PickerIOSChangeEvent) => void,
-      onResponderTerminationRequest: () => boolean,
-      onStartShouldSetResponder: () => boolean,
-      selectedIndex: number,
-      style?: ?TextStyleProp,
-      testID?: ?string,
-    |}>,
-  >,
->;
+  getInitialState: function() {
+    return this._stateFromProps(this.props);
+  },
 
-type Label = Stringish | number;
+  componentWillReceiveProps: function(nextProps) {
+    this.setState(this._stateFromProps(nextProps));
+  },
 
-type Props = $ReadOnly<{|
-  ...ViewProps,
-  children: React.ChildrenArray<React.Element<typeof PickerIOSItem>>,
-  itemStyle?: ?TextStyleProp,
-  onChange?: ?(event: PickerIOSChangeEvent) => mixed,
-  onValueChange?: ?(itemValue: string | number, itemIndex: number) => mixed,
-  selectedValue: ?(number | string),
-|}>;
-
-type State = {|
-  selectedIndex: number,
-  items: $ReadOnlyArray<RCTPickerIOSItemType>,
-|};
-
-type ItemProps = $ReadOnly<{|
-  label: ?Label,
-  value?: ?(number | string),
-  color?: ?ColorValue,
-|}>;
-
-const PickerIOSItem = (props: ItemProps) => {
-  return null;
-};
-
-class PickerIOS extends React.Component<Props, State> {
-  _picker: ?React.ElementRef<RCTPickerIOSType> = null;
-
-  state = {
-    selectedIndex: 0,
-    items: [],
-  };
-
-  static Item = PickerIOSItem;
-
-  static getDerivedStateFromProps(props: Props): State {
-    let selectedIndex = 0;
-    const items = [];
-    React.Children.toArray(props.children).forEach(function(child, index) {
+  // Translate PickerIOS prop and children into stuff that RCTPickerIOS understands.
+  _stateFromProps: function(props) {
+    var selectedIndex = 0;
+    var items = [];
+    React.Children.toArray(props.children).forEach(function (child, index) {
       if (child.props.value === props.selectedValue) {
         selectedIndex = index;
       }
@@ -102,16 +60,13 @@ class PickerIOS extends React.Component<Props, State> {
       });
     });
     return {selectedIndex, items};
-  }
+  },
 
-  render() {
+  render: function() {
     return (
       <View style={this.props.style}>
-        <RCTPickerNativeComponent
-          ref={picker => {
-            this._picker = picker;
-          }}
-          testID={this.props.testID}
+        <RCTPickerIOS
+          ref={picker => this._picker = picker}
           style={[styles.pickerIOS, this.props.itemStyle]}
           items={this.state.items}
           selectedIndex={this.state.selectedIndex}
@@ -121,17 +76,14 @@ class PickerIOS extends React.Component<Props, State> {
         />
       </View>
     );
-  }
+  },
 
-  _onChange = event => {
+  _onChange: function(event) {
     if (this.props.onChange) {
       this.props.onChange(event);
     }
     if (this.props.onValueChange) {
-      this.props.onValueChange(
-        event.nativeEvent.newValue,
-        event.nativeEvent.newIndex,
-      );
+      this.props.onValueChange(event.nativeEvent.newValue, event.nativeEvent.newIndex);
     }
 
     // The picker is a controlled component. This means we expect the
@@ -140,23 +92,45 @@ class PickerIOS extends React.Component<Props, State> {
     // disallow/undo/mutate the selection of certain values. In other
     // words, the embedder of this component should be the source of
     // truth, not the native component.
-    if (
-      this._picker &&
-      this.state.selectedIndex !== event.nativeEvent.newIndex
-    ) {
+    if (this._picker && this.state.selectedIndex !== event.nativeEvent.newIndex) {
       this._picker.setNativeProps({
-        selectedIndex: this.state.selectedIndex,
+        selectedIndex: this.state.selectedIndex
       });
     }
-  };
-}
+  },
+});
 
-const styles = StyleSheet.create({
+PickerIOS.Item = class extends React.Component {
+  static propTypes = {
+    value: PropTypes.any, // string or integer basically
+    label: PropTypes.string,
+    color: PropTypes.string,
+  };
+
+  render() {
+    // These items don't get rendered directly.
+    return null;
+  }
+};
+
+var styles = StyleSheet.create({
   pickerIOS: {
     // The picker will conform to whatever width is given, but we do
     // have to set the component's height explicitly on the
     // surrounding view to ensure it gets rendered.
     height: 216,
+  },
+});
+
+var RCTPickerIOS = requireNativeComponent('RCTPicker', {
+  propTypes: {
+    style: itemStylePropType,
+  },
+}, {
+  nativeOnly: {
+    items: true,
+    onChange: true,
+    selectedIndex: true,
   },
 });
 

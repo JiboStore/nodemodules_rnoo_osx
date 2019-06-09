@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "MethodCall.h"
 
@@ -16,21 +13,19 @@ namespace react {
 #define REQUEST_PARAMSS 2
 #define REQUEST_CALLID 3
 
-static const char *errorPrefix = "Malformed calls from JS: ";
-
-std::vector<MethodCall> parseMethodCalls(folly::dynamic&& jsonData) {
+std::vector<MethodCall> parseMethodCalls(folly::dynamic&& jsonData) throw(std::invalid_argument) {
   if (jsonData.isNull()) {
     return {};
   }
 
   if (!jsonData.isArray()) {
     throw std::invalid_argument(
-      folly::to<std::string>(errorPrefix, "input isn't array but ", jsonData.typeName()));
+      folly::to<std::string>("Did not get valid calls back from JS: ", jsonData.typeName()));
   }
 
   if (jsonData.size() < REQUEST_PARAMSS + 1) {
     throw std::invalid_argument(
-      folly::to<std::string>(errorPrefix, "size == ", jsonData.size()));
+      folly::to<std::string>("Did not get valid calls back from JS: size == ", jsonData.size()));
   }
 
   auto& moduleIds = jsonData[REQUEST_MODULE_IDS];
@@ -40,32 +35,33 @@ std::vector<MethodCall> parseMethodCalls(folly::dynamic&& jsonData) {
 
   if (!moduleIds.isArray() || !methodIds.isArray() || !params.isArray()) {
     throw std::invalid_argument(
-      folly::to<std::string>(errorPrefix, "not all fields are arrays.\n\n", folly::toJson(jsonData)));
+      folly::to<std::string>("Did not get valid calls back from JS: ", folly::toJson(jsonData)));
   }
 
   if (moduleIds.size() != methodIds.size() || moduleIds.size() != params.size()) {
     throw std::invalid_argument(
-      folly::to<std::string>(errorPrefix, "field sizes are different.\n\n", folly::toJson(jsonData)));
+      folly::to<std::string>("Did not get valid calls back from JS: ", folly::toJson(jsonData)));
   }
 
   if (jsonData.size() > REQUEST_CALLID) {
-    if (!jsonData[REQUEST_CALLID].isNumber()) {
+    if (!jsonData[REQUEST_CALLID].isInt()) {
       throw std::invalid_argument(
-        folly::to<std::string>(errorPrefix, "invalid callId", jsonData[REQUEST_CALLID].typeName()));
+        folly::to<std::string>("Did not get valid calls back from JS: %s", folly::toJson(jsonData)));
+    } else {
+      callId = jsonData[REQUEST_CALLID].getInt();
     }
-    callId = jsonData[REQUEST_CALLID].asInt();
   }
 
   std::vector<MethodCall> methodCalls;
   for (size_t i = 0; i < moduleIds.size(); i++) {
     if (!params[i].isArray()) {
       throw std::invalid_argument(
-          folly::to<std::string>(errorPrefix, "method arguments isn't array but ", params[i].typeName()));
+          folly::to<std::string>("Call argument isn't an array"));
     }
 
     methodCalls.emplace_back(
-      moduleIds[i].asInt(),
-      methodIds[i].asInt(),
+      moduleIds[i].getInt(),
+      methodIds[i].getInt(),
       std::move(params[i]),
       callId);
 
@@ -77,3 +73,4 @@ std::vector<MethodCall> parseMethodCalls(folly::dynamic&& jsonData) {
 }
 
 }}
+

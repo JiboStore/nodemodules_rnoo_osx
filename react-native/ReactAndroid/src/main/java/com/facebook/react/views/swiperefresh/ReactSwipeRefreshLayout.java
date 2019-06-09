@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.swiperefresh;
@@ -89,14 +91,6 @@ public class ReactSwipeRefreshLayout extends SwipeRefreshLayout {
   public boolean onInterceptTouchEvent(MotionEvent ev) {
     if (shouldInterceptTouchEvent(ev) && super.onInterceptTouchEvent(ev)) {
       NativeGestureUtil.notifyNativeGestureStarted(this, ev);
-
-      // If the pull-to-refresh gesture is interrupted by a parent with its own
-      // onInterceptTouchEvent then the refresh indicator gets stuck on-screen
-      // so we ask the parent to not intercept this touch event after it started
-      if (getParent() != null) {
-        getParent().requestDisallowInterceptTouchEvent(true);
-      }
-
       return true;
     }
     return false;

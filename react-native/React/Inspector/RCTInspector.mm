@@ -1,13 +1,10 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-//
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
 
 #import "RCTInspector.h"
 
 #if RCT_DEV
 
-#include <jsinspector/InspectorInterfaces.h>
+#include <jschelpers/InspectorInterfaces.h>
+#include <jschelpers/JavaScriptCore.h>
 
 #import "RCTDefines.h"
 #import "RCTInspectorPackagerConnection.h"
@@ -41,11 +38,9 @@ private:
 @interface RCTInspectorPage () {
   NSInteger _id;
   NSString *_title;
-  NSString *_vm;
 }
 - (instancetype)initWithId:(NSInteger)id
-                     title:(NSString *)title
-                     vm:(NSString *)vm;
+                     title:(NSString *)title;
 @end
 
 @interface RCTInspectorLocalConnection () {
@@ -54,9 +49,17 @@ private:
 - (instancetype)initWithConnection:(std::unique_ptr<ILocalConnection>)connection;
 @end
 
+// Only safe to call with Custom JSC. Custom JSC check must occur earlier
+// in the stack
 static IInspector *getInstance()
 {
-  return &facebook::react::getInspectorInstance();
+  static dispatch_once_t onceToken;
+  static IInspector *s_inspector;
+  dispatch_once(&onceToken, ^{
+    s_inspector = customJSCWrapper()->JSInspectorGetInstance();
+  });
+
+  return s_inspector;
 }
 
 @implementation RCTInspector
@@ -69,8 +72,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
   NSMutableArray<RCTInspectorPage *> *array = [NSMutableArray arrayWithCapacity:pages.size()];
   for (size_t i = 0; i < pages.size(); i++) {
     RCTInspectorPage *pageWrapper = [[RCTInspectorPage alloc] initWithId:pages[i].id
-                                                                   title:@(pages[i].title.c_str())
-                                                                   vm:@(pages[i].vm.c_str())];
+                                                                   title:@(pages[i].title.c_str())];
     [array addObject:pageWrapper];
 
   }
@@ -92,12 +94,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
 
 - (instancetype)initWithId:(NSInteger)id
                      title:(NSString *)title
-                        vm:(NSString *)vm
 {
   if (self = [super init]) {
     _id = id;
     _title = title;
-    _vm = vm;
   }
   return self;
 }

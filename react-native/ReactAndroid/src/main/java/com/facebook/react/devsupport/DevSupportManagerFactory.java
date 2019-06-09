@@ -1,22 +1,22 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.devsupport;
+
+import javax.annotation.Nullable;
+
+import java.lang.reflect.Constructor;
 
 import android.content.Context;
 
 import com.facebook.react.devsupport.interfaces.DevBundleDownloadListener;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
-import com.facebook.react.packagerconnection.RequestHandler;
-
-import java.lang.reflect.Constructor;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 /**
  * A simple factory that creates instances of {@link DevSupportManager} implementations. Uses
@@ -31,31 +31,29 @@ public class DevSupportManagerFactory {
 
   public static DevSupportManager create(
       Context applicationContext,
-      ReactInstanceManagerDevHelper reactInstanceManagerHelper,
+      ReactInstanceDevCommandsHandler reactInstanceCommandsHandler,
       @Nullable String packagerPathForJSBundleName,
       boolean enableOnCreate,
       int minNumShakes) {
 
     return create(
       applicationContext,
-      reactInstanceManagerHelper,
+      reactInstanceCommandsHandler,
       packagerPathForJSBundleName,
       enableOnCreate,
       null,
       null,
-      minNumShakes,
-      null);
+      minNumShakes);
   }
 
   public static DevSupportManager create(
     Context applicationContext,
-    ReactInstanceManagerDevHelper reactInstanceManagerHelper,
+    ReactInstanceDevCommandsHandler reactInstanceCommandsHandler,
     @Nullable String packagerPathForJSBundleName,
     boolean enableOnCreate,
     @Nullable RedBoxHandler redBoxHandler,
     @Nullable DevBundleDownloadListener devBundleDownloadListener,
-    int minNumShakes,
-    @Nullable Map<String, RequestHandler> customPackagerCommandHandlers) {
+    int minNumShakes) {
     if (!enableOnCreate) {
       return new DisabledDevSupportManager();
     }
@@ -73,22 +71,20 @@ public class DevSupportManagerFactory {
       Constructor constructor =
         devSupportManagerClass.getConstructor(
           Context.class,
-          ReactInstanceManagerDevHelper.class,
+          ReactInstanceDevCommandsHandler.class,
           String.class,
           boolean.class,
           RedBoxHandler.class,
           DevBundleDownloadListener.class,
-          int.class,
-          Map.class);
+          int.class);
       return (DevSupportManager) constructor.newInstance(
         applicationContext,
-        reactInstanceManagerHelper,
+        reactInstanceCommandsHandler,
         packagerPathForJSBundleName,
         true,
         redBoxHandler,
         devBundleDownloadListener,
-        minNumShakes,
-        customPackagerCommandHandlers);
+        minNumShakes);
     } catch (Exception e) {
       throw new RuntimeException(
         "Requested enabled DevSupportManager, but DevSupportManagerImpl class was not found" +

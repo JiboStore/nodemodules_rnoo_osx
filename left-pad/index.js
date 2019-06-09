@@ -20,7 +20,7 @@ var cache = [
 ];
 
 function leftPad (str, len, ch) {
-  // convert `str` to a `string`
+  // convert `str` to `string`
   str = str + '';
   // `len` is the `pad`'s length now
   len = len - str.length;
@@ -28,7 +28,7 @@ function leftPad (str, len, ch) {
   if (len <= 0) return str;
   // `ch` defaults to `' '`
   if (!ch && ch !== 0) ch = ' ';
-  // convert `ch` to a `string` cuz it could be a number
+  // convert `ch` to `string`
   ch = ch + '';
   // cache common use cases
   if (ch === ' ' && len < 10) return cache[len] + str;

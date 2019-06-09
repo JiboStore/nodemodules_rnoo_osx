@@ -1,39 +1,28 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * @providesModule ImageStore
  * @flow
- * @format
  */
 'use strict';
 
 const RCTImageStoreManager = require('NativeModules').ImageStoreManager;
-
-const Platform = require('Platform');
-
-const warnOnce = require('warnOnce');
-
-function warnUnimplementedMethod(methodName: string): void {
-  warnOnce(
-    `imagestore-${methodName}`,
-    `react-native: ImageStore.${methodName}() is not implemented on ${
-      Platform.OS
-    }`,
-  );
-}
 
 class ImageStore {
   /**
    * Check if the ImageStore contains image data for the specified URI.
    * @platform ios
    */
-  static hasImageForTag(uri: string, callback: (hasImage: boolean) => void) {
+  static hasImageForTag(uri: string, callback: (hasImage: bool) => void) {
     if (RCTImageStoreManager.hasImageForTag) {
       RCTImageStoreManager.hasImageForTag(uri, callback);
     } else {
-      warnUnimplementedMethod('hasImageForTag');
+      console.warn('hasImageForTag() not implemented');
     }
   }
 
@@ -49,7 +38,7 @@ class ImageStore {
     if (RCTImageStoreManager.removeImageForTag) {
       RCTImageStoreManager.removeImageForTag(uri);
     } else {
-      warnUnimplementedMethod('removeImageForTag');
+      console.warn('removeImageForTag() not implemented');
     }
   }
 
@@ -67,17 +56,9 @@ class ImageStore {
   static addImageFromBase64(
     base64ImageData: string,
     success: (uri: string) => void,
-    failure: (error: any) => void,
+    failure: (error: any) => void
   ) {
-    if (RCTImageStoreManager.addImageFromBase64) {
-      RCTImageStoreManager.addImageFromBase64(
-        base64ImageData,
-        success,
-        failure,
-      );
-    } else {
-      warnUnimplementedMethod('addImageFromBase64');
-    }
+    RCTImageStoreManager.addImageFromBase64(base64ImageData, success, failure);
   }
 
   /**
@@ -94,13 +75,9 @@ class ImageStore {
   static getBase64ForTag(
     uri: string,
     success: (base64ImageData: string) => void,
-    failure: (error: any) => void,
+    failure: (error: any) => void
   ) {
-    if (RCTImageStoreManager.getBase64ForTag) {
-      RCTImageStoreManager.getBase64ForTag(uri, success, failure);
-    } else {
-      warnUnimplementedMethod('getBase64ForTag');
-    }
+    RCTImageStoreManager.getBase64ForTag(uri, success, failure);
   }
 }
 

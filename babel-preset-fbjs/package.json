@@ -1,76 +1,133 @@
 {
-  "_from": "babel-preset-fbjs@^3.0.1",
-  "_id": "babel-preset-fbjs@3.2.0",
-  "_inBundle": false,
-  "_integrity": "sha512-5Jo+JeWiVz2wHUUyAlvb/sSYnXNig9r+HqGAOSfh5Fzxp7SnAaR/tEGRJ1ZX7C77kfk82658w6R5Z+uPATTD9g==",
+  "_args": [
+    [
+      {
+        "raw": "babel-preset-fbjs@^2.1.4",
+        "scope": null,
+        "escapedName": "babel-preset-fbjs",
+        "name": "babel-preset-fbjs",
+        "rawSpec": "^2.1.4",
+        "spec": ">=2.1.4 <3.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native"
+    ]
+  ],
+  "_from": "babel-preset-fbjs@>=2.1.4 <3.0.0",
+  "_id": "babel-preset-fbjs@2.1.4",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/babel-preset-fbjs",
+  "_nodeVersion": "7.9.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/babel-preset-fbjs-2.1.4.tgz_1497625813254_0.6485950043424964"
+  },
+  "_npmUser": {
+    "name": "brianvaughn",
+    "email": "briandavidvaughn@gmail.com"
+  },
+  "_npmVersion": "5.0.3",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "babel-preset-fbjs@^3.0.1",
-    "name": "babel-preset-fbjs",
+    "raw": "babel-preset-fbjs@^2.1.4",
+    "scope": null,
     "escapedName": "babel-preset-fbjs",
-    "rawSpec": "^3.0.1",
-    "saveSpec": null,
-    "fetchSpec": "^3.0.1"
+    "name": "babel-preset-fbjs",
+    "rawSpec": "^2.1.4",
+    "spec": ">=2.1.4 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/fbjs-scripts",
-    "/metro",
-    "/metro-react-native-babel-transformer"
+    "/metro-bundler",
+    "/react-native"
   ],
-  "_resolved": "https://registry.npmjs.org/babel-preset-fbjs/-/babel-preset-fbjs-3.2.0.tgz",
-  "_shasum": "c0e6347d3e0379ed84b3c2434d3467567aa05297",
-  "_spec": "babel-preset-fbjs@^3.0.1",
-  "_where": "/Development/web/rnoleole/node_modules/metro",
+  "_resolved": "https://registry.npmjs.org/babel-preset-fbjs/-/babel-preset-fbjs-2.1.4.tgz",
+  "_shasum": "22f358e6654073acf61e47a052a777d7bccf03af",
+  "_shrinkwrap": null,
+  "_spec": "babel-preset-fbjs@^2.1.4",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native",
   "bugs": {
     "url": "https://github.com/facebook/fbjs/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-syntax-class-properties": "^7.0.0",
-    "@babel/plugin-syntax-flow": "^7.0.0",
-    "@babel/plugin-syntax-jsx": "^7.0.0",
-    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
-    "@babel/plugin-transform-arrow-functions": "^7.0.0",
-    "@babel/plugin-transform-block-scoped-functions": "^7.0.0",
-    "@babel/plugin-transform-block-scoping": "^7.0.0",
-    "@babel/plugin-transform-classes": "^7.0.0",
-    "@babel/plugin-transform-computed-properties": "^7.0.0",
-    "@babel/plugin-transform-destructuring": "^7.0.0",
-    "@babel/plugin-transform-flow-strip-types": "^7.0.0",
-    "@babel/plugin-transform-for-of": "^7.0.0",
-    "@babel/plugin-transform-function-name": "^7.0.0",
-    "@babel/plugin-transform-literals": "^7.0.0",
-    "@babel/plugin-transform-member-expression-literals": "^7.0.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
-    "@babel/plugin-transform-object-super": "^7.0.0",
-    "@babel/plugin-transform-parameters": "^7.0.0",
-    "@babel/plugin-transform-property-literals": "^7.0.0",
-    "@babel/plugin-transform-react-display-name": "^7.0.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0",
-    "@babel/plugin-transform-shorthand-properties": "^7.0.0",
-    "@babel/plugin-transform-spread": "^7.0.0",
-    "@babel/plugin-transform-template-literals": "^7.0.0",
-    "babel-plugin-syntax-trailing-function-commas": "^7.0.0-beta.0"
+    "babel-plugin-check-es2015-constants": "^6.8.0",
+    "babel-plugin-syntax-class-properties": "^6.8.0",
+    "babel-plugin-syntax-flow": "^6.8.0",
+    "babel-plugin-syntax-jsx": "^6.8.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.8.0",
+    "babel-plugin-syntax-trailing-function-commas": "^6.8.0",
+    "babel-plugin-transform-class-properties": "^6.8.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
+    "babel-plugin-transform-es2015-block-scoped-functions": "^6.8.0",
+    "babel-plugin-transform-es2015-block-scoping": "^6.8.0",
+    "babel-plugin-transform-es2015-classes": "^6.8.0",
+    "babel-plugin-transform-es2015-computed-properties": "^6.8.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.8.0",
+    "babel-plugin-transform-es2015-for-of": "^6.8.0",
+    "babel-plugin-transform-es2015-function-name": "^6.8.0",
+    "babel-plugin-transform-es2015-literals": "^6.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.8.0",
+    "babel-plugin-transform-es2015-object-super": "^6.8.0",
+    "babel-plugin-transform-es2015-parameters": "^6.8.0",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.8.0",
+    "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.8.0",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+    "babel-plugin-transform-es3-property-literals": "^6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-plugin-transform-react-display-name": "^6.8.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0"
   },
-  "deprecated": false,
   "description": "Babel preset for Facebook projects.",
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "babel-plugin-tester": "^5.5.1",
-    "jest-cli": "^23.6.0"
+    "babel-core": "^6.8.0",
+    "jest-cli": "^17.0.3"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-6XVQwlO26V5/0P9s2Eje8Epqkv/ihaMJ798+W98ktOA8fCn2IFM6wEi7CDW3fTbKFZ/8fDGvGZH01B6GSuNiWA==",
+    "shasum": "22f358e6654073acf61e47a052a777d7bccf03af",
+    "tarball": "https://registry.npmjs.org/babel-preset-fbjs/-/babel-preset-fbjs-2.1.4.tgz"
   },
   "homepage": "https://github.com/facebook/fbjs#readme",
-  "license": "MIT",
-  "main": "index.js",
-  "name": "babel-preset-fbjs",
-  "peerDependencies": {
-    "@babel/core": "^7.0.0"
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "rootDir": "",
+    "testPathDirs": [
+      "<rootDir>"
+    ]
   },
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "brianvaughn",
+      "email": "briandavidvaughn@gmail.com"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    },
+    {
+      "name": "spicyj",
+      "email": "ben@benalpert.com"
+    },
+    {
+      "name": "yungsters",
+      "email": "yungsters@gmail.com"
+    },
+    {
+      "name": "zpao",
+      "email": "paul@oshannessy.com"
+    }
+  ],
+  "name": "babel-preset-fbjs",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/facebook/fbjs.git"
@@ -78,5 +135,5 @@
   "scripts": {
     "test": "NODE_ENV=test jest"
   },
-  "version": "3.2.0"
+  "version": "2.1.4"
 }

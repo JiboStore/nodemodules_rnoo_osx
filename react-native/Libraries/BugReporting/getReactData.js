@@ -1,13 +1,14 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule getReactData
  * @flow
  */
-
 'use strict';
 
 /**
@@ -17,26 +18,23 @@
  * https://github.com/facebook/react-devtools/blob/master/backend/getData.js
  */
 function getData(element: Object): Object {
-  let children = null;
-  let props = null;
-  let state = null;
-  let context = null;
-  let updater = null;
-  let name = null;
-  let type = null;
-  let text = null;
-  let publicInstance = null;
-  let nodeType = 'Native';
+  var children = null;
+  var props = null;
+  var state = null;
+  var context = null;
+  var updater = null;
+  var name = null;
+  var type = null;
+  var text = null;
+  var publicInstance = null;
+  var nodeType = 'Native';
   // If the parent is a native node without rendered children, but with
   // multiple string children, then the `element` that gets passed in here is
   // a plain value -- a string or number.
   if (typeof element !== 'object') {
     nodeType = 'Text';
     text = element + '';
-  } else if (
-    element._currentElement === null ||
-    element._currentElement === false
-  ) {
+  } else if (element._currentElement === null || element._currentElement === false) {
     nodeType = 'Empty';
   } else if (element._renderedComponent) {
     nodeType = 'NativeWrapper';
@@ -70,11 +68,7 @@ function getData(element: Object): Object {
       name = element.getName();
       // 0.14 top-level wrapper
       // TODO(jared): The backend should just act as if these don't exist.
-      if (
-        element._renderedComponent &&
-        element._currentElement.props ===
-          element._renderedComponent._currentElement
-      ) {
+      if (element._renderedComponent && element._currentElement.props === element._renderedComponent._currentElement) {
         nodeType = 'Wrapper';
       }
       if (name === null) {
@@ -89,7 +83,7 @@ function getData(element: Object): Object {
   }
 
   if (element._instance) {
-    const inst = element._instance;
+    var inst = element._instance;
     updater = {
       setState: inst.setState && inst.setState.bind(inst),
       forceUpdate: inst.forceUpdate && inst.forceUpdate.bind(inst),
@@ -122,7 +116,7 @@ function getData(element: Object): Object {
 }
 
 function setInProps(internalInst, path: Array<string | number>, value: any) {
-  const element = internalInst._currentElement;
+  var element = internalInst._currentElement;
   internalInst._currentElement = {
     ...element,
     props: copyWithSet(element.props, path, value),
@@ -141,22 +135,16 @@ function setInContext(inst, path: Array<string | number>, value: any) {
 }
 
 function setIn(obj: Object, path: Array<string | number>, value: any) {
-  const last = path.pop();
-  /* $FlowFixMe(>=0.88.0 site=react_native_fb) This comment suppresses an error
-   * found when Flow v0.88 was deployed. To see the error, delete this comment
-   * and run Flow. */
-  const parent = path.reduce((obj_, attr) => (obj_ ? obj_[attr] : null), obj);
+  var last = path.pop();
+  var parent = path.reduce((obj_, attr) => obj_ ? obj_[attr] : null, obj);
   if (parent) {
-    /* $FlowFixMe(>=0.88.0 site=react_native_fb) This comment suppresses an
-     * error found when Flow v0.88 was deployed. To see the error, delete this
-     * comment and run Flow. */
     parent[last] = value;
   }
 }
 
 function childrenList(children) {
-  const res = [];
-  for (const name in children) {
+  var res = [];
+  for (var name in children) {
     res.push(children[name]);
   }
   return res;
@@ -166,18 +154,14 @@ function copyWithSetImpl(obj, path, idx, value) {
   if (idx >= path.length) {
     return value;
   }
-  const key = path[idx];
-  const updated = Array.isArray(obj) ? obj.slice() : {...obj};
+  var key = path[idx];
+  var updated = Array.isArray(obj) ? obj.slice() : {...obj};
   // $FlowFixMe number or string is fine here
   updated[key] = copyWithSetImpl(obj[key], path, idx + 1, value);
   return updated;
 }
 
-function copyWithSet(
-  obj: Object | Array<any>,
-  path: Array<string | number>,
-  value: any,
-): Object | Array<any> {
+function copyWithSet(obj: Object | Array<any>, path: Array<string | number>, value: any): Object | Array<any> {
   return copyWithSetImpl(obj, path, 0, value);
 }
 

@@ -1,6 +1,4 @@
-load("//tools/build_defs/oss:rn_defs.bzl", "rn_android_library")
-
-rn_android_library(
+android_library(
     name = "perftest",
     srcs = glob(["*.java"]),
     visibility = [

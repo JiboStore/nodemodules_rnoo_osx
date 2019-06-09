@@ -1,30 +1,33 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.text;
 
+import javax.annotation.Nullable;
+
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import com.facebook.common.logging.FLog;
-import com.facebook.react.common.ReactConstants;
+import android.widget.TextView;
+
 import com.facebook.react.uimanager.ReactCompoundView;
 import com.facebook.react.uimanager.ViewDefaults;
-import com.facebook.react.views.view.ReactViewBackgroundManager;
-import javax.annotation.Nullable;
+import com.facebook.react.views.view.ReactViewBackgroundDrawable;
 
-public class ReactTextView extends AppCompatTextView implements ReactCompoundView {
+public class ReactTextView extends TextView implements ReactCompoundView {
 
   private static final ViewGroup.LayoutParams EMPTY_LAYOUT_PARAMS =
     new ViewGroup.LayoutParams(0, 0);
@@ -32,16 +35,16 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
   private boolean mContainsImages;
   private int mDefaultGravityHorizontal;
   private int mDefaultGravityVertical;
+  private boolean mTextIsSelectable;
+  private float mLineHeight = Float.NaN;
   private int mTextAlign = Gravity.NO_GRAVITY;
   private int mNumberOfLines = ViewDefaults.NUMBER_OF_LINES;
   private TextUtils.TruncateAt mEllipsizeLocation = TextUtils.TruncateAt.END;
 
-  private ReactViewBackgroundManager mReactBackgroundManager;
-  private Spannable mSpanned;
+  private ReactViewBackgroundDrawable mReactBackgroundDrawable;
 
   public ReactTextView(Context context) {
     super(context);
-    mReactBackgroundManager = new ReactViewBackgroundManager(this);
     mDefaultGravityHorizontal =
       getGravity() & (Gravity.HORIZONTAL_GRAVITY_MASK | Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK);
     mDefaultGravityVertical = getGravity() & Gravity.VERTICAL_GRAVITY_MASK;
@@ -72,16 +75,11 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
         setBreakStrategy(update.getTextBreakStrategy());
       }
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      if (getJustificationMode() != update.getJustificationMode()) {
-        setJustificationMode(update.getJustificationMode());
-      }
-    }
   }
 
   @Override
   public int reactTagForTouch(float touchX, float touchY) {
-    CharSequence text = getText();
+    Spanned text = (Spanned) getText();
     int target = getId();
 
     int x = (int) touchX;
@@ -99,28 +97,20 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
     int lineEndX = (int) layout.getLineRight(line);
 
     // TODO(5966918): Consider extending touchable area for text spans by some DP constant
-    if (text instanceof Spanned && x >= lineStartX && x <= lineEndX) {
-      Spanned spannedText = (Spanned) text;
-      int index = -1;
-      try {
-        index = layout.getOffsetForHorizontal(line, x);
-      } catch (ArrayIndexOutOfBoundsException e) {
-        // https://issuetracker.google.com/issues/113348914
-        FLog.e(ReactConstants.TAG, "Crash in HorizontalMeasurementProvider: " + e.getMessage());
-        return target;
-      }
+    if (x >= lineStartX && x <= lineEndX) {
+      int index = layout.getOffsetForHorizontal(line, x);
 
       // We choose the most inner span (shortest) containing character at the given index
       // if no such span can be found we will send the textview's react id as a touch handler
       // In case when there are more than one spans with same length we choose the last one
       // from the spans[] array, since it correspond to the most inner react element
-      ReactTagSpan[] spans = spannedText.getSpans(index, index, ReactTagSpan.class);
+      ReactTagSpan[] spans = text.getSpans(index, index, ReactTagSpan.class);
 
       if (spans != null) {
         int targetSpanTextLength = text.length();
         for (int i = 0; i < spans.length; i++) {
-          int spanStart = spannedText.getSpanStart(spans[i]);
-          int spanEnd = spannedText.getSpanEnd(spans[i]);
+          int spanStart = text.getSpanStart(spans[i]);
+          int spanEnd = text.getSpanEnd(spans[i]);
           if (spanEnd > index && (spanEnd - spanStart) <= targetSpanTextLength) {
             target = spans[i].getReactTag();
             targetSpanTextLength = (spanEnd - spanStart);
@@ -130,6 +120,12 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
     }
 
     return target;
+  }
+
+  @Override
+  public void setTextIsSelectable(boolean selectable) {
+    mTextIsSelectable = selectable;
+    super.setTextIsSelectable(selectable);
   }
 
   @Override
@@ -209,8 +205,12 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
   }
 
   @Override
-  public boolean hasOverlappingRendering() {
-    return false;
+  public void setBackgroundColor(int color) {
+    if (color == Color.TRANSPARENT && mReactBackgroundDrawable == null) {
+      // don't do anything, no need to allocate ReactBackgroundDrawable for transparent background
+    } else {
+      getOrCreateReactViewBackground().setColor(color);
+    }
   }
 
   /* package */ void setGravityHorizontal(int gravityHorizontal) {
@@ -244,36 +244,40 @@ public class ReactTextView extends AppCompatTextView implements ReactCompoundVie
     setEllipsize(ellipsizeLocation);
   }
 
-  @Override
-  public void setBackgroundColor(int color) {
-    mReactBackgroundManager.setBackgroundColor(color);
-  }
-
   public void setBorderWidth(int position, float width) {
-    mReactBackgroundManager.setBorderWidth(position, width);
+    getOrCreateReactViewBackground().setBorderWidth(position, width);
   }
 
   public void setBorderColor(int position, float color, float alpha) {
-    mReactBackgroundManager.setBorderColor(position, color, alpha);
+    getOrCreateReactViewBackground().setBorderColor(position, color, alpha);
   }
 
   public void setBorderRadius(float borderRadius) {
-    mReactBackgroundManager.setBorderRadius(borderRadius);
+    getOrCreateReactViewBackground().setRadius(borderRadius);
   }
 
   public void setBorderRadius(float borderRadius, int position) {
-    mReactBackgroundManager.setBorderRadius(borderRadius, position);
+    getOrCreateReactViewBackground().setRadius(borderRadius, position);
   }
 
   public void setBorderStyle(@Nullable String style) {
-    mReactBackgroundManager.setBorderStyle(style);
+    getOrCreateReactViewBackground().setBorderStyle(style);
   }
 
-  public void setSpanned(Spannable spanned) {
-    mSpanned = spanned;
-  }
-
-  public Spannable getSpanned() {
-    return mSpanned;
+  private ReactViewBackgroundDrawable getOrCreateReactViewBackground() {
+    if (mReactBackgroundDrawable == null) {
+      mReactBackgroundDrawable = new ReactViewBackgroundDrawable();
+      Drawable backgroundDrawable = getBackground();
+      super.setBackground(null);  // required so that drawable callback is cleared before we add the
+      // drawable back as a part of LayerDrawable
+      if (backgroundDrawable == null) {
+        super.setBackground(mReactBackgroundDrawable);
+      } else {
+        LayerDrawable layerDrawable =
+                new LayerDrawable(new Drawable[]{mReactBackgroundDrawable, backgroundDrawable});
+        super.setBackground(layerDrawable);
+      }
+    }
+    return mReactBackgroundDrawable;
   }
 }

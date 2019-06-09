@@ -1,28 +1,59 @@
 {
-  "_from": "pify@^2.0.0",
+  "_args": [
+    [
+      {
+        "raw": "pify@^2.0.0",
+        "scope": null,
+        "escapedName": "pify",
+        "name": "pify",
+        "rawSpec": "^2.0.0",
+        "spec": ">=2.0.0 <3.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/load-json-file"
+    ]
+  ],
+  "_from": "pify@>=2.0.0 <3.0.0",
   "_id": "pify@2.3.0",
-  "_inBundle": false,
-  "_integrity": "sha1-7RQaasBDqEnqWISY59yosVMw6Qw=",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/pify",
+  "_nodeVersion": "4.2.1",
+  "_npmUser": {
+    "name": "sindresorhus",
+    "email": "sindresorhus@gmail.com"
+  },
+  "_npmVersion": "2.14.7",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
     "raw": "pify@^2.0.0",
-    "name": "pify",
+    "scope": null,
     "escapedName": "pify",
+    "name": "pify",
     "rawSpec": "^2.0.0",
-    "saveSpec": null,
-    "fetchSpec": "^2.0.0"
+    "spec": ">=2.0.0 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
+    "/jest-runtime/load-json-file",
+    "/jest-runtime/path-type",
+    "/jest/jest-cli",
+    "/jest/load-json-file",
+    "/jest/path-type",
     "/load-json-file",
-    "/path-type"
+    "/meow/load-json-file",
+    "/meow/path-type",
+    "/path-type",
+    "/react-native/load-json-file",
+    "/react-native/path-type",
+    "/test-exclude/load-json-file",
+    "/test-exclude/path-type"
   ],
   "_resolved": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz",
   "_shasum": "ed141a6ac043a849ea588498e7dca8b15330e90c",
+  "_shrinkwrap": null,
   "_spec": "pify@^2.0.0",
-  "_where": "/Development/web/rnoleole/node_modules/load-json-file",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/load-json-file",
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
@@ -31,8 +62,7 @@
   "bugs": {
     "url": "https://github.com/sindresorhus/pify/issues"
   },
-  "bundleDependencies": false,
-  "deprecated": false,
+  "dependencies": {},
   "description": "Promisify a callback-style function",
   "devDependencies": {
     "ava": "*",
@@ -40,13 +70,19 @@
     "v8-natives": "0.0.2",
     "xo": "*"
   },
+  "directories": {},
+  "dist": {
+    "shasum": "ed141a6ac043a849ea588498e7dca8b15330e90c",
+    "tarball": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz"
+  },
   "engines": {
     "node": ">=0.10.0"
   },
   "files": [
     "index.js"
   ],
-  "homepage": "https://github.com/sindresorhus/pify#readme",
+  "gitHead": "2dd0d8b880e4ebcc5cc33ae126b02647418e4440",
+  "homepage": "https://github.com/sindresorhus/pify",
   "keywords": [
     "promise",
     "promises",
@@ -68,7 +104,15 @@
     "es2015"
   ],
   "license": "MIT",
+  "maintainers": [
+    {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    }
+  ],
   "name": "pify",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sindresorhus/pify.git"

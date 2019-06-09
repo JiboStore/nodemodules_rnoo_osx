@@ -322,7 +322,7 @@ if(themeCache&&themeCache[path.join(">")]){
 
 return themeCache[path.join(">")];
 }else{
-var resolvedStyle=this.resolveStyle(context,props,styleNames);
+resolvedStyle=this.resolveStyle(context,props,styleNames);
 if(Object.keys(themeCache).length<10000){
 themeCache[path.join(">")]=resolvedStyle;
 }

@@ -1,7 +1,6 @@
 var shellwords = require('shellwords');
 var cp = require('child_process');
 var semver = require('semver');
-var isWSL = require('is-wsl');
 var path = require('path');
 var url = require('url');
 var os = require('os');
@@ -29,8 +28,6 @@ var notifySendFlags = {
   u: 'urgency',
   urgency: 'urgency',
   t: 'expire-time',
-  time: 'expire-time',
-  timeout: 'expire-time',
   e: 'expire-time',
   expire: 'expire-time',
   'expire-time': 'expire-time',
@@ -45,24 +42,23 @@ var notifySendFlags = {
 
 module.exports.command = function(notifier, options, cb) {
   notifier = shellwords.escape(notifier);
-  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+  if (process.env.DEBUG) {
     console.info('node-notifier debug info (command):');
     console.info('[notifier path]', notifier);
     console.info('[notifier options]', options.join(' '));
   }
 
-  return cp.exec(notifier + ' ' + options.join(' '), function(
-    error,
-    stdout,
-    stderr
-  ) {
-    if (error) return cb(error);
-    cb(stderr, stdout);
-  });
+  return cp.exec(
+    notifier + ' ' + options.join(' '),
+    function(error, stdout, stderr) {
+      if (error) return cb(error);
+      cb(stderr, stdout);
+    }
+  );
 };
 
 module.exports.fileCommand = function(notifier, options, cb) {
-  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+  if (process.env.DEBUG) {
     console.info('node-notifier debug info (fileCommand):');
     console.info('[notifier path]', notifier);
     console.info('[notifier options]', options.join(' '));
@@ -75,7 +71,7 @@ module.exports.fileCommand = function(notifier, options, cb) {
 };
 
 module.exports.fileCommandJson = function(notifier, options, cb) {
-  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+  if (process.env.DEBUG) {
     console.info('node-notifier debug info (fileCommandJson):');
     console.info('[notifier path]', notifier);
     console.info('[notifier options]', options.join(' '));
@@ -94,12 +90,12 @@ module.exports.fileCommandJson = function(notifier, options, cb) {
 };
 
 module.exports.immediateFileCommand = function(notifier, options, cb) {
-  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+  if (process.env.DEBUG) {
     console.info('node-notifier debug info (notifier):');
     console.info('[notifier path]', notifier);
   }
 
-  notifierExists(notifier, function(_, exists) {
+  notifierExists(notifier, function(exists) {
     if (!exists) {
       return cb(new Error('Notifier (' + notifier + ') not found on system.'));
     }
@@ -110,18 +106,18 @@ module.exports.immediateFileCommand = function(notifier, options, cb) {
 
 function notifierExists(notifier, cb) {
   return fs.stat(notifier, function(err, stat) {
-    if (!err) return cb(err, stat.isFile());
+    if (!err) return cb(stat.isFile());
 
     // Check if Windows alias
     if (path.extname(notifier)) {
       // Has extentioon, no need to check more
-      return cb(err, false);
+      return cb(false);
     }
 
     // Check if there is an exe file in the directory
     return fs.stat(notifier + '.exe', function(err, stat) {
-      if (err) return cb(err, false);
-      cb(err, stat.isFile());
+      if (err) return cb(false);
+      cb(stat.isFile());
     });
   });
 }
@@ -208,10 +204,6 @@ module.exports.mapToMac = function(options) {
       options.timeout = 5;
     }
     delete options.wait;
-  }
-
-  if (!options.wait && !options.timeout) {
-    options.timeout = 10;
   }
 
   options.json = true;
@@ -343,8 +335,9 @@ module.exports.mapToWin8 = function(options) {
   if (options.icon) {
     if (/^file:\/+/.test(options.icon)) {
       // should parse file protocol URL to path
-      options.p = new url.URL(options.icon).pathname
-        .replace(/^\/(\w:\/)/, '$1')
+      options.p = url
+        .parse(options.icon)
+        .pathname.replace(/^\/(\w:\/)/, '$1')
         .replace(/\//g, '\\');
     } else {
       options.p = options.icon;
@@ -366,6 +359,12 @@ module.exports.mapToWin8 = function(options) {
   if (options.appName) {
     options.appID = options.appName;
     delete options.appName;
+  } else {
+    options.appID = ' ';
+  }
+
+  if (typeof options.appID === 'undefined') {
+    options.appID = ' ';
   }
 
   if (typeof options.remove !== 'undefined') {
@@ -409,8 +408,7 @@ module.exports.mapToWin8 = function(options) {
   for (var key in options) {
     // Check if is allowed. If not, delete!
     if (
-      options.hasOwnProperty(key) &&
-      allowedToasterFlags.indexOf(key) === -1
+      options.hasOwnProperty(key) && allowedToasterFlags.indexOf(key) === -1
     ) {
       delete options[key];
     }
@@ -477,28 +475,18 @@ module.exports.isMac = function() {
 };
 
 module.exports.isMountainLion = function() {
-  return (
-    os.type() === 'Darwin' &&
-    semver.satisfies(garanteeSemverFormat(os.release()), '>=12.0.0')
-  );
+  return os.type() === 'Darwin' &&
+    semver.satisfies(garanteeSemverFormat(os.release()), '>=12.0.0');
 };
 
 module.exports.isWin8 = function() {
-  return (
-    os.type() === 'Windows_NT' &&
-    semver.satisfies(garanteeSemverFormat(os.release()), '>=6.2.9200')
-  );
-};
-
-module.exports.isWSL = function() {
-  return isWSL;
+  return os.type() === 'Windows_NT' &&
+    semver.satisfies(garanteeSemverFormat(os.release()), '>=6.2.9200');
 };
 
 module.exports.isLessThanWin8 = function() {
-  return (
-    os.type() === 'Windows_NT' &&
-    semver.satisfies(garanteeSemverFormat(os.release()), '<6.2.9200')
-  );
+  return os.type() === 'Windows_NT' &&
+    semver.satisfies(garanteeSemverFormat(os.release()), '<6.2.9200');
 };
 
 function garanteeSemverFormat(version) {

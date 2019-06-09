@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTBorderDrawing.h"
@@ -55,15 +57,6 @@ RCTCornerInsets RCTGetCornerInsets(RCTCornerRadii cornerRadii,
       MAX(0, cornerRadii.bottomRight - edgeInsets.bottom),
     }
   };
-}
-
-static UIEdgeInsets RCTRoundInsetsToPixel(UIEdgeInsets edgeInsets) {
-    edgeInsets.top = RCTRoundPixelValue(edgeInsets.top);
-    edgeInsets.bottom = RCTRoundPixelValue(edgeInsets.bottom);
-    edgeInsets.left = RCTRoundPixelValue(edgeInsets.left);
-    edgeInsets.right = RCTRoundPixelValue(edgeInsets.right);
-
-    return edgeInsets;
 }
 
 static void RCTPathAddEllipticArc(CGMutablePathRef path,
@@ -202,11 +195,6 @@ static UIImage *RCTGetSolidBorderImage(RCTCornerRadii cornerRadii,
   const BOOL hasCornerRadii = RCTCornerRadiiAreAboveThreshold(cornerRadii);
   const RCTCornerInsets cornerInsets = RCTGetCornerInsets(cornerRadii, borderInsets);
 
-  // Incorrect render for borders that are not proportional to device pixel: borders get stretched and become
-  // significantly bigger than expected.
-  // Rdar: http://www.openradar.me/15959788
-  borderInsets = RCTRoundInsetsToPixel(borderInsets);
-
   const BOOL makeStretchable =
   (borderInsets.left + cornerInsets.topLeft.width +
    borderInsets.right + cornerInsets.bottomRight.width <= viewSize.width) &&
@@ -217,22 +205,12 @@ static UIImage *RCTGetSolidBorderImage(RCTCornerRadii cornerRadii,
   (borderInsets.top + cornerInsets.topRight.height +
    borderInsets.bottom + cornerInsets.bottomLeft.height <= viewSize.height);
 
-  UIEdgeInsets edgeInsets = (UIEdgeInsets){
+  const UIEdgeInsets edgeInsets = (UIEdgeInsets){
     borderInsets.top + MAX(cornerInsets.topLeft.height, cornerInsets.topRight.height),
     borderInsets.left + MAX(cornerInsets.topLeft.width, cornerInsets.bottomLeft.width),
     borderInsets.bottom + MAX(cornerInsets.bottomLeft.height, cornerInsets.bottomRight.height),
     borderInsets.right + MAX(cornerInsets.bottomRight.width, cornerInsets.topRight.width)
   };
-
-  if (hasCornerRadii) {
-    // Asymmetrical edgeInsets cause strange artifacting on iOS 10 and earlier.
-    edgeInsets = (UIEdgeInsets){
-      MAX(edgeInsets.top, edgeInsets.bottom),
-      MAX(edgeInsets.left, edgeInsets.right),
-      MAX(edgeInsets.top, edgeInsets.bottom),
-      MAX(edgeInsets.left, edgeInsets.right),
-    };
-  }
 
   const CGSize size = makeStretchable ? (CGSize){
     // 1pt for the middle stretchable area along each axis

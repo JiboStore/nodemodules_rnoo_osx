@@ -1,69 +1,45 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright 2014-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * @providesModule ReactTypes
  * @flow
  */
 
+'use strict';
+
 export type ReactNode =
-  | React$Element<any>
+  | ReactElement<any>
+  | ReactCoroutine
+  | ReactYield
   | ReactPortal
   | ReactText
-  | ReactFragment
-  | ReactProvider<any>
-  | ReactConsumer<any>;
+  | ReactFragment;
 
-export type ReactEmpty = null | void | boolean;
+export type ReactFragment = ReactEmpty | Iterable<ReactNode>;
 
-export type ReactFragment = ReactEmpty | Iterable<React$Node>;
-
-export type ReactNodeList = ReactEmpty | React$Node;
+export type ReactNodeList = ReactEmpty | ReactNode;
 
 export type ReactText = string | number;
 
-export type ReactProvider<T> = {
+export type ReactEmpty = null | void | boolean;
+
+export type ReactCoroutine = {
   $$typeof: Symbol | number,
-  type: ReactProviderType<T>,
   key: null | string,
-  ref: null,
-  props: {
-    value: T,
-    children?: ReactNodeList,
-  },
+  children: any,
+  // This should be a more specific CoroutineHandler
+  handler: (props: any, yields: Array<mixed>) => ReactNodeList,
+  props: any,
 };
 
-export type ReactProviderType<T> = {
+export type ReactYield = {
   $$typeof: Symbol | number,
-  _context: ReactContext<T>,
-};
-
-export type ReactConsumer<T> = {
-  $$typeof: Symbol | number,
-  type: ReactContext<T>,
-  key: null | string,
-  ref: null,
-  props: {
-    children: (value: T) => ReactNodeList,
-    unstable_observedBits?: number,
-  },
-};
-
-export type ReactContext<T> = {
-  $$typeof: Symbol | number,
-  Consumer: ReactContext<T>,
-  Provider: ReactProviderType<T>,
-
-  _calculateChangedBits: ((a: T, b: T) => number) | null,
-
-  _currentValue: T,
-  _currentValue2: T,
-  _threadCount: number,
-
-  // DEV only
-  _currentRenderer?: Object | null,
-  _currentRenderer2?: Object | null,
+  value: mixed,
 };
 
 export type ReactPortal = {
@@ -74,7 +50,3 @@ export type ReactPortal = {
   // TODO: figure out the API for cross-renderer implementation.
   implementation: any,
 };
-
-export type RefObject = {|
-  current: any,
-|};

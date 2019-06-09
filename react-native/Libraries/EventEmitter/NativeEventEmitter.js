@@ -1,36 +1,31 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule NativeEventEmitter
  * @flow
  */
-
 'use strict';
 
 const EventEmitter = require('EventEmitter');
 const Platform = require('Platform');
 const RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
-
-const invariant = require('invariant');
+const invariant = require('fbjs/lib/invariant');
 
 import type EmitterSubscription from 'EmitterSubscription';
-
-type NativeModule = {
-  +addListener: (eventType: string) => void,
-  +removeListeners: (count: number) => void,
-};
 
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
 class NativeEventEmitter extends EventEmitter {
-  _nativeModule: ?NativeModule;
+  _nativeModule: Object;
 
-  constructor(nativeModule: ?NativeModule) {
+  constructor(nativeModule: Object) {
     super(RCTDeviceEventEmitter.sharedSubscriber);
     if (Platform.OS === 'ios') {
       invariant(nativeModule, 'Native module cannot be null.');
@@ -38,12 +33,8 @@ class NativeEventEmitter extends EventEmitter {
     }
   }
 
-  addListener(
-    eventType: string,
-    listener: Function,
-    context: ?Object,
-  ): EmitterSubscription {
-    if (this._nativeModule != null) {
+  addListener(eventType: string, listener: Function, context: ?Object): EmitterSubscription {
+    if (Platform.OS === 'ios') {
       this._nativeModule.addListener(eventType);
     }
     return super.addListener(eventType, listener, context);
@@ -51,15 +42,15 @@ class NativeEventEmitter extends EventEmitter {
 
   removeAllListeners(eventType: string) {
     invariant(eventType, 'eventType argument is required.');
-    const count = this.listeners(eventType).length;
-    if (this._nativeModule != null) {
+    if (Platform.OS === 'ios') {
+      const count = this.listeners(eventType).length;
       this._nativeModule.removeListeners(count);
     }
     super.removeAllListeners(eventType);
   }
 
   removeSubscription(subscription: EmitterSubscription) {
-    if (this._nativeModule != null) {
+    if (Platform.OS === 'ios') {
       this._nativeModule.removeListeners(1);
     }
     super.removeSubscription(subscription);

@@ -1,21 +1,23 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule InteractionManager
  * @flow
  */
-
 'use strict';
 
 const BatchedBridge = require('BatchedBridge');
 const EventEmitter = require('EventEmitter');
+const Set = require('Set');
 const TaskQueue = require('TaskQueue');
 
 const infoLog = require('infoLog');
-const invariant = require('invariant');
+const invariant = require('fbjs/lib/invariant');
 const keyMirror = require('fbjs/lib/keyMirror');
 
 type Handle = number;
@@ -75,7 +77,7 @@ const DEBUG = false;
  * allowing events such as touches to start interactions and block queued tasks
  * from executing, making apps more responsive.
  */
-const InteractionManager = {
+var InteractionManager = {
   Events: keyMirror({
     interactionStart: true,
     interactionComplete: true,
@@ -85,19 +87,14 @@ const InteractionManager = {
    * Schedule a function to run after all interactions have completed. Returns a cancellable
    * "promise".
    */
-  runAfterInteractions(
-    task: ?Task,
-  ): {then: Function, done: Function, cancel: Function} {
+  runAfterInteractions(task: ?Task): {then: Function, done: Function, cancel: Function} {
     const tasks = [];
     const promise = new Promise(resolve => {
       _scheduleUpdate();
       if (task) {
         tasks.push(task);
       }
-      tasks.push({
-        run: resolve,
-        name: 'resolve ' + ((task && task.name) || '?'),
-      });
+      tasks.push({run: resolve, name: 'resolve ' + (task && task.name || '?')});
       _taskQueue.enqueueTasks(tasks);
     });
     return {
@@ -106,9 +103,7 @@ const InteractionManager = {
         if (promise.done) {
           return promise.done(...args);
         } else {
-          console.warn(
-            'Tried to call done when not supported by current Promise implementation.',
-          );
+          console.warn('Tried to call done when not supported by current Promise implementation.');
         }
       },
       cancel: function() {
@@ -123,7 +118,7 @@ const InteractionManager = {
   createInteractionHandle(): Handle {
     DEBUG && infoLog('create interaction handle');
     _scheduleUpdate();
-    const handle = ++_inc;
+    var handle = ++_inc;
     _addInteractionSet.add(handle);
     return handle;
   },
@@ -133,7 +128,10 @@ const InteractionManager = {
    */
   clearInteractionHandle(handle: Handle) {
     DEBUG && infoLog('clear interaction handle');
-    invariant(!!handle, 'Must provide a handle to clear.');
+    invariant(
+      !!handle,
+      'Must provide a handle to clear.'
+    );
     _scheduleUpdate();
     _addInteractionSet.delete(handle);
     _deleteInteractionSet.add(handle);
@@ -167,9 +165,6 @@ declare function setImmediate(callback: any, ...args: Array<any>): number;
 function _scheduleUpdate() {
   if (!_nextUpdateHandle) {
     if (_deadline > 0) {
-      /* $FlowFixMe(>=0.63.0 site=react_native_fb) This comment suppresses an
-       * error found when Flow v0.63 was deployed. To see the error delete this
-       * comment and run Flow. */
       _nextUpdateHandle = setTimeout(_processUpdate, 0 + DEBUG_DELAY);
     } else {
       _nextUpdateHandle = setImmediate(_processUpdate);
@@ -183,10 +178,14 @@ function _scheduleUpdate() {
 function _processUpdate() {
   _nextUpdateHandle = 0;
 
-  const interactionCount = _interactionSet.size;
-  _addInteractionSet.forEach(handle => _interactionSet.add(handle));
-  _deleteInteractionSet.forEach(handle => _interactionSet.delete(handle));
-  const nextInteractionCount = _interactionSet.size;
+  var interactionCount = _interactionSet.size;
+  _addInteractionSet.forEach(handle =>
+    _interactionSet.add(handle)
+  );
+  _deleteInteractionSet.forEach(handle =>
+    _interactionSet.delete(handle)
+  );
+  var nextInteractionCount = _interactionSet.size;
 
   if (interactionCount !== 0 && nextInteractionCount === 0) {
     // transition from 1+ --> 0 interactions
@@ -200,10 +199,8 @@ function _processUpdate() {
   if (nextInteractionCount === 0) {
     while (_taskQueue.hasTasksToProcess()) {
       _taskQueue.processNext();
-      if (
-        _deadline > 0 &&
-        BatchedBridge.getEventLoopRunningTime() >= _deadline
-      ) {
+      if (_deadline > 0 &&
+          BatchedBridge.getEventLoopRunningTime() >= _deadline) {
         // Hit deadline before processing all tasks, so process more later.
         _scheduleUpdate();
         break;

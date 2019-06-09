@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    }
+]

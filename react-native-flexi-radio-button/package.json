@@ -1,0 +1,96 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-flexi-radio-button@git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+        "scope": null,
+        "escapedName": "react-native-flexi-radio-button",
+        "name": "react-native-flexi-radio-button",
+        "rawSpec": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+        "spec": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:JiboStore/react-native-flexi-radio-button.git",
+          "sshUrl": "git+ssh://git@github.com/JiboStore/react-native-flexi-radio-button.git",
+          "httpsUrl": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+          "gitUrl": "git://github.com/JiboStore/react-native-flexi-radio-button.git",
+          "shortcut": "github:JiboStore/react-native-flexi-radio-button",
+          "directUrl": "https://raw.githubusercontent.com/JiboStore/react-native-flexi-radio-button/master/package.json"
+        }
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+  "_id": "react-native-flexi-radio-button@0.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-flexi-radio-button",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-flexi-radio-button@git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+    "scope": null,
+    "escapedName": "react-native-flexi-radio-button",
+    "name": "react-native-flexi-radio-button",
+    "rawSpec": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+    "spec": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:JiboStore/react-native-flexi-radio-button.git",
+      "sshUrl": "git+ssh://git@github.com/JiboStore/react-native-flexi-radio-button.git",
+      "httpsUrl": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+      "gitUrl": "git://github.com/JiboStore/react-native-flexi-radio-button.git",
+      "shortcut": "github:JiboStore/react-native-flexi-radio-button",
+      "directUrl": "https://raw.githubusercontent.com/JiboStore/react-native-flexi-radio-button/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/JiboStore/react-native-flexi-radio-button.git#528125bc58c13c2481e6ab395c286827afa61f7e",
+  "_shasum": "35cc5049c2b8ce4e0f30238be3ccab7360ef3f8c",
+  "_shrinkwrap": null,
+  "_spec": "react-native-flexi-radio-button@git+https://github.com/JiboStore/react-native-flexi-radio-button.git",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
+  "author": {
+    "name": "Watcharachai Kanjaikaew",
+    "url": "https://github.com/thegamenicorus"
+  },
+  "bugs": {
+    "url": "https://github.com/thegamenicorus/react-native-flexi-radio-button/issues"
+  },
+  "dependencies": {},
+  "description": "Radio button component for React Native",
+  "devDependencies": {},
+  "gitHead": "528125bc58c13c2481e6ab395c286827afa61f7e",
+  "homepage": "https://github.com/thegamenicorus/react-native-flexi-radio-button",
+  "keywords": [
+    "react-native",
+    "radio",
+    "button",
+    "radio-button",
+    "react-component",
+    "ios",
+    "android",
+    "radio-buttons"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "name": "react-native-flexi-radio-button",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "react-native": ">= 0.25"
+  },
+  "readme": "# React Native Flexi Radio Button\nSimple and flexible Radio button for React Native App\n\n## Installation\n```\nnpm i react-native-flexi-radio-button --save\n```\n\n## Usage\n\n###Basic Example\n[see full basic example](https://github.com/thegamenicorus/react-native-flexi-radio-button/blob/master/examples/BasicExample/app.js)\n\n|![basic_example_ios](https://cloud.githubusercontent.com/assets/21040043/18545904/67b5476e-7b65-11e6-8fc4-8160b39a4ab0.gif)|![basic_example_android](https://cloud.githubusercontent.com/assets/21040043/18545908/69b22f5a-7b65-11e6-87d7-c82c0d3057dd.gif)|\n|---------------|----------|\n```jsx\n\nimport {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'\n\nonSelect(index, value){\n  this.setState({\n    text: `Selected index: ${index} , value: ${value}`\n  })\n}\n\nrender(){\n  return(\n    <View style={styles.container}>\n    \n      <RadioGroup\n        onSelect = {(index, value) => this.onSelect(index, value)}\n      >\n        <RadioButton value={'item1'} >\n          <Text>This is item #1</Text>\n        </RadioButton>\n\n        <RadioButton value={'item2'}>\n          <Text>This is item #2</Text>\n        </RadioButton>\n\n        <RadioButton value={'item3'}>\n          <Text>This is item #3</Text>\n        </RadioButton>\n      </RadioGroup>\n      \n      <Text style={styles.text}>{this.state.text}</Text>\n      \n    </View>\n  )\n}\n```\n###Custom Example\n[see full custom example](https://github.com/thegamenicorus/react-native-flexi-radio-button/blob/master/examples/CustomExample/app.js)\n\n|![custom_ios](https://cloud.githubusercontent.com/assets/21040043/18546467/53bf8230-7b68-11e6-98f6-98899cce82b3.gif)|![cusom_android](https://cloud.githubusercontent.com/assets/21040043/18546744/cb912fce-7b69-11e6-9331-49e2337dcb04.gif)|\n|---------------|----------|\n\n\nmodify in render()\n\n```jsx\n<RadioGroup\n  size={24}\n  thickness={2}\n  color='#9575b2'\n  highlightColor='#ccc8b9'\n  selectedIndex={1}\n  onSelect = {(index, value) => this.onSelect(index, value)}\n>\n  <RadioButton \n    style={{alignItems:'center'}}\n    value='Yo!! I am a cat.' \n  >\n    <Image\n      style={{width:100, height: 100}}\n      source={{uri:'https://cloud.githubusercontent.com/assets/21040043/18446298/fa576974-794b-11e6-8430-b31b30846084.jpg'}}\n    />\n  </RadioButton>\n\n  <RadioButton \n    value='index1'\n  > \n    <Text>Start from item index #1</Text>\n  </RadioButton>\n\n  <RadioButton \n    value='red color'\n    color='red'\n  >\n    <Text>Red Dot</Text>\n  </RadioButton>\n\n  <RadioButton \n    value='green color'\n    color='green'\n  >\n    <Text>Green Dot</Text>\n  </RadioButton>\n\n  <RadioButton \n    value='blue color'\n    color='blue'\n  >\n    <Text>Blue Dot</Text>\n  </RadioButton>\n</RadioGroup>\n```\n\n### Configuration\n##### Radio Group:\n| Property | Type | Default | Description |\n|---------------|----------|-------------|----------------------------------------------------------------|\n| size | number | 20 | Size of the radio button |\n| thickness | number | 1 | width of radio button border |\n| color | string | '#007AFF' | color of radio button |\n| activeColor | string | null | color of radio button when selected|\n| highlightColor | string | null | background of radio button after selected |\n| selectedIndex | number | null | default selected index of radio group, can be changed to new value or to null for clear selection  |\n| style | object | null | Custom styles to be applied if supplied |\n| onSelect | function(index, value) | null | function to be invoked when radio button is selected |\n\n##### Radio Button:\n\n| Property | Type | Default | Description |\n|-----------|--------|---------|--------------------------------------------|\n| value | any |  null | value will be passed on callback `onSelect` as second argument  |\n| style | object | null | Styles to be applied on 'RadioButton' component |\n| color | string |  same as 'RadioGroup' component | color of radio dot  |\n| disabled | bool |  false | If true, disable all interactions for this component.  |\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thegamenicorus/react-native-flexi-radio-button.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.1"
+}

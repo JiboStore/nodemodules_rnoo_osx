@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.bridge;
@@ -11,11 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
- * Java {@link HashMap} backed implementation of {@link ReadableMap} and {@link WritableMap}
+ * Java {@link HashMap} backed impementation of {@link ReadableMap} and {@link WritableMap}
  * Instances of this class SHOULD NOT be used for communication between java and JS, use instances
  * of {@link WritableNativeMap} created via {@link Arguments#createMap} or just {@link ReadableMap}
  * interface if you want your "native" module method to take a map from JS as an argument.
@@ -30,36 +29,6 @@ public class JavaOnlyMap implements ReadableMap, WritableMap {
 
   public static JavaOnlyMap of(Object... keysAndValues) {
     return new JavaOnlyMap(keysAndValues);
-  }
-
-  public static JavaOnlyMap deepClone(ReadableMap map) {
-    JavaOnlyMap res = new JavaOnlyMap();
-    ReadableMapKeySetIterator iter = map.keySetIterator();
-    while (iter.hasNextKey()) {
-      String propKey = iter.nextKey();
-      ReadableType type = map.getType(propKey);
-      switch (type) {
-        case Null:
-          res.putNull(propKey);
-          break;
-        case Boolean:
-          res.putBoolean(propKey, map.getBoolean(propKey));
-          break;
-        case Number:
-          res.putDouble(propKey, map.getDouble(propKey));
-          break;
-        case String:
-          res.putString(propKey, map.getString(propKey));
-          break;
-        case Map:
-          res.putMap(propKey, deepClone(map.getMap(propKey)));
-          break;
-        case Array:
-          res.putArray(propKey, JavaOnlyArray.deepClone(map.getArray(propKey)));
-          break;
-      }
-    }
-    return res;
   }
 
   /**
@@ -80,52 +49,52 @@ public class JavaOnlyMap implements ReadableMap, WritableMap {
   }
 
   @Override
-  public boolean hasKey(@Nonnull String name) {
+  public boolean hasKey(String name) {
     return mBackingMap.containsKey(name);
   }
 
   @Override
-  public boolean isNull(@Nonnull String name) {
+  public boolean isNull(String name) {
     return mBackingMap.get(name) == null;
   }
 
   @Override
-  public boolean getBoolean(@Nonnull String name) {
+  public boolean getBoolean(String name) {
     return (Boolean) mBackingMap.get(name);
   }
 
   @Override
-  public double getDouble(@Nonnull String name) {
-    return ((Number) mBackingMap.get(name)).doubleValue();
+  public double getDouble(String name) {
+    return (Double) mBackingMap.get(name);
   }
 
   @Override
-  public int getInt(@Nonnull String name) {
-    return ((Number) mBackingMap.get(name)).intValue();
+  public int getInt(String name) {
+    return (Integer) mBackingMap.get(name);
   }
 
   @Override
-  public String getString(@Nonnull String name) {
+  public String getString(String name) {
     return (String) mBackingMap.get(name);
   }
 
   @Override
-  public ReadableMap getMap(@Nonnull String name) {
-    return (ReadableMap) mBackingMap.get(name);
+  public JavaOnlyMap getMap(String name) {
+    return (JavaOnlyMap) mBackingMap.get(name);
   }
 
   @Override
-  public JavaOnlyArray getArray(@Nonnull String name) {
+  public JavaOnlyArray getArray(String name) {
     return (JavaOnlyArray) mBackingMap.get(name);
   }
 
   @Override
-  public @Nonnull Dynamic getDynamic(@Nonnull String name) {
+  public Dynamic getDynamic(String name) {
     return DynamicFromMap.create(this, name);
   }
 
   @Override
-  public @Nonnull ReadableType getType(@Nonnull String name) {
+  public ReadableType getType(String name) {
     Object value = mBackingMap.get(name);
     if (value == null) {
       return ReadableType.Null;
@@ -148,7 +117,7 @@ public class JavaOnlyMap implements ReadableMap, WritableMap {
   }
 
   @Override
-  public @Nonnull ReadableMapKeySetIterator keySetIterator() {
+  public ReadableMapKeySetIterator keySetIterator() {
     return new ReadableMapKeySetIterator() {
       Iterator<String> mIterator = mBackingMap.keySet().iterator();
 
@@ -165,47 +134,47 @@ public class JavaOnlyMap implements ReadableMap, WritableMap {
   }
 
   @Override
-  public void putBoolean(@Nonnull String key, boolean value) {
+  public void putBoolean(String key, boolean value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public void putDouble(@Nonnull String key, double value) {
+  public void putDouble(String key, double value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public void putInt(@Nonnull String key, int value) {
+  public void putInt(String key, int value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public void putString(@Nonnull String key, @Nullable String value) {
+  public void putString(String key, String value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public void putNull(@Nonnull String key) {
+  public void putNull(String key) {
     mBackingMap.put(key, null);
   }
 
   @Override
-  public void putMap(@Nonnull String key, @Nullable WritableMap value) {
+  public void putMap(String key, WritableMap value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public void merge(@Nonnull ReadableMap source) {
+  public void merge(ReadableMap source) {
     mBackingMap.putAll(((JavaOnlyMap) source).mBackingMap);
   }
 
   @Override
-  public void putArray(@Nonnull String key, @Nullable WritableArray value) {
+  public void putArray(String key, WritableArray value) {
     mBackingMap.put(key, value);
   }
 
   @Override
-  public @Nonnull HashMap<String, Object> toHashMap() {
+  public HashMap<String, Object> toHashMap() {
     return new HashMap<String, Object>(mBackingMap);
   }
 

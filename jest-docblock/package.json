@@ -1,54 +1,93 @@
 {
-  "_from": "jest-docblock@^24.3.0",
-  "_id": "jest-docblock@24.3.0",
-  "_inBundle": false,
-  "_integrity": "sha512-nlANmF9Yq1dufhFlKG9rasfQlrY7wINJbo3q01tu56Jv5eBU5jirylhF2O5ZBnLxzOVBGRDz/9NAwNyBtG4Nyg==",
+  "_args": [
+    [
+      {
+        "raw": "jest-docblock@^20.1.0-alpha.3",
+        "scope": null,
+        "escapedName": "jest-docblock",
+        "name": "jest-docblock",
+        "rawSpec": "^20.1.0-alpha.3",
+        "spec": ">=20.1.0-alpha.3 <21.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest-haste-map"
+    ]
+  ],
+  "_from": "jest-docblock@>=20.1.0-alpha.3 <21.0.0",
+  "_id": "jest-docblock@20.1.0-echo.1",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/jest-docblock",
+  "_nodeVersion": "8.1.4",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/jest-docblock-20.1.0-echo.1.tgz_1502210988609_0.5525328819639981"
+  },
+  "_npmUser": {
+    "name": "mjesun",
+    "email": "mjesun@hotmail.com"
+  },
+  "_npmVersion": "5.0.3",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "jest-docblock@^24.3.0",
-    "name": "jest-docblock",
+    "raw": "jest-docblock@^20.1.0-alpha.3",
+    "scope": null,
     "escapedName": "jest-docblock",
-    "rawSpec": "^24.3.0",
-    "saveSpec": null,
-    "fetchSpec": "^24.3.0"
+    "name": "jest-docblock",
+    "rawSpec": "^20.1.0-alpha.3",
+    "spec": ">=20.1.0-alpha.3 <21.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/jest-runner"
+    "/jest-haste-map"
   ],
-  "_resolved": "https://registry.npmjs.org/jest-docblock/-/jest-docblock-24.3.0.tgz",
-  "_shasum": "b9c32dac70f72e4464520d2ba4aec02ab14db5dd",
-  "_spec": "jest-docblock@^24.3.0",
-  "_where": "/Development/web/rnoleole/node_modules/jest-runner",
+  "_resolved": "https://registry.npmjs.org/jest-docblock/-/jest-docblock-20.1.0-echo.1.tgz",
+  "_shasum": "be02f43ee019f97e6b83267c746ac7b40d290fe8",
+  "_shrinkwrap": null,
+  "_spec": "jest-docblock@^20.1.0-alpha.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest-haste-map",
   "bugs": {
     "url": "https://github.com/facebook/jest/issues"
   },
-  "bundleDependencies": false,
-  "dependencies": {
-    "detect-newline": "^2.1.0"
+  "dependencies": {},
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-zJPqHgxSlu5AYjyFLoXzwSqTZGeRAbtW9lTrWfjfDWyQCQjPlt9j9s7t3UBoDwUocM7qVNdlrcXPPtBkQR1dJw==",
+    "shasum": "be02f43ee019f97e6b83267c746ac7b40d290fe8",
+    "tarball": "https://registry.npmjs.org/jest-docblock/-/jest-docblock-20.1.0-echo.1.tgz"
   },
-  "deprecated": false,
-  "description": "`jest-docblock` is a package that can extract and parse a specially-formatted comment called a \"docblock\" at the top of a file.",
-  "devDependencies": {
-    "@types/detect-newline": "^2.1.0"
-  },
-  "engines": {
-    "node": ">= 6"
-  },
-  "gitHead": "3a7a4f3a3f5489ac8e07dcddf76bb949c482ec87",
   "homepage": "https://github.com/facebook/jest#readme",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "build/index.js",
+  "maintainers": [
+    {
+      "name": "mjesun",
+      "email": "mjesun@hotmail.com"
+    },
+    {
+      "name": "aaronabramov",
+      "email": "aaron@abramov.io"
+    },
+    {
+      "name": "jeanlauliac",
+      "email": "jean@lauliac.com"
+    },
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    }
+  ],
   "name": "jest-docblock",
-  "publishConfig": {
-    "access": "public"
-  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/jest.git",
-    "directory": "packages/jest-docblock"
+    "url": "git+https://github.com/facebook/jest.git"
   },
-  "version": "24.3.0"
+  "version": "20.1.0-echo.1"
 }

@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <UIKit/UIKit.h>
@@ -14,10 +16,48 @@
 #import <React/RCTViewManager.h>
 
 /**
+ * UIManager queue
+ */
+RCT_EXTERN dispatch_queue_t RCTGetUIManagerQueue(void);
+
+/**
+ * Default name for the UIManager queue
+ */
+RCT_EXTERN char *const RCTUIManagerQueueName;
+
+/**
+ * Check if we are currently on UIManager queue.
+ */
+RCT_EXTERN BOOL RCTIsUIManagerQueue(void);
+
+/**
+ * Convenience macro for asserting that we're running on UIManager queue.
+ */
+#define RCTAssertUIManagerQueue() RCTAssert(RCTIsUIManagerQueue(), \
+@"This function must be called on the UIManager queue")
+
+/**
  * Posted right before re-render happens. This is a chance for views to invalidate their state so
  * next render cycle will pick up updated views and layout appropriately.
  */
 RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplierChangeNotification;
+
+/**
+ * Posted whenever a new root view is registered with RCTUIManager. The userInfo property
+ * will contain a RCTUIManagerRootViewKey with the registered root view.
+ */
+RCT_EXTERN NSString *const RCTUIManagerDidRegisterRootViewNotification;
+
+/**
+ * Posted whenever a root view is removed from the RCTUIManager. The userInfo property
+ * will contain a RCTUIManagerRootViewKey with the removed root view.
+ */
+RCT_EXTERN NSString *const RCTUIManagerDidRemoveRootViewNotification;
+
+/**
+ * Key for the root view property in the above notifications
+ */
+RCT_EXTERN NSString *const RCTUIManagerRootViewKey;
 
 @class RCTLayoutAnimationGroup;
 @class RCTUIManagerObserverCoordinator;
@@ -26,12 +66,6 @@ RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplier
  * The RCTUIManager is the module responsible for updating the view hierarchy.
  */
 @interface RCTUIManager : NSObject <RCTBridgeModule, RCTInvalidating>
-
-/**
- * Register a root view tag and creates corresponding `rootView` and
- * `rootShadowView`.
- */
-- (void)registerRootViewTag:(NSNumber *)rootTag;
 
 /**
  * Register a root view with the RCTUIManager.
@@ -63,17 +97,6 @@ RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplier
 - (void)setAvailableSize:(CGSize)availableSize forRootView:(UIView *)rootView;
 
 /**
- * Sets local data for a shadow view corresponded with given view.
- * In some cases we need a way to specify some environmental data to shadow view
- * to improve layout (or do something similar), so `localData` serves these needs.
- * For example, any stateful embedded native views may benefit from this.
- * Have in mind that this data is not supposed to interfere with the state of
- * the shadow view.
- * Please respect one-directional data flow of React.
- */
-- (void)setLocalData:(NSObject *)localData forView:(UIView *)view;
-
-/**
  * Set the size of a view. This might be in response to a screen rotation
  * or some other layout event outside of the React-managed view hierarchy.
  */
@@ -84,7 +107,14 @@ RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplier
  * Use `UIViewNoIntrinsicMetric` to ignore a dimension.
  * The `size` must NOT include padding and border.
  */
-- (void)setIntrinsicContentSize:(CGSize)intrinsicContentSize forView:(UIView *)view;
+- (void)setIntrinsicContentSize:(CGSize)size forView:(UIView *)view;
+
+/**
+ * Update the background color of a view. The source of truth for
+ * backgroundColor is the shadow view, so if to update backgroundColor from
+ * native code you will need to call this method.
+ */
+- (void)setBackgroundColor:(UIColor *)color forView:(UIView *)view;
 
 /**
  * Sets up layout animation which will perform on next layout pass.
@@ -141,6 +171,17 @@ RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplier
 + (UIView *)JSResponder;
 
 /**
+ * Normally, UI changes are not applied until the complete batch of method
+ * invocations from JavaScript to native has completed.
+ *
+ * Setting this to YES will flush UI changes sooner, which could potentially
+ * result in inconsistent UI updates.
+ *
+ * The default is NO (recommended).
+ */
+@property (atomic, assign) BOOL unsafeFlushUIChangesBeforeBatchEnds;
+
+/**
  * In some cases we might want to trigger layout from native side.
  * React won't be aware of this, so we need to make sure it happens.
  */
@@ -151,6 +192,26 @@ RCT_EXTERN NSString *const RCTUIManagerWillUpdateViewsDueToContentSizeMultiplier
  * See `RCTUIManagerObserver` protocol for more details.
  */
 @property (atomic, retain, readonly) RCTUIManagerObserverCoordinator *observerCoordinator;
+
+@end
+
+@interface RCTUIManager (Deprecated)
+
+/**
+ * This method is deprecated and will be removed in next releases.
+ * Use `setSize:forView:` or `setIntrinsicContentSize:forView:` instead.
+ * Only frames with `origin` equals {0, 0} are supported.
+ */
+- (void)setFrame:(CGRect)frame forView:(UIView *)view
+__deprecated_msg("Use `setSize:forView:` or `setIntrinsicContentSize:forView:` instead.");
+
+
+/**
+ * This method is deprecated and will be removed in next releases.
+ * Use `registerRootView:` instead. There is no need to specify `sizeFlexibility` anymore.
+ */
+- (void)registerRootView:(UIView *)rootView withSizeFlexibility:(RCTRootViewSizeFlexibility)sizeFlexibility
+__deprecated_msg("Use `registerRootView:` instead.");
 
 @end
 

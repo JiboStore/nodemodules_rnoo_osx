@@ -1,13 +1,14 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
- * @flow strict-local
+ * @providesModule StaticContainer.react
+ * @flow
  */
-
 'use strict';
 
 const React = require('React');
@@ -27,28 +28,19 @@ const React = require('React');
  * Typically, you will not need to use this component and should opt for normal
  * React reconciliation.
  */
+class StaticContainer extends React.Component {
 
-type Props = $ReadOnly<{|
-  /**
-   * Whether or not this component should update.
-   */
-  shouldUpdate: ?boolean,
-  /**
-   * Content short-circuited by React reconciliation process.
-   */
-  children: React.Node,
-|}>;
-class StaticContainer extends React.Component<Props> {
-  shouldComponentUpdate(nextProps: Props): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     return !!nextProps.shouldUpdate;
   }
 
   render() {
     const child = this.props.children;
-    return child === null || child === false
+    return (child === null || child === false)
       ? null
       : React.Children.only(child);
   }
+
 }
 
 module.exports = StaticContainer;

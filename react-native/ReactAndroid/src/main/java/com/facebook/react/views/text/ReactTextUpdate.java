@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.text;
@@ -26,7 +28,6 @@ public class ReactTextUpdate {
   private final float mPaddingBottom;
   private final int mTextAlign;
   private final int mTextBreakStrategy;
-  private final int mJustificationMode;
 
   /**
    * @deprecated Use a non-deprecated constructor for ReactTextUpdate instead. This one remains
@@ -50,8 +51,7 @@ public class ReactTextUpdate {
         paddingEnd,
         paddingBottom,
         textAlign,
-        Layout.BREAK_STRATEGY_HIGH_QUALITY,
-        Layout.JUSTIFICATION_MODE_NONE);
+        Layout.BREAK_STRATEGY_HIGH_QUALITY);
   }
 
   public ReactTextUpdate(
@@ -63,8 +63,7 @@ public class ReactTextUpdate {
     float paddingEnd,
     float paddingBottom,
     int textAlign,
-    int textBreakStrategy,
-    int justificationMode) {
+    int textBreakStrategy) {
     mText = text;
     mJsEventCounter = jsEventCounter;
     mContainsImages = containsImages;
@@ -74,7 +73,6 @@ public class ReactTextUpdate {
     mPaddingBottom = paddingBottom;
     mTextAlign = textAlign;
     mTextBreakStrategy = textBreakStrategy;
-    mJustificationMode = justificationMode;
   }
 
   public Spannable getText() {
@@ -111,9 +109,5 @@ public class ReactTextUpdate {
 
   public int getTextBreakStrategy() {
     return mTextBreakStrategy;
-  }
-
-  public int getJustificationMode() {
-    return mJustificationMode;
   }
 }

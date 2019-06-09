@@ -1,32 +1,38 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
- * @flow strict-local
+ * @providesModule BorderBox
+ * @flow
  */
-
 'use strict';
 
-const React = require('React');
-const View = require('View');
+var React = require('React');
+var View = require('View');
 
-class BorderBox extends React.Component<$FlowFixMeProps> {
+class BorderBox extends React.Component {
   render() {
-    const box = this.props.box;
+    var box = this.props.box;
     if (!box) {
       return this.props.children;
     }
-    const style = {
+    var style = {
       borderTopWidth: box.top,
       borderBottomWidth: box.bottom,
       borderLeftWidth: box.left,
       borderRightWidth: box.right,
     };
-    return <View style={[style, this.props.style]}>{this.props.children}</View>;
+    return (
+      <View style={[style, this.props.style]}>
+        {this.props.children}
+      </View>
+    );
   }
 }
 
 module.exports = BorderBox;
+

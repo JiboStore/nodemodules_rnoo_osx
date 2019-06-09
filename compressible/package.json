@@ -1,31 +1,54 @@
 {
-  "_from": "compressible@~2.0.16",
-  "_id": "compressible@2.0.17",
-  "_inBundle": false,
-  "_integrity": "sha512-BGHeLCK1GV7j1bSmQQAi26X+GgWcTjLr/0tzSvMCl3LH1w1IJ4PFSPoV5316b30cneTziC+B1a+3OjoSUcQYmw==",
+  "_args": [
+    [
+      {
+        "raw": "compressible@~2.0.5",
+        "scope": null,
+        "escapedName": "compressible",
+        "name": "compressible",
+        "rawSpec": "~2.0.5",
+        "spec": ">=2.0.5 <2.1.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/compression"
+    ]
+  ],
+  "_from": "compressible@>=2.0.5 <2.1.0",
+  "_id": "compressible@2.0.12",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/compressible",
+  "_nodeVersion": "6.11.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/compressible-2.0.12.tgz_1508543757843_0.14214342553168535"
+  },
+  "_npmUser": {
+    "name": "dougwilson",
+    "email": "doug@somethingdoug.com"
+  },
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "compressible@~2.0.16",
-    "name": "compressible",
+    "raw": "compressible@~2.0.5",
+    "scope": null,
     "escapedName": "compressible",
-    "rawSpec": "~2.0.16",
-    "saveSpec": null,
-    "fetchSpec": "~2.0.16"
+    "name": "compressible",
+    "rawSpec": "~2.0.5",
+    "spec": ">=2.0.5 <2.1.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/compression"
   ],
-  "_resolved": "https://registry.npmjs.org/compressible/-/compressible-2.0.17.tgz",
-  "_shasum": "6e8c108a16ad58384a977f3a482ca20bff2f38c1",
-  "_spec": "compressible@~2.0.16",
-  "_where": "/Development/web/rnoleole/node_modules/compression",
+  "_resolved": "https://registry.npmjs.org/compressible/-/compressible-2.0.12.tgz",
+  "_shasum": "c59a5c99db76767e9876500e271ef63b3493bd66",
+  "_shrinkwrap": null,
+  "_spec": "compressible@~2.0.5",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/compression",
   "bugs": {
     "url": "https://github.com/jshttp/compressible/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Douglas Christopher Wilson",
@@ -43,20 +66,24 @@
     }
   ],
   "dependencies": {
-    "mime-db": ">= 1.40.0 < 2"
+    "mime-db": ">= 1.30.0 < 2"
   },
-  "deprecated": false,
   "description": "Compressible Content-Type / mime checking",
   "devDependencies": {
-    "eslint": "5.15.2",
-    "eslint-config-standard": "12.0.0",
-    "eslint-plugin-import": "2.16.0",
-    "eslint-plugin-markdown": "1.0.0",
-    "eslint-plugin-node": "8.0.1",
-    "eslint-plugin-promise": "4.0.1",
-    "eslint-plugin-standard": "4.0.0",
-    "mocha": "6.1.4",
-    "nyc": "14.0.0"
+    "eslint": "3.19.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-markdown": "1.0.0-beta.6",
+    "eslint-plugin-node": "5.2.0",
+    "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-standard": "3.0.1",
+    "mocha": "~1.21.5",
+    "nyc": "11.2.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "c59a5c99db76767e9876500e271ef63b3493bd66",
+    "tarball": "https://registry.npmjs.org/compressible/-/compressible-2.0.12.tgz"
   },
   "engines": {
     "node": ">= 0.6"
@@ -67,6 +94,7 @@
     "README.md",
     "index.js"
   ],
+  "gitHead": "07919d9b158879909404d3f942b777dbf47d2788",
   "homepage": "https://github.com/jshttp/compressible#readme",
   "keywords": [
     "compress",
@@ -75,7 +103,23 @@
     "content-type"
   ],
   "license": "MIT",
+  "maintainers": [
+    {
+      "name": "jongleberry",
+      "email": "jonathanrichardong@gmail.com"
+    },
+    {
+      "name": "fishrock123",
+      "email": "fishrock123@rocketmail.com"
+    },
+    {
+      "name": "dougwilson",
+      "email": "doug@somethingdoug.com"
+    }
+  ],
   "name": "compressible",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jshttp/compressible.git"
@@ -84,8 +128,7 @@
     "lint": "eslint --plugin markdown --ext js,md .",
     "test": "mocha --reporter spec --bail --check-leaks test/",
     "test-cov": "nyc --reporter=html --reporter=text npm test",
-    "test-travis": "nyc --reporter=text npm test",
-    "version": "node scripts/version-history.js && git add HISTORY.md"
+    "test-travis": "nyc --reporter=text npm test"
   },
-  "version": "2.0.17"
+  "version": "2.0.12"
 }

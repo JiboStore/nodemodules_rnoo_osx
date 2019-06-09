@@ -1,8 +1,6 @@
 node-simple-plist
 =================
 
-[![Build Status](https://travis-ci.org/wollardj/node-simple-plist.svg?branch=master)](https://travis-ci.org/wollardj/node-simple-plist)
-
 A simple API for interacting with binary and plain text plist data.
 
 

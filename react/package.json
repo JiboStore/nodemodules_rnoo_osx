@@ -1,28 +1,51 @@
 {
-  "_from": "react@16.8.3",
-  "_id": "react@16.8.3",
-  "_inBundle": false,
-  "_integrity": "sha512-3UoSIsEq8yTJuSu0luO1QQWYbgGEILm+eJl2QN/VLDi7hL+EN18M3q3oVZwmVzzBJ3DkM7RMdRwBmZZ+b4IzSA==",
+  "_args": [
+    [
+      {
+        "raw": "react@16.0.0-alpha.12",
+        "scope": null,
+        "escapedName": "react",
+        "name": "react",
+        "rawSpec": "16.0.0-alpha.12",
+        "spec": "16.0.0-alpha.12",
+        "type": "version"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "react@16.0.0-alpha.12",
+  "_id": "react@16.0.0-alpha.12",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react",
+  "_nodeVersion": "6.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-16.0.0-alpha.12.tgz_1493760308429_0.17505700839683414"
+  },
+  "_npmUser": {
+    "name": "acdlite",
+    "email": "acdlite@me.com"
+  },
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "react@16.8.3",
-    "name": "react",
+    "raw": "react@16.0.0-alpha.12",
+    "scope": null,
     "escapedName": "react",
-    "rawSpec": "16.8.3",
-    "saveSpec": null,
-    "fetchSpec": "16.8.3"
+    "name": "react",
+    "rawSpec": "16.0.0-alpha.12",
+    "spec": "16.0.0-alpha.12",
+    "type": "version"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/react/-/react-16.8.3.tgz",
-  "_shasum": "c6f988a2ce895375de216edcfaedd6b9a76451d9",
-  "_spec": "react@16.8.3",
-  "_where": "/Development/web/rnoleole",
+  "_resolved": "https://registry.npmjs.org/react/-/react-16.0.0-alpha.12.tgz",
+  "_shasum": "8c59485281485df319b6f77682d8dd0621c08194",
+  "_shrinkwrap": null,
+  "_spec": "react@16.0.0-alpha.12",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
   "browserify": {
     "transform": [
       "loose-envify"
@@ -31,37 +54,90 @@
   "bugs": {
     "url": "https://github.com/facebook/react/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
+    "create-react-class": "^15.5.2",
+    "fbjs": "^0.8.9",
     "loose-envify": "^1.1.0",
-    "object-assign": "^4.1.1",
-    "prop-types": "^15.6.2",
-    "scheduler": "^0.13.3"
+    "object-assign": "^4.1.0",
+    "prop-types": "^15.5.6"
   },
-  "deprecated": false,
   "description": "React is a JavaScript library for building user interfaces.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "8c59485281485df319b6f77682d8dd0621c08194",
+    "tarball": "https://registry.npmjs.org/react/-/react-16.0.0-alpha.12.tgz"
+  },
   "engines": {
     "node": ">=0.10.0"
   },
   "files": [
     "LICENSE",
+    "PATENTS",
     "README.md",
-    "build-info.json",
     "index.js",
     "cjs/",
     "umd/"
   ],
-  "homepage": "https://reactjs.org/",
+  "homepage": "https://facebook.github.io/react/",
   "keywords": [
     "react"
   ],
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "acdlite",
+      "email": "acdlite@me.com"
+    },
+    {
+      "name": "brianvaughn",
+      "email": "briandavidvaughn@gmail.com"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    },
+    {
+      "name": "flarnie",
+      "email": "flarnie.npm@gmail.com"
+    },
+    {
+      "name": "gaearon",
+      "email": "dan.abramov@gmail.com"
+    },
+    {
+      "name": "jeffmo",
+      "email": "lbljeffmo@gmail.com"
+    },
+    {
+      "name": "sebmarkbage",
+      "email": "sebastian@calyptus.eu"
+    },
+    {
+      "name": "spicyj",
+      "email": "ben@benalpert.com"
+    },
+    {
+      "name": "tomocchino",
+      "email": "tomocchino@gmail.com"
+    },
+    {
+      "name": "trueadm",
+      "email": "dg@domgan.com"
+    },
+    {
+      "name": "zpao",
+      "email": "paul@oshannessy.com"
+    }
+  ],
   "name": "react",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/react.git",
-    "directory": "packages/react"
+    "url": "git+https://github.com/facebook/react.git"
   },
-  "version": "16.8.3"
+  "scripts": {},
+  "version": "16.0.0-alpha.12"
 }

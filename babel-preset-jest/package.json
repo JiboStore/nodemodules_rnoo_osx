@@ -1,55 +1,88 @@
 {
-  "_from": "babel-preset-jest@^24.6.0",
-  "_id": "babel-preset-jest@24.6.0",
-  "_inBundle": false,
-  "_integrity": "sha512-pdZqLEdmy1ZK5kyRUfvBb2IfTPb2BUvIJczlPspS8fWmBQslNNDBqVfh7BW5leOVJMDZKzjD8XEyABTk6gQ5yw==",
+  "_args": [
+    [
+      {
+        "raw": "babel-preset-jest@^20.0.3",
+        "scope": null,
+        "escapedName": "babel-preset-jest",
+        "name": "babel-preset-jest",
+        "rawSpec": "^20.0.3",
+        "spec": ">=20.0.3 <21.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/babel-jest"
+    ]
+  ],
+  "_from": "babel-preset-jest@>=20.0.3 <21.0.0",
+  "_id": "babel-preset-jest@20.0.3",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/babel-preset-jest",
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/babel-preset-jest-20.0.3.tgz_1495018635399_0.48499758425168693"
+  },
+  "_npmUser": {
+    "name": "cpojer",
+    "email": "christoph.pojer@gmail.com"
+  },
+  "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "babel-preset-jest@^24.6.0",
-    "name": "babel-preset-jest",
+    "raw": "babel-preset-jest@^20.0.3",
+    "scope": null,
     "escapedName": "babel-preset-jest",
-    "rawSpec": "^24.6.0",
-    "saveSpec": null,
-    "fetchSpec": "^24.6.0"
+    "name": "babel-preset-jest",
+    "rawSpec": "^20.0.3",
+    "spec": ">=20.0.3 <21.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/babel-jest"
   ],
-  "_resolved": "https://registry.npmjs.org/babel-preset-jest/-/babel-preset-jest-24.6.0.tgz",
-  "_shasum": "66f06136eefce87797539c0d63f1769cc3915984",
-  "_spec": "babel-preset-jest@^24.6.0",
-  "_where": "/Development/web/rnoleole/node_modules/babel-jest",
+  "_resolved": "https://registry.npmjs.org/babel-preset-jest/-/babel-preset-jest-20.0.3.tgz",
+  "_shasum": "cbacaadecb5d689ca1e1de1360ebfc66862c178a",
+  "_shrinkwrap": null,
+  "_spec": "babel-preset-jest@^20.0.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/babel-jest",
   "bugs": {
     "url": "https://github.com/facebook/jest/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
-    "babel-plugin-jest-hoist": "^24.6.0"
+    "babel-plugin-jest-hoist": "^20.0.3"
   },
-  "deprecated": false,
   "description": "> Babel preset for all Jest plugins. This preset is automatically included when using [babel-jest](https://github.com/facebook/jest/tree/master/packages/babel-jest).",
-  "engines": {
-    "node": ">= 6"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "cbacaadecb5d689ca1e1de1360ebfc66862c178a",
+    "tarball": "https://registry.npmjs.org/babel-preset-jest/-/babel-preset-jest-20.0.3.tgz"
   },
-  "gitHead": "04e6a66d2ba8b18bee080bb28547db74a255d2c7",
   "homepage": "https://github.com/facebook/jest#readme",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "dmitriiabramov",
+      "email": "dmitrii@rheia.us"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    }
+  ],
   "name": "babel-preset-jest",
-  "peerDependencies": {
-    "@babel/core": "^7.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/jest.git",
-    "directory": "packages/babel-preset-jest"
+    "url": "git+https://github.com/facebook/jest.git"
   },
-  "version": "24.6.0"
+  "scripts": {},
+  "version": "20.0.3"
 }

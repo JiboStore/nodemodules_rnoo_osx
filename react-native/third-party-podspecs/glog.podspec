@@ -1,11 +1,6 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory of this source tree.
-
 Pod::Spec.new do |spec|
-  spec.name = 'glog'
-  spec.version = '0.3.5'
+  spec.name = 'GLog'
+  spec.version = '0.3.4'
   spec.license = { :type => 'Google', :file => 'COPYING' }
   spec.homepage = 'https://github.com/google/glog'
   spec.summary = 'Google logging module'
@@ -15,7 +10,6 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/google/glog.git',
                   :tag => "v#{spec.version}" }
   spec.module_name = 'glog'
-  spec.header_dir = 'glog'
   spec.source_files = 'src/glog/*.h',
                       'src/demangle.cc',
                       'src/logging.cc',
@@ -33,6 +27,6 @@ Pod::Spec.new do |spec|
                                "HEADER_SEARCH_PATHS" => "$(PODS_TARGET_SRCROOT)/src" }
 
   # Pinning to the same version as React.podspec.
-  spec.platforms = { :ios => "9.0", :tvos => "9.2" }
+  spec.platform = :ios, "8.0"
 
 end

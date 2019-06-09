@@ -1,59 +1,90 @@
 {
-  "_from": "jest-environment-jsdom@^24.8.0",
-  "_id": "jest-environment-jsdom@24.8.0",
-  "_inBundle": false,
-  "_integrity": "sha512-qbvgLmR7PpwjoFjM/sbuqHJt/NCkviuq9vus9NBn/76hhSidO+Z6Bn9tU8friecegbJL8gzZQEMZBQlFWDCwAQ==",
+  "_args": [
+    [
+      {
+        "raw": "jest-environment-jsdom@^20.0.3",
+        "scope": null,
+        "escapedName": "jest-environment-jsdom",
+        "name": "jest-environment-jsdom",
+        "rawSpec": "^20.0.3",
+        "spec": ">=20.0.3 <21.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli"
+    ]
+  ],
+  "_from": "jest-environment-jsdom@>=20.0.3 <21.0.0",
+  "_id": "jest-environment-jsdom@20.0.3",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/jest-environment-jsdom",
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/jest-environment-jsdom-20.0.3.tgz_1495018650180_0.2707760026678443"
+  },
+  "_npmUser": {
+    "name": "cpojer",
+    "email": "christoph.pojer@gmail.com"
+  },
+  "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "jest-environment-jsdom@^24.8.0",
-    "name": "jest-environment-jsdom",
+    "raw": "jest-environment-jsdom@^20.0.3",
+    "scope": null,
     "escapedName": "jest-environment-jsdom",
-    "rawSpec": "^24.8.0",
-    "saveSpec": null,
-    "fetchSpec": "^24.8.0"
+    "name": "jest-environment-jsdom",
+    "rawSpec": "^20.0.3",
+    "spec": ">=20.0.3 <21.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/jest-config"
+    "/jest-config",
+    "/jest/jest-cli"
   ],
-  "_resolved": "https://registry.npmjs.org/jest-environment-jsdom/-/jest-environment-jsdom-24.8.0.tgz",
-  "_shasum": "300f6949a146cabe1c9357ad9e9ecf9f43f38857",
-  "_spec": "jest-environment-jsdom@^24.8.0",
-  "_where": "/Development/web/rnoleole/node_modules/jest-config",
+  "_resolved": "https://registry.npmjs.org/jest-environment-jsdom/-/jest-environment-jsdom-20.0.3.tgz",
+  "_shasum": "048a8ac12ee225f7190417713834bb999787de99",
+  "_shrinkwrap": null,
+  "_spec": "jest-environment-jsdom@^20.0.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli",
   "bugs": {
     "url": "https://github.com/facebook/jest/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "@jest/environment": "^24.8.0",
-    "@jest/fake-timers": "^24.8.0",
-    "@jest/types": "^24.8.0",
-    "jest-mock": "^24.8.0",
-    "jest-util": "^24.8.0",
-    "jsdom": "^11.5.1"
+    "jest-mock": "^20.0.3",
+    "jest-util": "^20.0.3",
+    "jsdom": "^9.12.0"
   },
-  "deprecated": false,
-  "devDependencies": {
-    "@types/jsdom": "^11.12.0"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "048a8ac12ee225f7190417713834bb999787de99",
+    "tarball": "https://registry.npmjs.org/jest-environment-jsdom/-/jest-environment-jsdom-20.0.3.tgz"
   },
-  "engines": {
-    "node": ">= 6"
-  },
-  "gitHead": "845728f24b3ef41e450595c384e9b5c9fdf248a4",
   "homepage": "https://github.com/facebook/jest#readme",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "build/index.js",
+  "maintainers": [
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "dmitriiabramov",
+      "email": "dmitrii@rheia.us"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    }
+  ],
   "name": "jest-environment-jsdom",
-  "publishConfig": {
-    "access": "public"
-  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/jest.git",
-    "directory": "packages/jest-environment-jsdom"
+    "url": "git+https://github.com/facebook/jest.git"
   },
-  "types": "build/index.d.ts",
-  "version": "24.8.0"
+  "scripts": {},
+  "version": "20.0.3"
 }

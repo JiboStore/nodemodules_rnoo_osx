@@ -1,0 +1,108 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-indicators",
+        "scope": null,
+        "escapedName": "react-native-indicators",
+        "name": "react-native-indicators",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "react-native-indicators@latest",
+  "_id": "react-native-indicators@0.10.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-indicators",
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-native-indicators-0.10.0.tgz_1500194953212_0.20388800418004394"
+  },
+  "_npmUser": {
+    "name": "n4kz",
+    "email": "n4kz@n4kz.com"
+  },
+  "_npmVersion": "4.6.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-indicators",
+    "scope": null,
+    "escapedName": "react-native-indicators",
+    "name": "react-native-indicators",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-indicators/-/react-native-indicators-0.10.0.tgz",
+  "_shasum": "714c4e9955c73c3b5d2bbd6c021d6b7aab1a8072",
+  "_shrinkwrap": null,
+  "_spec": "react-native-indicators",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
+  "author": {
+    "name": "Alexander Nazarov",
+    "email": "n4kz@n4kz.com"
+  },
+  "bugs": {
+    "url": "https://github.com/n4kz/react-native-indicators/issues"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  },
+  "description": "Activity indicator collection",
+  "devDependencies": {
+    "babel-eslint": "^7.2.0",
+    "eslint": "^3.18.0",
+    "eslint-plugin-react": "^7.1.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "714c4e9955c73c3b5d2bbd6c021d6b7aab1a8072",
+    "tarball": "https://registry.npmjs.org/react-native-indicators/-/react-native-indicators-0.10.0.tgz"
+  },
+  "gitHead": "a5b3de12f5310c4df19a9e600684d511b0716d45",
+  "homepage": "https://github.com/n4kz/react-native-indicators#readme",
+  "keywords": [
+    "react",
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "activity",
+    "indicator",
+    "spinner",
+    "pacman",
+    "material"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "n4kz",
+      "email": "n4kz@n4kz.com"
+    }
+  ],
+  "name": "react-native-indicators",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/n4kz/react-native-indicators.git"
+  },
+  "scripts": {
+    "lint": "eslint src example/app.js"
+  },
+  "version": "0.10.0"
+}

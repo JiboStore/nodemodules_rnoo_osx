@@ -1,27 +1,45 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule Vibration
  * @flow
- * @jsdoc
  */
-
 'use strict';
 
-const RCTVibration = require('NativeModules').Vibration;
-const Platform = require('Platform');
+var RCTVibration = require('NativeModules').Vibration;
+var Platform = require('Platform');
 
 /**
- * Vibration API
+ * The Vibration API is exposed at `Vibration.vibrate()`.
+ * The vibration is asynchronous so this method will return immediately.
  *
- * See https://facebook.github.io/react-native/docs/vibration.html
+ * There will be no effect on devices that do not support Vibration, eg. the simulator.
+ *
+ * **Note for android**
+ * add `<uses-permission android:name="android.permission.VIBRATE"/>` to `AndroidManifest.xml`
+ *
+ * **Android Usage:**
+ *
+ * [0, 500, 200, 500]
+ * V(0.5s) --wait(0.2s)--> V(0.5s)
+ *
+ * [300, 500, 200, 500]
+ * --wait(0.3s)--> V(0.5s) --wait(0.2s)--> V(0.5s)
+ *
+ * **iOS Usage:**
+ * if first argument is 0, it will not be included in pattern array.
+ *
+ * [0, 1000, 2000, 3000]
+ * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 
-let _vibrating: boolean = false;
-let _id: number = 0; // _id is necessary to prevent race condition.
+var _vibrating: boolean = false;
+var _id: number = 0; // _id is necessary to prevent race condition.
 
 function vibrateByPattern(pattern: Array<number>, repeat: boolean = false) {
   if (_vibrating) {
@@ -39,12 +57,7 @@ function vibrateByPattern(pattern: Array<number>, repeat: boolean = false) {
   setTimeout(() => vibrateScheduler(++_id, pattern, repeat, 1), pattern[0]);
 }
 
-function vibrateScheduler(
-  id,
-  pattern: Array<number>,
-  repeat: boolean,
-  nextIndex: number,
-) {
+function vibrateScheduler(id, pattern: Array<number>, repeat: boolean, nextIndex: number) {
   if (!_vibrating || id !== _id) {
     return;
   }
@@ -57,22 +70,11 @@ function vibrateScheduler(
       return;
     }
   }
-  setTimeout(
-    () => vibrateScheduler(id, pattern, repeat, nextIndex + 1),
-    pattern[nextIndex],
-  );
+  setTimeout(() => vibrateScheduler(id, pattern, repeat, nextIndex+1), pattern[nextIndex]);
 }
 
-const Vibration = {
-  /**
-   * Trigger a vibration with specified `pattern`.
-   *
-   * See https://facebook.github.io/react-native/docs/vibration.html#vibrate
-   */
-  vibrate: function(
-    pattern: number | Array<number> = 400,
-    repeat: boolean = false,
-  ) {
+var Vibration = {
+  vibrate: function(pattern: number | Array<number> = 400, repeat: boolean = false) {
     if (Platform.OS === 'android') {
       if (typeof pattern === 'number') {
         RCTVibration.vibrate(pattern);
@@ -96,8 +98,6 @@ const Vibration = {
   },
   /**
    * Stop vibration
-   *
-   * See https://facebook.github.io/react-native/docs/vibration.html#cancel
    */
   cancel: function() {
     if (Platform.OS === 'ios') {
@@ -105,7 +105,7 @@ const Vibration = {
     } else {
       RCTVibration.cancel();
     }
-  },
+  }
 };
 
 module.exports = Vibration;

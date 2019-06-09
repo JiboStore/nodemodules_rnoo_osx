@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "JniJSModulesUnbundle.h"
 
@@ -13,11 +10,9 @@
 #include <sys/endian.h>
 #include <utility>
 
-#include <folly/Memory.h>
-
 using magic_number_t = uint32_t;
 const magic_number_t MAGIC_FILE_HEADER = 0xFB0BD1E5;
-const char* MAGIC_FILE_NAME = "UNBUNDLE";
+const std::string MAGIC_FILE_NAME = "UNBUNDLE";
 
 namespace facebook {
 namespace react {
@@ -41,15 +36,9 @@ static asset_ptr openAsset(
     AAsset_close);
 }
 
-std::unique_ptr<JniJSModulesUnbundle> JniJSModulesUnbundle::fromEntryFile(
-  AAssetManager *assetManager,
-  const std::string& entryFile) {
-    return folly::make_unique<JniJSModulesUnbundle>(assetManager, jsModulesDir(entryFile));
-  }
-
-JniJSModulesUnbundle::JniJSModulesUnbundle(AAssetManager *assetManager, const std::string& moduleDirectory) :
+JniJSModulesUnbundle::JniJSModulesUnbundle(AAssetManager *assetManager, const std::string& entryFile) :
   m_assetManager(assetManager),
-  m_moduleDirectory(moduleDirectory) {}
+  m_moduleDirectory(jsModulesDir(entryFile)) {}
 
 bool JniJSModulesUnbundle::isUnbundle(
     AAssetManager *assetManager,
@@ -85,7 +74,7 @@ JSModulesUnbundle::Module JniJSModulesUnbundle::getModule(uint32_t moduleId) con
     buffer = static_cast<const char *>(AAsset_getBuffer(asset.get()));
   }
   if (buffer == nullptr) {
-    throw ModuleNotFound(moduleId);
+    throw ModuleNotFound("Module not found: " + sourceUrl);
   }
   return {sourceUrl, std::string(buffer, AAsset_getLength(asset.get()))};
 }

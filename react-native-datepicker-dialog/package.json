@@ -1,0 +1,111 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-datepicker-dialog@0.0.6",
+        "scope": null,
+        "escapedName": "react-native-datepicker-dialog",
+        "name": "react-native-datepicker-dialog",
+        "rawSpec": "0.0.6",
+        "spec": "0.0.6",
+        "type": "version"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "react-native-datepicker-dialog@0.0.6",
+  "_id": "react-native-datepicker-dialog@0.0.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-datepicker-dialog",
+  "_nodeVersion": "6.6.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-native-datepicker-dialog-0.0.6.tgz_1499670563017_0.012528931023553014"
+  },
+  "_npmUser": {
+    "name": "pandiaraj44",
+    "email": "pandiaraj44@gmail.com"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-datepicker-dialog@0.0.6",
+    "scope": null,
+    "escapedName": "react-native-datepicker-dialog",
+    "name": "react-native-datepicker-dialog",
+    "rawSpec": "0.0.6",
+    "spec": "0.0.6",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-datepicker-dialog/-/react-native-datepicker-dialog-0.0.6.tgz",
+  "_shasum": "4e4ca34c311d35cb5c10efa6a438574602f45e56",
+  "_shrinkwrap": null,
+  "_spec": "react-native-datepicker-dialog@0.0.6",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
+  "author": {
+    "name": "Pandiarajan Nagarajan"
+  },
+  "bugs": {
+    "url": "https://github.com/pandiaraj44/react-native-datepicker-dialog/issues"
+  },
+  "dependencies": {},
+  "description": "This library provides the cross-platform components for to open the date picker dialogs in effective way. It uses the native DatePickerAndroid & DatePickerIOS components. It will work for both ios & android.",
+  "devDependencies": {
+    "babel-jest": "17.0.2",
+    "babel-preset-react-native": "1.9.0",
+    "jest": "17.0.3",
+    "jest-react-native": "17.0.3",
+    "moment": "2.x.x",
+    "react": "15.3.2",
+    "react-native": "0.37.0",
+    "react-test-renderer": "15.3.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "4e4ca34c311d35cb5c10efa6a438574602f45e56",
+    "tarball": "https://registry.npmjs.org/react-native-datepicker-dialog/-/react-native-datepicker-dialog-0.0.6.tgz"
+  },
+  "gitHead": "f14066194429082c69fee6411be5cf38988a8a4f",
+  "homepage": "https://github.com/pandiaraj44/react-native-datepicker-dialog",
+  "jest": {
+    "preset": "jest-react-native"
+  },
+  "keywords": [
+    "react-native",
+    "datepicker",
+    "timepicker",
+    "react-native-datepicker",
+    "DatePicker",
+    "TimePicker",
+    "date picker",
+    "time picker",
+    "dialog",
+    "datepicker dialog",
+    "timepicker dialog"
+  ],
+  "license": "MIT",
+  "main": "main-index.js",
+  "maintainers": [
+    {
+      "name": "pandiaraj44",
+      "email": "pandiaraj44@gmail.com"
+    }
+  ],
+  "name": "react-native-datepicker-dialog",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandiaraj44/react-native-datepicker-dialog.git"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "version": "0.0.6"
+}

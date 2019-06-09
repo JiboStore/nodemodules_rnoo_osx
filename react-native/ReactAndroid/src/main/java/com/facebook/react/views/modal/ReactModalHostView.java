@@ -1,13 +1,18 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.modal;
 
-import android.annotation.TargetApi;
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,10 +21,10 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStructure;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
+
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.R;
 import com.facebook.react.bridge.GuardedRunnable;
@@ -30,10 +35,7 @@ import com.facebook.react.uimanager.JSTouchDispatcher;
 import com.facebook.react.uimanager.RootView;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.events.EventDispatcher;
-import com.facebook.react.views.common.ContextUtils;
 import com.facebook.react.views.view.ReactViewGroup;
-import java.util.ArrayList;
-import javax.annotation.Nullable;
 
 /**
  * ReactModalHostView is a view that sits in the view hierarchy representing a Modal view.
@@ -73,12 +75,6 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
     ((ReactContext) context).addLifecycleEventListener(this);
 
     mHostView = new DialogRootViewGroup(context);
-  }
-
-  @TargetApi(23)
-  @Override
-  public void dispatchProvideStructure(ViewStructure structure) {
-    mHostView.dispatchProvideStructure(structure);
   }
 
   @Override
@@ -132,12 +128,7 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
 
   private void dismiss() {
     if (mDialog != null) {
-      if (mDialog.isShowing()) {
-        Activity dialogContext = ContextUtils.findContextOfType(mDialog.getContext(), Activity.class);
-        if (dialogContext == null || !dialogContext.isFinishing()) {
-          mDialog.dismiss();
-        }
-      }
+      mDialog.dismiss();
       mDialog = null;
 
       // We need to remove the mHostView from the parent
@@ -177,7 +168,8 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
 
   @Override
   public void onHostPause() {
-    // do nothing
+    // We dismiss the dialog and reconstitute it onHostResume
+    dismiss();
   }
 
   @Override
@@ -189,10 +181,6 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
   @VisibleForTesting
   public @Nullable Dialog getDialog() {
     return mDialog;
-  }
-
-  private @Nullable Activity getCurrentActivity() {
-    return ((ReactContext) getContext()).getCurrentActivity();
   }
 
   /**
@@ -221,9 +209,7 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
     } else if (mAnimationType.equals("slide")) {
       theme = R.style.Theme_FullScreenDialogAnimatedSlide;
     }
-    Activity currentActivity = getCurrentActivity();
-    Context context = currentActivity == null ? getContext() : currentActivity;
-    mDialog = new Dialog(context, theme);
+    mDialog = new Dialog(getContext(), theme);
 
     mDialog.setContentView(getContentView());
     updateProperties();
@@ -261,9 +247,7 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
     if (mHardwareAccelerated) {
       mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
     }
-    if (currentActivity != null && !currentActivity.isFinishing()) {
-      mDialog.show();
-    }
+    mDialog.show();
   }
 
   /**
@@ -286,17 +270,6 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
    */
   private void updateProperties() {
     Assertions.assertNotNull(mDialog, "mDialog must exist when we call updateProperties");
-
-    Activity currentActivity = getCurrentActivity();
-    if (currentActivity != null) {
-      int activityWindowFlags = currentActivity.getWindow().getAttributes().flags;
-      if ((activityWindowFlags
-          & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0) {
-        mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      } else {
-        mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      }
-    }
 
     if (mTransparent) {
       mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -332,25 +305,16 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
       super.onSizeChanged(w, h, oldw, oldh);
       if (getChildCount() > 0) {
         final int viewTag = getChildAt(0).getId();
-        ReactContext reactContext = getReactContext();
-        reactContext.runOnNativeModulesQueueThread(
+        ReactContext reactContext = (ReactContext) getContext();
+        reactContext.runUIBackgroundRunnable(
           new GuardedRunnable(reactContext) {
             @Override
             public void runGuarded() {
-              (getReactContext()).getNativeModule(UIManagerModule.class)
+              ((ReactContext) getContext()).getNativeModule(UIManagerModule.class)
                 .updateNodeSize(viewTag, w, h);
             }
           });
       }
-    }
-
-    @Override
-    public void handleException(Throwable t) {
-      getReactContext().handleException(new RuntimeException(t));
-    }
-
-    private ReactContext getReactContext() {
-      return (ReactContext) getContext();
     }
 
     @Override
@@ -380,7 +344,7 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
     }
 
     private EventDispatcher getEventDispatcher() {
-      ReactContext reactContext = getReactContext();
+      ReactContext reactContext = (ReactContext) getContext();
       return reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
     }
   }

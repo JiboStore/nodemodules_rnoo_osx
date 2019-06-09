@@ -1,19 +1,20 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule MissingNativeEventEmitterShim
  * @flow
  */
-
 'use strict';
 
 const EmitterSubscription = require('EmitterSubscription');
 const EventEmitter = require('EventEmitter');
 
-const invariant = require('invariant');
+const invariant = require('fbjs/lib/invariant');
 
 class MissingNativeEventEmitterShim extends EventEmitter {
   isAvailable: boolean = false;
@@ -30,16 +31,14 @@ class MissingNativeEventEmitterShim extends EventEmitter {
     invariant(
       false,
       `Cannot use '${this._nativeEventEmitterName}' module when ` +
-        `native '${this._nativeModuleName}' is not included in the build. ` +
-        `Either include it, or check '${
-          this._nativeEventEmitterName
-        }'.isAvailable ` +
-        'before calling any methods.',
+      `native '${this._nativeModuleName}' is not included in the build. ` +
+      `Either include it, or check '${this._nativeEventEmitterName}'.isAvailable ` +
+      'before calling any methods.'
     );
   }
 
   // EventEmitter
-  addListener(eventType: string, listener: Function, context: ?Object) {
+  addListener(eventType: string, listener: Function, context: ?Object): EmitterSubscription {
     this.throwMissingNativeModule();
   }
 

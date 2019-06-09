@@ -1,18 +1,19 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.modules.core;
 
-import com.facebook.react.bridge.UiThreadUtil;
 import java.util.ArrayDeque;
-import javax.annotation.Nullable;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.infer.annotation.Assertions;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.ReactConstants;
 
 /**
@@ -66,6 +67,7 @@ public class ReactChoreographer {
 
   public static void initialize() {
     if (sInstance == null) {
+      UiThreadUtil.assertOnUiThread();
       sInstance = new ReactChoreographer();
     }
   }
@@ -75,8 +77,7 @@ public class ReactChoreographer {
     return sInstance;
   }
 
-  // This needs to be volatile due to double checked locking issue - https://fburl.com/z409owpf
-  private @Nullable volatile ChoreographerCompat mChoreographer;
+  private final ChoreographerCompat mChoreographer;
   private final ReactChoreographerDispatcher mReactChoreographerDispatcher;
   private final ArrayDeque<ChoreographerCompat.FrameCallback>[] mCallbackQueues;
 
@@ -84,12 +85,12 @@ public class ReactChoreographer {
   private boolean mHasPostedCallback = false;
 
   private ReactChoreographer() {
+    mChoreographer = ChoreographerCompat.getInstance();
     mReactChoreographerDispatcher = new ReactChoreographerDispatcher();
     mCallbackQueues = new ArrayDeque[CallbackType.values().length];
     for (int i = 0; i < mCallbackQueues.length; i++) {
       mCallbackQueues[i] = new ArrayDeque<>();
     }
-    initializeChoreographer(null);
   }
 
   public synchronized void postFrameCallback(
@@ -99,38 +100,9 @@ public class ReactChoreographer {
     mTotalCallbacks++;
     Assertions.assertCondition(mTotalCallbacks > 0);
     if (!mHasPostedCallback) {
-      if (mChoreographer == null) {
-        initializeChoreographer(new Runnable(){
-          @Override
-          public void run() {
-            postFrameCallbackOnChoreographer();
-          }
-        });
-      } else {
-        postFrameCallbackOnChoreographer();
-      }
+      mChoreographer.postFrameCallback(mReactChoreographerDispatcher);
+      mHasPostedCallback = true;
     }
-  }
-
-  public void postFrameCallbackOnChoreographer() {
-    mChoreographer.postFrameCallback(mReactChoreographerDispatcher);
-    mHasPostedCallback = true;
-  }
-
-  public void initializeChoreographer(@Nullable final Runnable runnable) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        synchronized (ReactChoreographer.class) {
-          if (mChoreographer == null) {
-            mChoreographer = ChoreographerCompat.getInstance();
-          }
-        }
-        if (runnable != null) {
-          runnable.run();
-        }
-      }
-    });
   }
 
   public synchronized void removeFrameCallback(
@@ -147,9 +119,7 @@ public class ReactChoreographer {
   private void maybeRemoveFrameCallback() {
     Assertions.assertCondition(mTotalCallbacks >= 0);
     if (mTotalCallbacks == 0 && mHasPostedCallback) {
-      if (mChoreographer != null) {
-        mChoreographer.removeFrameCallback(mReactChoreographerDispatcher);
-      }
+      mChoreographer.removeFrameCallback(mReactChoreographerDispatcher);
       mHasPostedCallback = false;
     }
   }

@@ -1,63 +1,39 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule SwipeableListView
  * @flow
  */
-
 'use strict';
 
 const ListView = require('ListView');
+const PropTypes = require('prop-types');
 const React = require('React');
 const SwipeableListViewDataSource = require('SwipeableListViewDataSource');
 const SwipeableRow = require('SwipeableRow');
 
-type ListViewProps = React.ElementConfig<typeof ListView>;
-
-type Props = $ReadOnly<{|
-  ...ListViewProps,
-
-  /**
-   * To alert the user that swiping is possible, the first row can bounce
-   * on component mount.
-   */
+type DefaultProps = {
   bounceFirstRowOnMount: boolean,
-  /**
-   * Use `SwipeableListView.getNewDataSource()` to get a data source to use,
-   * then use it just like you would a normal ListView data source
-   */
-  dataSource: SwipeableListViewDataSource,
-  /**
-   * Maximum distance to open to after a swipe
-   */
-  maxSwipeDistance:
-    | number
-    | ((rowData: Object, sectionID: string, rowID: string) => number),
-  onScroll?: ?Function,
-  /**
-   * Callback method to render the swipeable view
-   */
-  renderRow: (
-    rowData: Object,
-    sectionID: string,
-    rowID: string,
-  ) => React.Element<any>,
-  /**
-   * Callback method to render the view that will be unveiled on swipe
-   */
-  renderQuickActions: (
-    rowData: Object,
-    sectionID: string,
-    rowID: string,
-  ) => ?React.Element<any>,
-|}>;
+  renderQuickActions: Function,
+};
 
-type State = {|
+type Props = {
+  bounceFirstRowOnMount: boolean,
+  dataSource: SwipeableListViewDataSource,
+  maxSwipeDistance: number | (rowData: any, sectionID: string, rowID: string) => number,
+  onScroll?: ?Function,
+  renderRow: Function,
+  renderQuickActions: Function,
+};
+
+type State = {
   dataSource: Object,
-|};
+};
 
 /**
  * A container component that renders multiple SwipeableRow's in a ListView
@@ -77,7 +53,7 @@ type State = {|
  * - It can bounce the 1st row of the list so users know it's swipeable
  * - More to come
  */
-class SwipeableListView extends React.Component<Props, State> {
+class SwipeableListView extends React.Component<DefaultProps, Props, State> {
   props: Props;
   state: State;
 
@@ -93,6 +69,28 @@ class SwipeableListView extends React.Component<Props, State> {
     });
   }
 
+  static propTypes = {
+    /**
+     * To alert the user that swiping is possible, the first row can bounce
+     * on component mount.
+     */
+    bounceFirstRowOnMount: PropTypes.bool.isRequired,
+    /**
+     * Use `SwipeableListView.getNewDataSource()` to get a data source to use,
+     * then use it just like you would a normal ListView data source
+     */
+    dataSource: PropTypes.instanceOf(SwipeableListViewDataSource).isRequired,
+    // Maximum distance to open to after a swipe
+    maxSwipeDistance: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]).isRequired,
+    // Callback method to render the swipeable view
+    renderRow: PropTypes.func.isRequired,
+    // Callback method to render the view that will be unveiled on swipe
+    renderQuickActions: PropTypes.func.isRequired,
+  };
+
   static defaultProps = {
     bounceFirstRowOnMount: false,
     renderQuickActions: () => null,
@@ -107,24 +105,19 @@ class SwipeableListView extends React.Component<Props, State> {
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props): void {
-    if (
-      this.state.dataSource.getDataSource() !==
-      nextProps.dataSource.getDataSource()
-    ) {
+  componentWillReceiveProps(nextProps: Props): void {
+    if (this.state.dataSource.getDataSource() !== nextProps.dataSource.getDataSource()) {
       this.setState({
         dataSource: nextProps.dataSource,
       });
     }
   }
 
-  render(): React.Node {
+  render(): React.Element<any> {
     return (
-      // $FlowFixMe Found when typing ListView
       <ListView
         {...this.props}
-        ref={ref => {
-          // $FlowFixMe Found when typing ListView
+        ref={(ref) => {
           this._listViewRef = ref;
         }}
         dataSource={this.state.dataSource.getDataSource()}
@@ -142,7 +135,7 @@ class SwipeableListView extends React.Component<Props, State> {
       });
     }
     this.props.onScroll && this.props.onScroll(e);
-  };
+  }
 
   /**
    * This is a work-around to lock vertical `ListView` scrolling on iOS and
@@ -151,13 +144,7 @@ class SwipeableListView extends React.Component<Props, State> {
    * (from high 20s to almost consistently 60 fps)
    */
   _setListViewScrollable(value: boolean): void {
-    if (
-      this._listViewRef &&
-      /* $FlowFixMe(>=0.68.0 site=react_native_fb) This comment suppresses an
-      * error found when Flow v0.68 was deployed. To see the error delete this
-      * comment and run Flow. */
-      typeof this._listViewRef.setNativeProps === 'function'
-    ) {
+    if (this._listViewRef && typeof this._listViewRef.setNativeProps === 'function') {
       this._listViewRef.setNativeProps({
         scrollEnabled: value,
       });
@@ -166,23 +153,13 @@ class SwipeableListView extends React.Component<Props, State> {
 
   // Passing through ListView's getScrollResponder() function
   getScrollResponder(): ?Object {
-    if (
-      this._listViewRef &&
-      /* $FlowFixMe(>=0.68.0 site=react_native_fb) This comment suppresses an
-      * error found when Flow v0.68 was deployed. To see the error delete this
-      * comment and run Flow. */
-      typeof this._listViewRef.getScrollResponder === 'function'
-    ) {
+    if (this._listViewRef && typeof this._listViewRef.getScrollResponder === 'function') {
       return this._listViewRef.getScrollResponder();
     }
   }
 
   // This enables rows having variable width slideoutView.
-  _getMaxSwipeDistance(
-    rowData: Object,
-    sectionID: string,
-    rowID: string,
-  ): number {
+  _getMaxSwipeDistance(rowData: Object, sectionID: string, rowID: string): number {
     if (typeof this.props.maxSwipeDistance === 'function') {
       return this.props.maxSwipeDistance(rowData, sectionID, rowID);
     }
@@ -190,16 +167,8 @@ class SwipeableListView extends React.Component<Props, State> {
     return this.props.maxSwipeDistance;
   }
 
-  _renderRow = (
-    rowData: Object,
-    sectionID: string,
-    rowID: string,
-  ): React.Element<any> => {
-    const slideoutView = this.props.renderQuickActions(
-      rowData,
-      sectionID,
-      rowID,
-    );
+  _renderRow = (rowData: Object, sectionID: string, rowID: string): React.Element<any> => {
+    const slideoutView = this.props.renderQuickActions(rowData, sectionID, rowID);
 
     // If renderQuickActions is unspecified or returns falsey, don't allow swipe
     if (!slideoutView) {

@@ -1,0 +1,4 @@
+#Thu May 25 17:27:31 BRT 2017
+base.0=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6
+renamed.0=classes.dex
+file.0=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex

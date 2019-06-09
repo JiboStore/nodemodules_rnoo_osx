@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTUtils.h"
@@ -262,29 +264,14 @@ void RCTUnsafeExecuteOnMainQueueSync(dispatch_block_t block)
   }
 }
 
-static void RCTUnsafeExecuteOnMainQueueOnceSync(dispatch_once_t *onceToken, dispatch_block_t block)
-{
-  // The solution was borrowed from a post by Ben Alpert:
-  // https://benalpert.com/2014/04/02/dispatch-once-initialization-on-the-main-thread.html
-  // See also: https://www.mikeash.com/pyblog/friday-qa-2014-06-06-secrets-of-dispatch_once.html
-  if (RCTIsMainQueue()) {
-    dispatch_once(onceToken, block);
-  } else {
-    if (DISPATCH_EXPECT(*onceToken == 0L, NO)) {
-      dispatch_sync(dispatch_get_main_queue(), ^{
-        dispatch_once(onceToken, block);
-      });
-    }
-  }
-}
-
 CGFloat RCTScreenScale()
 {
-  static dispatch_once_t onceToken;
   static CGFloat scale;
-
-  RCTUnsafeExecuteOnMainQueueOnceSync(&onceToken, ^{
-    scale = [UIScreen mainScreen].scale;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    RCTUnsafeExecuteOnMainQueueSync(^{
+      scale = [UIScreen mainScreen].scale;
+    });
   });
 
   return scale;
@@ -410,7 +397,7 @@ NSDictionary<NSString *, id> *RCTMakeAndLogError(NSString *message,
 
 NSDictionary<NSString *, id> *RCTJSErrorFromNSError(NSError *error)
 {
-  NSString *codeWithDomain = [NSString stringWithFormat:@"E%@%lld", error.domain.uppercaseString, (long long)error.code];
+  NSString *codeWithDomain = [NSString stringWithFormat:@"E%@%zd", error.domain.uppercaseString, error.code];
   return RCTJSErrorFromCodeMessageAndNSError(codeWithDomain,
                                              error.localizedDescription,
                                              error);
@@ -458,10 +445,8 @@ BOOL RCTRunningInTestEnvironment(void)
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-    isTestEnvironment = objc_lookUpClass("SenTestCase") ||
-    objc_lookUpClass("XCTest") ||
-    objc_lookUpClass("SnapshotTestAppDelegate") ||
-    [environment[@"IS_TESTING"] boolValue];
+    isTestEnvironment = objc_lookUpClass("SenTestCase") || objc_lookUpClass("XCTest") ||
+      [environment[@"IS_TESTING"] boolValue];
   });
   return isTestEnvironment;
 }
@@ -596,64 +581,34 @@ NSData *__nullable RCTGzipData(NSData *__nullable input, float level)
   return output;
 }
 
-static NSString *RCTRelativePathForURL(NSString *basePath, NSURL *__nullable URL)
+NSString *__nullable RCTBundlePathForURL(NSURL *__nullable URL)
 {
   if (!URL.fileURL) {
     // Not a file path
     return nil;
   }
-  NSString *path = [NSString stringWithUTF8String:[URL fileSystemRepresentation]];
-  if (![path hasPrefix:basePath]) {
+  NSString *path = URL.path;
+  NSString *bundlePath = [[NSBundle mainBundle] resourcePath];
+  if (![path hasPrefix:bundlePath]) {
     // Not a bundle-relative file
     return nil;
   }
-  path = [path substringFromIndex:basePath.length];
+  path = [path substringFromIndex:bundlePath.length];
   if ([path hasPrefix:@"/"]) {
     path = [path substringFromIndex:1];
   }
   return path;
 }
 
-NSString *__nullable RCTLibraryPath(void)
-{
-    static NSString *libraryPath = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
-    });
-    return libraryPath;
-}
-
-NSString *__nullable RCTBundlePathForURL(NSURL *__nullable URL)
-{
-  return RCTRelativePathForURL([[NSBundle mainBundle] resourcePath], URL);
-
-}
-
-NSString *__nullable RCTLibraryPathForURL(NSURL *__nullable URL)
-{
-  return RCTRelativePathForURL(RCTLibraryPath(), URL);
-}
-
-static BOOL RCTIsImageAssetsPath(NSString *path)
-{
-  NSString *extension = [path pathExtension];
-  return [extension isEqualToString:@"png"] || [extension isEqualToString:@"jpg"];
-}
-
-BOOL RCTIsBundleAssetURL(NSURL *__nullable imageURL)
-{
-  return RCTIsImageAssetsPath(RCTBundlePathForURL(imageURL));
-}
-
-BOOL RCTIsLibraryAssetURL(NSURL *__nullable imageURL)
-{
-  return RCTIsImageAssetsPath(RCTLibraryPathForURL(imageURL));
-}
-
 BOOL RCTIsLocalAssetURL(NSURL *__nullable imageURL)
 {
-  return RCTIsBundleAssetURL(imageURL) || RCTIsLibraryAssetURL(imageURL);
+  NSString *name = RCTBundlePathForURL(imageURL);
+  if (!name) {
+    return NO;
+  }
+
+  NSString *extension = [name pathExtension];
+  return [extension isEqualToString:@"png"] || [extension isEqualToString:@"jpg"];
 }
 
 static NSString *bundleName(NSBundle *bundle)
@@ -708,7 +663,7 @@ UIImage *__nullable RCTImageFromLocalAssetURL(NSURL *imageURL)
 
   if (!image) {
     // Attempt to load from the file system
-    NSString *filePath = [NSString stringWithUTF8String:[imageURL fileSystemRepresentation]];
+    NSString *filePath = imageURL.path;
     if (filePath.pathExtension.length == 0) {
       filePath = [filePath stringByAppendingPathExtension:@"png"];
     }
@@ -806,11 +761,9 @@ static void RCTGetRGBAColorComponents(CGColorRef color, CGFloat rgba[4])
     case kCGColorSpaceModelLab:
     case kCGColorSpaceModelPattern:
     case kCGColorSpaceModelUnknown:
-    // TODO: kCGColorSpaceModelXYZ should be added sometime after Xcode 10 release.
-    default:
     {
 
-#if RCT_DEBUG
+#ifdef RCT_DEBUG
       //unsupported format
       RCTLogError(@"Unsupported color model: %i", model);
 #endif
@@ -899,15 +852,4 @@ NSURL *__nullable RCTURLByReplacingQueryParam(NSURL *__nullable URL, NSString *p
   }
   components.queryItems = queryItems;
   return components.URL;
-}
-
-RCT_EXTERN NSString *RCTDropReactPrefixes(NSString *s)
-{
-  if ([s hasPrefix:@"RK"]) {
-    return [s substringFromIndex:2];
-  } else if ([s hasPrefix:@"RCT"]) {
-    return [s substringFromIndex:3];
-  }
-
-  return s;
 }

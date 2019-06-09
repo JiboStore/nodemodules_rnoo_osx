@@ -1,0 +1,7 @@
+#Thu May 25 17:28:57 BRT 2017
+base.0=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_7cd8cb943b3580ad59491eadea2d5927b2f740dc
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b5142f3a1d12dd8e957e4f58666913889e489c33/classes.dex
+base.1=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b5142f3a1d12dd8e957e4f58666913889e489c33
+file.0=/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_7cd8cb943b3580ad59491eadea2d5927b2f740dc/classes.dex

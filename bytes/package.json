@@ -1,27 +1,48 @@
 {
-  "_from": "bytes@3.0.0",
-  "_id": "bytes@3.0.0",
-  "_inBundle": false,
-  "_integrity": "sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=",
+  "_args": [
+    [
+      {
+        "raw": "bytes@2.1.0",
+        "scope": null,
+        "escapedName": "bytes",
+        "name": "bytes",
+        "rawSpec": "2.1.0",
+        "spec": "2.1.0",
+        "type": "version"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/connect"
+    ]
+  ],
+  "_from": "bytes@2.1.0",
+  "_id": "bytes@2.1.0",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/bytes",
+  "_npmUser": {
+    "name": "dougwilson",
+    "email": "doug@somethingdoug.com"
+  },
+  "_npmVersion": "1.4.28",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "bytes@3.0.0",
-    "name": "bytes",
+    "raw": "bytes@2.1.0",
+    "scope": null,
     "escapedName": "bytes",
-    "rawSpec": "3.0.0",
-    "saveSpec": null,
-    "fetchSpec": "3.0.0"
+    "name": "bytes",
+    "rawSpec": "2.1.0",
+    "spec": "2.1.0",
+    "type": "version"
   },
   "_requiredBy": [
-    "/compression"
+    "/body-parser",
+    "/compression",
+    "/connect"
   ],
-  "_resolved": "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz",
-  "_shasum": "d32815404d689699f85a4ea4fa8755dd13a96048",
-  "_spec": "bytes@3.0.0",
-  "_where": "/Development/web/rnoleole/node_modules/compression",
+  "_resolved": "https://registry.npmjs.org/bytes/-/bytes-2.1.0.tgz",
+  "_shasum": "ac93c410e2ffc9cc7cf4b464b38289067f5e47b4",
+  "_shrinkwrap": null,
+  "_spec": "bytes@2.1.0",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/connect",
   "author": {
     "name": "TJ Holowaychuk",
     "email": "tj@vision-media.ca",
@@ -30,25 +51,26 @@
   "bugs": {
     "url": "https://github.com/visionmedia/bytes.js/issues"
   },
-  "bundleDependencies": false,
+  "component": {
+    "scripts": {
+      "bytes/index.js": "index.js"
+    }
+  },
   "contributors": [
     {
       "name": "Jed Watson",
       "email": "jed.watson@me.com"
-    },
-    {
-      "name": "Théo FIDRY",
-      "email": "theo.fidry@gmail.com"
     }
   ],
-  "deprecated": false,
+  "dependencies": {},
   "description": "Utility to parse a string bytes to bytes and vice-versa",
   "devDependencies": {
-    "mocha": "2.5.3",
-    "nyc": "10.3.2"
+    "mocha": "*"
   },
-  "engines": {
-    "node": ">= 0.8"
+  "directories": {},
+  "dist": {
+    "shasum": "ac93c410e2ffc9cc7cf4b464b38289067f5e47b4",
+    "tarball": "https://registry.npmjs.org/bytes/-/bytes-2.1.0.tgz"
   },
   "files": [
     "History.md",
@@ -56,7 +78,8 @@
     "Readme.md",
     "index.js"
   ],
-  "homepage": "https://github.com/visionmedia/bytes.js#readme",
+  "gitHead": "86e4520cc369b34866154a53344ca50b2bb5ddcd",
+  "homepage": "https://github.com/visionmedia/bytes.js",
   "keywords": [
     "byte",
     "bytes",
@@ -67,15 +90,25 @@
     "converter"
   ],
   "license": "MIT",
+  "maintainers": [
+    {
+      "name": "tjholowaychuk",
+      "email": "tj@vision-media.ca"
+    },
+    {
+      "name": "dougwilson",
+      "email": "doug@somethingdoug.com"
+    }
+  ],
   "name": "bytes",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/visionmedia/bytes.js.git"
   },
   "scripts": {
-    "test": "mocha --check-leaks --reporter spec",
-    "test-ci": "nyc --reporter=text npm test",
-    "test-cov": "nyc --reporter=html --reporter=text npm test"
+    "test": "mocha --check-leaks --reporter spec"
   },
-  "version": "3.0.0"
+  "version": "2.1.0"
 }

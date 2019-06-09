@@ -1,40 +1,39 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTRootShadowView.h"
 
 #import "RCTI18nUtil.h"
-#import "RCTShadowView+Layout.h"
 
 @implementation RCTRootShadowView
 
 - (instancetype)init
 {
-  if (self = [super init]) {
+  self = [super init];
+  if (self) {
     _baseDirection = [[RCTI18nUtil sharedInstance] isRTL] ? YGDirectionRTL : YGDirectionLTR;
     _availableSize = CGSizeMake(INFINITY, INFINITY);
   }
-
   return self;
 }
 
-- (void)layoutWithAffectedShadowViews:(NSHashTable<RCTShadowView *> *)affectedShadowViews
+- (NSSet<RCTShadowView *> *)collectViewsWithUpdatedFrames
 {
-  NSHashTable<NSString *> *other = [NSHashTable new];
+  // Treating `INFINITY` as `YGUndefined` (which equals `NAN`).
+  float availableWidth = _availableSize.width == INFINITY ? YGUndefined : _availableSize.width;
+  float availableHeight = _availableSize.height == INFINITY ? YGUndefined : _availableSize.height;
 
-  RCTLayoutContext layoutContext = {};
-  layoutContext.absolutePosition = CGPointZero;
-  layoutContext.affectedShadowViews = affectedShadowViews;
-  layoutContext.other = other;
+  YGNodeCalculateLayout(self.yogaNode, availableWidth, availableHeight, _baseDirection);
 
-  [self layoutWithMinimumSize:CGSizeZero
-                  maximumSize:_availableSize
-              layoutDirection:RCTUIKitLayoutDirectionFromYogaLayoutDirection(_baseDirection)
-                layoutContext:layoutContext];
+  NSMutableSet<RCTShadowView *> *viewsWithNewFrame = [NSMutableSet set];
+  [self applyLayoutNode:self.yogaNode viewsWithNewFrame:viewsWithNewFrame absolutePosition:CGPointZero];
+  return viewsWithNewFrame;
 }
 
 @end

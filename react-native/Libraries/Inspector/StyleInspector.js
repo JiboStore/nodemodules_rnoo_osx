@@ -1,57 +1,52 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
- * @flow strict-local
+ * @providesModule StyleInspector
+ * @flow
  */
-
 'use strict';
 
-const React = require('React');
-const StyleSheet = require('StyleSheet');
-const Text = require('Text');
-const View = require('View');
+var React = require('React');
+var StyleSheet = require('StyleSheet');
+var Text = require('Text');
+var View = require('View');
 
-class StyleInspector extends React.Component<$FlowFixMeProps> {
+class StyleInspector extends React.Component {
   render() {
     if (!this.props.style) {
       return <Text style={styles.noStyle}>No style</Text>;
     }
-    const names = Object.keys(this.props.style);
+    var names = Object.keys(this.props.style);
     return (
       <View style={styles.container}>
         <View>
-          {names.map(name => (
-            <Text key={name} style={styles.attr}>
-              {name}:
-            </Text>
-          ))}
+          {names.map(name => <Text key={name} style={styles.attr}>{name}:</Text>)}
         </View>
 
         <View>
           {names.map(name => {
-            const value =
-              typeof this.props.style[name] === 'object'
-                ? JSON.stringify(this.props.style[name])
-                : this.props.style[name];
-            return (
-              <Text key={name} style={styles.value}>
-                {value}
-              </Text>
-            );
-          })}
+            var value = typeof this.props.style[name] === 'object' ? JSON.stringify(this.props.style[name]) : this.props.style[name];
+            return <Text key={name} style={styles.value}>{value}</Text>;
+          } ) }
         </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   attr: {
     fontSize: 10,
@@ -69,3 +64,4 @@ const styles = StyleSheet.create({
 });
 
 module.exports = StyleInspector;
+

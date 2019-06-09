@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react.devsupport;
 
@@ -34,18 +31,10 @@ public class InspectorPackagerConnection {
 
   private final Connection mConnection;
   private final Map<String, Inspector.LocalConnection> mInspectorConnections;
-  private final String mPackageName;
-  private BundleStatusProvider mBundleStatusProvider;
 
-  public InspectorPackagerConnection(
-    String url,
-    String packageName,
-    BundleStatusProvider bundleStatusProvider
-  ) {
+  public InspectorPackagerConnection(String url) {
     mConnection = new Connection(url);
     mInspectorConnections = new HashMap<>();
-    mPackageName = packageName;
-    mBundleStatusProvider = bundleStatusProvider;
   }
 
   public void connect() {
@@ -56,11 +45,12 @@ public class InspectorPackagerConnection {
     mConnection.close();
   }
 
-  public void sendEventToAllConnections(String event) {
-    for (Map.Entry<String, Inspector.LocalConnection> inspectorConnectionEntry :
-        mInspectorConnections.entrySet()) {
-      Inspector.LocalConnection inspectorConnection = inspectorConnectionEntry.getValue();
-      inspectorConnection.sendMessage(event);
+  public void sendOpenEvent(String pageId) {
+    try {
+      JSONObject payload = makePageIdPayload(pageId);
+      sendEvent("open", payload);
+    } catch (JSONException e) {
+      FLog.e(TAG, "Failed to open page", e);
     }
   }
 
@@ -151,15 +141,10 @@ public class InspectorPackagerConnection {
   private JSONArray getPages() throws JSONException {
     List<Inspector.Page> pages = Inspector.getPages();
     JSONArray array = new JSONArray();
-    BundleStatus bundleStatus = mBundleStatusProvider.getBundleStatus();
     for (Inspector.Page page : pages) {
       JSONObject jsonPage = new JSONObject();
       jsonPage.put("id", String.valueOf(page.getId()));
       jsonPage.put("title", page.getTitle());
-      jsonPage.put("app", mPackageName);
-      jsonPage.put("vm", page.getVM());
-      jsonPage.put("isLastBundleDownloadSuccess", bundleStatus.isLastDownloadSucess);
-      jsonPage.put("bundleUpdateTimestamp", bundleStatus.updateTimestamp);
       array.put(jsonPage);
     }
     return array;
@@ -317,26 +302,5 @@ public class InspectorPackagerConnection {
         mWebSocket = null;
       }
     }
-  }
-
-  static public class BundleStatus {
-    public Boolean isLastDownloadSucess;
-    public long updateTimestamp = -1;
-
-    public BundleStatus(
-      Boolean isLastDownloadSucess,
-      long updateTimestamp
-    ) {
-      this.isLastDownloadSucess = isLastDownloadSucess;
-      this.updateTimestamp = updateTimestamp;
-    }
-
-    public BundleStatus() {
-      this(false, -1);
-    }
-  }
-
-  public interface BundleStatusProvider {
-    public BundleStatus getBundleStatus();
   }
 }

@@ -1,18 +1,21 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.bridge;
 
+import javax.annotation.Nullable;
+
+import java.util.Collection;
+
 import com.facebook.proguard.annotations.DoNotStrip;
 import com.facebook.react.bridge.queue.ReactQueueConfiguration;
 import com.facebook.react.common.annotations.VisibleForTesting;
-import java.util.Collection;
-import java.util.List;
-import javax.annotation.Nullable;
 
 /**
  * A higher level API on top of the asynchronous JSC bridge. This provides an
@@ -21,7 +24,7 @@ import javax.annotation.Nullable;
  */
 @DoNotStrip
 public interface CatalystInstance
-    extends MemoryPressureListener, JSInstance, JSBundleLoaderDelegate {
+    extends MemoryPressureListener, JSInstance {
   void runJSBundle();
 
   // Returns the status of running the JS bundle; waits for an answer if runJSBundle is running
@@ -38,7 +41,7 @@ public interface CatalystInstance
   @Override @DoNotStrip
   void invokeCallback(
       int callbackID,
-      NativeArrayInterface arguments);
+      NativeArray arguments);
   @DoNotStrip
   void callFunction(
       String module,
@@ -63,8 +66,6 @@ public interface CatalystInstance
   <T extends JavaScriptModule> T getJSModule(Class<T> jsInterface);
   <T extends NativeModule> boolean hasNativeModule(Class<T> nativeModuleInterface);
   <T extends NativeModule> T getNativeModule(Class<T> nativeModuleInterface);
-  NativeModule getNativeModule(String moduleName);
-  <T extends JSIModule> T getJSIModule(Class<T> jsiModuleInterface);
   Collection<NativeModule> getNativeModules();
 
   /**
@@ -87,20 +88,15 @@ public interface CatalystInstance
    */
   void removeBridgeIdleDebugListener(NotThreadSafeBridgeIdleDebugListener listener);
 
-  /** This method registers the file path of an additional JS segment by its ID. */
-  void registerSegment(int segmentId, String path);
+  boolean supportsProfiling();
+  void startProfiler(String title);
+  void stopProfiler(String title, String filename);
 
   @VisibleForTesting
   void setGlobalVariable(String propName, String jsonValue);
 
   /**
    * Get the C pointer (as a long) to the JavaScriptCore context associated with this instance.
-   *
-   * <p>Use the following pattern to ensure that the JS context is not cleared while you are using
-   * it: JavaScriptContextHolder jsContext = reactContext.getJavaScriptContextHolder()
-   * synchronized(jsContext) { nativeThingNeedingJsContext(jsContext.get()); }
    */
-  JavaScriptContextHolder getJavaScriptContextHolder();
-
-  void addJSIModules(List<JSIModuleSpec> jsiModules);
+  long getJavaScriptContext();
 }

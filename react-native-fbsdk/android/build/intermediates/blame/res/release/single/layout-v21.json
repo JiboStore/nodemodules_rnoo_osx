@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v21/notification_template_custom_big.xml"
+    }
+]

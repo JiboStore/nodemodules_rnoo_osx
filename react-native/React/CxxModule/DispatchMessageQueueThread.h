@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #include <React/RCTLog.h>
@@ -22,6 +24,7 @@ public:
 
   void runOnQueue(std::function<void()>&& func) override {
     dispatch_queue_t queue = moduleData_.methodQueue;
+    RCTAssert(queue != nullptr, @"Module %@ provided invalid queue", moduleData_);
     dispatch_block_t block = [func=std::move(func)] { func(); };
     RCTAssert(block != nullptr, @"Invalid block generated in call to %@", moduleData_);
     if (queue && block) {

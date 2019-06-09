@@ -1,0 +1,101 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-sensitive-info@^5.1.0",
+        "scope": null,
+        "escapedName": "react-native-sensitive-info",
+        "name": "react-native-sensitive-info",
+        "rawSpec": "^5.1.0",
+        "spec": ">=5.1.0 <6.0.0",
+        "type": "range"
+      },
+      "/Development/web/mfrn/client/MangafunApp"
+    ]
+  ],
+  "_from": "react-native-sensitive-info@>=5.1.0 <6.0.0",
+  "_id": "react-native-sensitive-info@5.1.0",
+  "_inCache": true,
+  "_location": "/react-native-sensitive-info",
+  "_nodeVersion": "7.6.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-native-sensitive-info-5.1.0.tgz_1495745423532_0.24588035605847836"
+  },
+  "_npmUser": {
+    "name": "mcodex",
+    "email": "mat.andrade@live.com"
+  },
+  "_npmVersion": "4.1.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-sensitive-info@^5.1.0",
+    "scope": null,
+    "escapedName": "react-native-sensitive-info",
+    "name": "react-native-sensitive-info",
+    "rawSpec": "^5.1.0",
+    "spec": ">=5.1.0 <6.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-sensitive-info/-/react-native-sensitive-info-5.1.0.tgz",
+  "_shasum": "1655c482f99c80023a23b2d9adab1ae260b1988a",
+  "_shrinkwrap": null,
+  "_spec": "react-native-sensitive-info@^5.1.0",
+  "_where": "/Development/web/mfrn/client/MangafunApp",
+  "author": {
+    "name": "mCodex & ClassApp",
+    "email": "mtw.andrade@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/mcodex/react-native-sensitive-info/issues"
+  },
+  "contributors": [
+    {
+      "name": "Mateus Andrade mtw.andrade@gmail.com"
+    },
+    {
+      "name": "Samin Shams",
+      "email": "samin@classapp.co"
+    }
+  ],
+  "dependencies": {},
+  "description": "react-native-sensitive-info manages all data stored in Android Shared Preferences and iOS Keychain. You can set, get and delete keys/values using simple methods.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "1655c482f99c80023a23b2d9adab1ae260b1988a",
+    "tarball": "https://registry.npmjs.org/react-native-sensitive-info/-/react-native-sensitive-info-5.1.0.tgz"
+  },
+  "gitHead": "44b358f04e5dedac47b6d0f2c1392f90d13a4d0f",
+  "homepage": "https://github.com/mcodex/react-native-sensitive-info",
+  "keywords": [
+    "android",
+    "ios",
+    "keychain",
+    "shared-preferences",
+    "react-native"
+  ],
+  "license": "MIT",
+  "main": "RNSensitiveInfo.js",
+  "maintainers": [
+    {
+      "name": "mcodex",
+      "email": "mat.andrade@live.com"
+    }
+  ],
+  "name": "react-native-sensitive-info",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcodex/react-native-sensitive-info.git"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "version": "5.1.0"
+}

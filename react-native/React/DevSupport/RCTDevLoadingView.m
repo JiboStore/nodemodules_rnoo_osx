@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTDevLoadingView.h"
@@ -14,7 +16,7 @@
 #import "RCTModalHostViewController.h"
 #import "RCTUtils.h"
 
-#if RCT_DEV | RCT_ENABLE_LOADING_VIEW
+#if RCT_DEV
 
 static BOOL isEnabled = YES;
 
@@ -39,9 +41,11 @@ RCT_EXPORT_MODULE()
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-+ (BOOL)requiresMainQueueSetup
+- (instancetype)init
 {
-  return YES;
+  // We're only overriding this to ensure the module gets created at startup
+  // TODO (t11106126): Remove once we have more declarative control over module setup.
+  return [super init];
 }
 
 - (void)setBridge:(RCTBridge *)bridge
@@ -71,17 +75,8 @@ RCT_EXPORT_METHOD(showMessage:(NSString *)message color:(UIColor *)color backgro
   dispatch_async(dispatch_get_main_queue(), ^{
     self->_showDate = [NSDate date];
     if (!self->_window && !RCTRunningInTestEnvironment()) {
-      CGSize screenSize = [UIScreen mainScreen].bounds.size;
-
-      if (@available(iOS 11.0, *)) {
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        self->_window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, window.safeAreaInsets.top + 30)];
-        self->_label = [[UILabel alloc] initWithFrame:CGRectMake(0, window.safeAreaInsets.top, screenSize.width, 30)];
-      } else {
-        self->_window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 22)];
-        self->_label = [[UILabel alloc] initWithFrame:self->_window.bounds];
-      }
-      [self->_window addSubview:self->_label];
+      CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+      self->_window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 22)];
 #if TARGET_OS_TV
       self->_window.windowLevel = UIWindowLevelNormal + 1;
 #else
@@ -90,8 +85,11 @@ RCT_EXPORT_METHOD(showMessage:(NSString *)message color:(UIColor *)color backgro
       // set a root VC so rotation is supported
       self->_window.rootViewController = [UIViewController new];
 
+      self->_label = [[UILabel alloc] initWithFrame:self->_window.bounds];
       self->_label.font = [UIFont systemFontOfSize:12.0];
       self->_label.textAlignment = NSTextAlignmentCenter;
+
+      [self->_window addSubview:self->_label];
     }
 
     self->_label.text = message;
@@ -131,10 +129,6 @@ RCT_EXPORT_METHOD(hide)
   UIColor *backgroundColor;
   NSString *source;
   if (URL.fileURL) {
-    // If dev mode is not enabled, we don't want to show this kind of notification
-#if !RCT_DEV
-    return;
-#endif
     color = [UIColor grayColor];
     backgroundColor = [UIColor blackColor];
     source = @"pre-bundled file";
@@ -167,7 +161,6 @@ RCT_EXPORT_METHOD(hide)
 
 + (NSString *)moduleName { return nil; }
 + (void)setEnabled:(BOOL)enabled { }
-- (void)showMessage:(NSString *)message color:(UIColor *)color backgroundColor:(UIColor *)backgroundColor { }
 - (void)showWithURL:(NSURL *)URL { }
 - (void)updateProgress:(RCTLoadingProgress *)progress { }
 - (void)hide { }

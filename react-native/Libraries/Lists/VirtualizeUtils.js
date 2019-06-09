@@ -1,15 +1,18 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * @providesModule VirtualizeUtils
  * @flow
  * @format
  */
 'use strict';
 
-const invariant = require('invariant');
+const invariant = require('fbjs/lib/invariant');
 
 /**
  * Used to find the indices of the frames that overlap the given offsets. Useful for finding the
@@ -22,19 +25,17 @@ function elementsThatOverlapOffsets(
   getFrameMetrics: (index: number) => {length: number, offset: number},
 ): Array<number> {
   const out = [];
-  let outLength = 0;
   for (let ii = 0; ii < itemCount; ii++) {
     const frame = getFrameMetrics(ii);
     const trailingOffset = frame.offset + frame.length;
     for (let kk = 0; kk < offsets.length; kk++) {
       if (out[kk] == null && trailingOffset >= offsets[kk]) {
         out[kk] = ii;
-        outLength++;
         if (kk === offsets.length - 1) {
           invariant(
-            outLength === offsets.length,
-            'bad offsets input, should be in increasing order: %s',
-            JSON.stringify(offsets),
+            out.length === offsets.length,
+            'bad offsets input, should be in increasing order ' +
+              JSON.stringify(offsets),
           );
           return out;
         }
@@ -113,16 +114,7 @@ function computeWindowedRenderLimits(
   );
   const overscanEnd = Math.max(0, visibleEnd + leadFactor * overscanLength);
 
-  const lastItemOffset = getFrameMetricsApprox(itemCount - 1).offset;
-  if (lastItemOffset < overscanBegin) {
-    // Entire list is before our overscan window
-    return {
-      first: Math.max(0, itemCount - 1 - maxToRenderPerBatch),
-      last: itemCount - 1,
-    };
-  }
-
-  // Find the indices that correspond to the items at the render boundaries we're targeting.
+  // Find the indices that correspond to the items at the render boundaries we're targetting.
   let [overscanFirst, first, last, overscanLast] = elementsThatOverlapOffsets(
     [overscanBegin, visibleBegin, visibleEnd, overscanEnd],
     props.getItemCount(props.data),

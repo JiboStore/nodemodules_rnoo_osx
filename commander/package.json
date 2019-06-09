@@ -1,28 +1,51 @@
 {
-  "_from": "commander@^2.9.0",
-  "_id": "commander@2.20.0",
-  "_inBundle": false,
-  "_integrity": "sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==",
+  "_args": [
+    [
+      {
+        "raw": "commander@^2.9.0",
+        "scope": null,
+        "escapedName": "commander",
+        "name": "commander",
+        "rawSpec": "^2.9.0",
+        "spec": ">=2.9.0 <3.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native"
+    ]
+  ],
+  "_from": "commander@>=2.9.0 <3.0.0",
+  "_id": "commander@2.11.0",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/commander",
+  "_nodeVersion": "6.10.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/commander-2.11.0.tgz_1499076445115_0.39661598461680114"
+  },
+  "_npmUser": {
+    "name": "abetomo",
+    "email": "abe@enzou.tokyo"
+  },
+  "_npmVersion": "5.0.4",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
     "raw": "commander@^2.9.0",
-    "name": "commander",
+    "scope": null,
     "escapedName": "commander",
+    "name": "commander",
     "rawSpec": "^2.9.0",
-    "saveSpec": null,
-    "fetchSpec": "^2.9.0"
+    "spec": ">=2.9.0 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/@react-native-community/cli",
     "/react-native"
   ],
-  "_resolved": "https://registry.npmjs.org/commander/-/commander-2.20.0.tgz",
-  "_shasum": "d58bb2b5c1ee8f87b0d340027e9e94e222c5a422",
+  "_resolved": "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz",
+  "_shasum": "157152fd1e7a6c8d98a5b715cf376df928004563",
+  "_shrinkwrap": null,
   "_spec": "commander@^2.9.0",
-  "_where": "/Development/web/rnoleole/node_modules/react-native",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native",
   "author": {
     "name": "TJ Holowaychuk",
     "email": "tj@vision-media.ca"
@@ -30,23 +53,22 @@
   "bugs": {
     "url": "https://github.com/tj/commander.js/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {},
-  "deprecated": false,
   "description": "the complete solution for node.js command-line programs",
   "devDependencies": {
-    "@types/node": "^10.11.3",
-    "eslint": "^5.6.1",
-    "should": "^13.2.3",
-    "sinon": "^6.3.4",
-    "standard": "^12.0.1",
-    "ts-node": "^7.0.1",
-    "typescript": "^2.9.2"
+    "should": "^11.2.1",
+    "sinon": "^2.3.5"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-b0553uYA5YAEGgyYIGYROzKQ7X5RAqedkfjiZxwi0kL1g3bOaBNNZfYkzt/CL0umgD5wc9Jec2FbB98CjkMRvQ==",
+    "shasum": "157152fd1e7a6c8d98a5b715cf376df928004563",
+    "tarball": "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz"
   },
   "files": [
-    "index.js",
-    "typings/index.d.ts"
+    "index.js"
   ],
+  "gitHead": "30535a67a7d1f3809231603bc4dc0ba873ae85ef",
   "homepage": "https://github.com/tj/commander.js#readme",
   "keywords": [
     "commander",
@@ -56,16 +78,37 @@
   ],
   "license": "MIT",
   "main": "index",
+  "maintainers": [
+    {
+      "name": "vanesyan",
+      "email": "romain.vanesyan@gmail.com"
+    },
+    {
+      "name": "abetomo",
+      "email": "abe@enzou.tokyo"
+    },
+    {
+      "name": "somekittens",
+      "email": "rkoutnik@gmail.com"
+    },
+    {
+      "name": "zhiyelee",
+      "email": "zhiyelee@gmail.com"
+    },
+    {
+      "name": "tjholowaychuk",
+      "email": "tj@vision-media.ca"
+    }
+  ],
   "name": "commander",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tj/commander.js.git"
   },
   "scripts": {
-    "lint": "eslint index.js",
-    "test": "node test/run.js && npm run test-typings",
-    "test-typings": "tsc -p tsconfig.json"
+    "test": "make test"
   },
-  "typings": "typings/index.d.ts",
-  "version": "2.20.0"
+  "version": "2.11.0"
 }

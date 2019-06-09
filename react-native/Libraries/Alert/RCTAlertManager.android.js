@@ -1,15 +1,16 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
- */
-
+ * @providesModule RCTAlertManager
+*/
 'use strict';
 
-const NativeModules = require('NativeModules');
+var NativeModules = require('NativeModules');
 
 function emptyCallback() {}
 
@@ -17,9 +18,8 @@ module.exports = {
   alertWithArgs: function(args, callback) {
     // TODO(5998984): Polyfill it correctly with DialogManagerAndroid
     NativeModules.DialogManagerAndroid.showAlert(
-      args,
-      emptyCallback,
-      callback || emptyCallback,
-    );
+        args,
+        emptyCallback,
+        callback || emptyCallback);
   },
 };

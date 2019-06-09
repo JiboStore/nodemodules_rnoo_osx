@@ -39,7 +39,6 @@ export default class Drawer extends Component {
     acceptDoubleTap: PropTypes.bool,
     acceptPan: PropTypes.bool,
     acceptTap: PropTypes.bool,
-    acceptPanOnDrawer: PropTypes.bool,
     captureGestures: PropTypes.oneOf([true, false, 'open', 'closed']),
     children: PropTypes.node,
     closedDrawerOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
@@ -53,7 +52,6 @@ export default class Drawer extends Component {
     onCloseStart: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenStart: PropTypes.func,
-    onDragStart: PropTypes.func,
     openDrawerOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     panThreshold: PropTypes.number,
     panCloseMask: PropTypes.number,
@@ -93,7 +91,6 @@ export default class Drawer extends Component {
     acceptDoubleTap: false,
     acceptTap: false,
     acceptPan: true,
-    acceptPanOnDrawer: true,
     tapToClose: false,
 
     styles: {},
@@ -280,13 +277,9 @@ export default class Drawer extends Component {
     let length = this._prevLength + delta
     length = Math.min(length, this.getOpenLength())
     length = Math.max(length, this.getClosedLength())
-    length = Math.round(length*2)/2
     this._length = length
 
     this.updatePosition()
-    if (!this._panning) {
-      this.props.onDragStart && this.props.onDragStart();
-    }
     this._panning = true
   };
 
@@ -304,8 +297,6 @@ export default class Drawer extends Component {
   processShouldSet = (e, gestureState) => {
     let inMask = this.testPanResponderMask(e, gestureState)
     if (!inMask) return false
-    // skip gesture process if we have mostly vertical swipe
-    if (!this._open && Math.abs(gestureState.dy) >= Math.abs(gestureState.dx)) return false
     this._panStartTime = Date.now()
     if (inMask && this.shouldCaptureGestures()) return true
     if (this.props.negotiatePan) return false
@@ -316,7 +307,7 @@ export default class Drawer extends Component {
 
   processMoveShouldSet = (e, gestureState) => {
     let inMask = this.testPanResponderMask(e, gestureState)
-    if (!inMask && (!this.props.acceptPanOnDrawer || this._open === false )) return false
+    if (!inMask) return false
     if (!this.props.acceptPan) return false
 
     if (!this.props.negotiatePan || this.props.disabled || !this.props.acceptPan || this._panning) return false
@@ -398,7 +389,7 @@ export default class Drawer extends Component {
       duration: this.props.tweenDuration,
       easingType: this.props.tweenEasing,
       onFrame: (tweenValue) => {
-	this._length = Math.round(tweenValue*2)/2;
+        this._length = tweenValue
         this.updatePosition()
       },
       onEnd: () => {
@@ -432,7 +423,7 @@ export default class Drawer extends Component {
       easingType: this.props.tweenEasing,
       duration: this.props.tweenDuration,
       onFrame: (tweenValue) => {
-	this._length = Math.round(tweenValue*2)/2;
+        this._length = tweenValue
         this.updatePosition()
       },
       onEnd: () => {

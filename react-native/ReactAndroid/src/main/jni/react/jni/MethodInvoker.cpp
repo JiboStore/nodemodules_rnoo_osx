@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "MethodInvoker.h"
 
@@ -47,22 +44,6 @@ jdouble extractDouble(const folly::dynamic& value) {
   } else {
     return static_cast<jdouble>(value.getDouble());
   }
-}
-
-jint extractInteger(const folly::dynamic& value) {
-  // The logic here is taken from convertDynamicIfIntegral, but the
-  // return type and exception are different.
-  if (value.isInt()) {
-    return value.getInt();
-  }
-  double dbl = value.getDouble();
-  jint result = static_cast<jint>(dbl);
-  if (dbl != result) {
-    throw std::invalid_argument(
-      folly::to<std::string>(
-        "Tried to convert jint argument, but got a non-integral double: ", dbl));
-  }
-  return result;
 }
 
 local_ref<JCxxCallbackImpl::jhybridobject> extractCallback(std::weak_ptr<Instance>& instance, const folly::dynamic& value) {
@@ -117,10 +98,10 @@ jvalue extract(std::weak_ptr<Instance>& instance, char type, dynamic_iterator& i
       value.l = JBoolean::valueOf(static_cast<jboolean>(arg.getBool())).release();
       break;
     case 'i':
-      value.i = extractInteger(arg);
+      value.i = static_cast<jint>(arg.getInt());
       break;
     case 'I':
-      value.l = JInteger::valueOf(extractInteger(arg)).release();
+      value.l = JInteger::valueOf(static_cast<jint>(arg.getInt())).release();
       break;
     case 'f':
       value.f = static_cast<jfloat>(extractDouble(arg));
@@ -177,7 +158,7 @@ MethodInvoker::MethodInvoker(alias_ref<JReflectMethod::javaobject> method, std::
  isSync_(isSync) {
      CHECK(signature_.at(1) == '.') << "Improper module method signature";
      CHECK(isSync_ || signature_.at(0) == 'v') << "Non-sync hooks cannot have a non-void return type";
-}
+ }
 
 MethodCallResult MethodInvoker::invoke(std::weak_ptr<Instance>& instance, alias_ref<JBaseJavaModule::javaobject> module, const folly::dynamic& params) {
   #ifdef WITH_FBSYSTRACE
@@ -204,31 +185,20 @@ MethodCallResult MethodInvoker::invoke(std::weak_ptr<Instance>& instance, alias_
       return extract(instance, type, it, end);
   });
 
-#define PRIMITIVE_CASE(METHOD) {                                             \
-  auto result = env->Call ## METHOD ## MethodA(module.get(), method_, args); \
-  throwPendingJniExceptionAsCppException();                                  \
-  return folly::dynamic(result);                                             \
-}
+#define CASE_PRIMITIVE(KEY, TYPE, METHOD)                                      \
+  case KEY: {                                                                  \
+    auto result = env->Call ## METHOD ## MethodA(module.get(), method_, args); \
+    throwPendingJniExceptionAsCppException();                                  \
+    return folly::dynamic(result);                                             \
+  }
 
-#define PRIMITIVE_CASE_CASTING(METHOD, RESULT_TYPE) {                        \
-  auto result = env->Call ## METHOD ## MethodA(module.get(), method_, args); \
-  throwPendingJniExceptionAsCppException();                                  \
-  return folly::dynamic(static_cast<RESULT_TYPE>(result));                   \
-}
-
-#define OBJECT_CASE(JNI_CLASS, ACTIONS) {                                 \
-  auto jobject = env->CallObjectMethodA(module.get(), method_, args);     \
-  throwPendingJniExceptionAsCppException();                               \
-  auto result = adopt_local(static_cast<JNI_CLASS::javaobject>(jobject)); \
-  return folly::dynamic(result->ACTIONS());                               \
-}
-
-#define OBJECT_CASE_CASTING(JNI_CLASS, ACTIONS, RESULT_TYPE) {            \
-  auto jobject = env->CallObjectMethodA(module.get(), method_, args);     \
-  throwPendingJniExceptionAsCppException();                               \
-  auto result = adopt_local(static_cast<JNI_CLASS::javaobject>(jobject)); \
-  return folly::dynamic(static_cast<RESULT_TYPE>(result->ACTIONS()));     \
-}
+#define CASE_OBJECT(KEY, JNI_CLASS, ACTIONS)                                \
+  case KEY: {                                                               \
+    auto jobject = env->CallObjectMethodA(module.get(), method_, args);     \
+    throwPendingJniExceptionAsCppException();                               \
+    auto result = adopt_local(static_cast<JNI_CLASS::javaobject>(jobject)); \
+    return folly::dynamic(result->ACTIONS);                                 \
+  }
 
   char returnType = signature_.at(0);
   switch (returnType) {
@@ -237,29 +207,18 @@ MethodCallResult MethodInvoker::invoke(std::weak_ptr<Instance>& instance, alias_
       throwPendingJniExceptionAsCppException();
       return folly::none;
 
-    case 'z':
-      PRIMITIVE_CASE_CASTING(Boolean, bool)
-    case 'Z':
-      OBJECT_CASE_CASTING(JBoolean, value, bool)
-    case 'i':
-      PRIMITIVE_CASE(Int)
-    case 'I':
-      OBJECT_CASE(JInteger, value)
-    case 'd':
-      PRIMITIVE_CASE(Double)
-    case 'D':
-      OBJECT_CASE(JDouble, value)
-    case 'f':
-      PRIMITIVE_CASE(Float)
-    case 'F':
-      OBJECT_CASE(JFloat, value)
+    CASE_PRIMITIVE('z', jboolean, Boolean)
+    CASE_OBJECT('Z', JBoolean, value())
+    CASE_PRIMITIVE('i', jint, Int)
+    CASE_OBJECT('I', JInteger, value())
+    CASE_PRIMITIVE('d', jdouble, Double)
+    CASE_OBJECT('D', JDouble, value())
+    CASE_PRIMITIVE('f', jfloat, Float)
+    CASE_OBJECT('F', JFloat, value())
 
-    case 'S':
-      OBJECT_CASE(JString, toStdString)
-    case 'M':
-      OBJECT_CASE(WritableNativeMap, cthis()->consume)
-    case 'A':
-      OBJECT_CASE(WritableNativeArray, cthis()->consume)
+    CASE_OBJECT('S', JString, toStdString())
+    CASE_OBJECT('M', WritableNativeMap, cthis()->consume())
+    CASE_OBJECT('A', WritableNativeArray, cthis()->consume())
 
     default:
       LOG(FATAL) << "Unknown return type: " << returnType;

@@ -1,19 +1,38 @@
 {
-  "_from": "tween-functions@^1.0.1",
+  "_args": [
+    [
+      {
+        "raw": "tween-functions@^1.0.1",
+        "scope": null,
+        "escapedName": "tween-functions",
+        "name": "tween-functions",
+        "rawSpec": "^1.0.1",
+        "spec": ">=1.0.1 <2.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base"
+    ]
+  ],
+  "_from": "tween-functions@>=1.0.1 <2.0.0",
   "_id": "tween-functions@1.2.0",
-  "_inBundle": false,
-  "_integrity": "sha1-GuOlDnxguz3vd06scHrLynO7w/8=",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/tween-functions",
+  "_nodeVersion": "4.1.2",
+  "_npmUser": {
+    "name": "chenglou",
+    "email": "chenglou92@gmail.com"
+  },
+  "_npmVersion": "2.14.6",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
     "raw": "tween-functions@^1.0.1",
-    "name": "tween-functions",
+    "scope": null,
     "escapedName": "tween-functions",
+    "name": "tween-functions",
     "rawSpec": "^1.0.1",
-    "saveSpec": null,
-    "fetchSpec": "^1.0.1"
+    "spec": ">=1.0.1 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/native-base",
@@ -22,17 +41,24 @@
   ],
   "_resolved": "https://registry.npmjs.org/tween-functions/-/tween-functions-1.2.0.tgz",
   "_shasum": "1ae3a50e7c60bb3def774eac707acbca73bbc3ff",
+  "_shrinkwrap": null,
   "_spec": "tween-functions@^1.0.1",
-  "_where": "/Development/web/rnoleole/client/golegole/node_modules/native-base",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base",
   "author": {
     "name": "chenglou"
   },
   "bugs": {
     "url": "https://github.com/chenglou/tween-functions/issues"
   },
-  "bundleDependencies": false,
-  "deprecated": false,
+  "dependencies": {},
   "description": "Robert Penner's easing functions, slightly modified",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "1ae3a50e7c60bb3def774eac707acbca73bbc3ff",
+    "tarball": "https://registry.npmjs.org/tween-functions/-/tween-functions-1.2.0.tgz"
+  },
+  "gitHead": "e3d5f1edf2cdb9b7b623be4d1064f886136a70b3",
   "homepage": "https://github.com/chenglou/tween-functions",
   "keywords": [
     "tween",
@@ -46,7 +72,15 @@
   ],
   "license": "BSD",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "chenglou",
+      "email": "chenglou92@gmail.com"
+    }
+  ],
   "name": "tween-functions",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chenglou/tween-functions.git"

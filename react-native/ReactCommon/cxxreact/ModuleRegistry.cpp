@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "ModuleRegistry.h"
 
@@ -30,8 +27,8 @@ std::string normalizeName(std::string name) {
 
 }
 
-ModuleRegistry::ModuleRegistry(std::vector<std::unique_ptr<NativeModule>> modules, ModuleNotFoundCallback callback)
-    : modules_{std::move(modules)}, moduleNotFoundCallback_{callback} {}
+ModuleRegistry::ModuleRegistry(std::vector<std::unique_ptr<NativeModule>> modules)
+    : modules_(std::move(modules)) {}
 
 void ModuleRegistry::updateModuleNamesFromIndex(size_t index) {
   for (; index < modules_.size(); index++ ) {
@@ -41,7 +38,6 @@ void ModuleRegistry::updateModuleNamesFromIndex(size_t index) {
 }
 
 void ModuleRegistry::registerModules(std::vector<std::unique_ptr<NativeModule>> modules) {
-  SystraceSection s_("ModuleRegistry::registerModules");
   if (modules_.empty() && unknownModules_.empty()) {
     modules_ = std::move(modules);
   } else {
@@ -68,7 +64,6 @@ void ModuleRegistry::registerModules(std::vector<std::unique_ptr<NativeModule>> 
 }
 
 std::vector<std::string> ModuleRegistry::moduleNames() {
-  SystraceSection s_("ModuleRegistry::moduleNames");
   std::vector<std::string> names;
   for (size_t i = 0; i < modules_.size(); i++) {
     std::string name = normalizeName(modules_[i]->getName());
@@ -79,7 +74,7 @@ std::vector<std::string> ModuleRegistry::moduleNames() {
 }
 
 folly::Optional<ModuleConfig> ModuleRegistry::getConfig(const std::string& name) {
-  SystraceSection s("ModuleRegistry::getConfig", "module", name);
+  SystraceSection s("getConfig", "module", name);
 
   // Initialize modulesByName_
   if (modulesByName_.empty() && !modules_.empty()) {
@@ -87,33 +82,24 @@ folly::Optional<ModuleConfig> ModuleRegistry::getConfig(const std::string& name)
   }
 
   auto it = modulesByName_.find(name);
-
   if (it == modulesByName_.end()) {
-    if (unknownModules_.find(name) != unknownModules_.end()) {
-      return folly::none;
-    }
-    if (!moduleNotFoundCallback_ ||
-        !moduleNotFoundCallback_(name) ||
-        (it = modulesByName_.find(name)) == modulesByName_.end()) {
-      unknownModules_.insert(name);
-      return folly::none;
-    }
+    unknownModules_.insert(name);
+    return nullptr;
   }
-  size_t index = it->second;
 
-  CHECK(index < modules_.size());
-  NativeModule *module = modules_[index].get();
+  CHECK(it->second < modules_.size());
+  NativeModule* module = modules_[it->second].get();
 
   // string name, object constants, array methodNames (methodId is index), [array promiseMethodIds], [array syncMethodIds]
   folly::dynamic config = folly::dynamic::array(name);
 
   {
-    SystraceSection s_("ModuleRegistry::getConstants", "module", name);
+    SystraceSection s_("getConstants");
     config.push_back(module->getConstants());
   }
 
   {
-    SystraceSection s_("ModuleRegistry::getMethods", "module", name);
+    SystraceSection s_("getMethods");
     std::vector<MethodDescriptor> methods = module->getMethods();
 
     folly::dynamic methodNames = folly::dynamic::array;
@@ -143,9 +129,9 @@ folly::Optional<ModuleConfig> ModuleRegistry::getConfig(const std::string& name)
 
   if (config.size() == 2 && config[1].empty()) {
     // no constants or methods
-    return folly::none;
+    return nullptr;
   } else {
-    return ModuleConfig{index, config};
+    return ModuleConfig({it->second, config});
   }
 }
 

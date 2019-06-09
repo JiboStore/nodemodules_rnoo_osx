@@ -1,17 +1,15 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "JMessageQueueThread.h"
 
 #include <condition_variable>
 #include <mutex>
 
-#include <fb/fbjni.h>
 #include <fb/log.h>
 #include <folly/Memory.h>
-#include <jsi/jsi.h>
+#include <fb/fbjni.h>
+
+#include <jschelpers/JSCHelpers.h>
 
 #include "JNativeRunnable.h"
 
@@ -34,10 +32,8 @@ std::function<void()> wrapRunnable(std::function<void()>&& runnable) {
   return [runnable=std::move(runnable)] {
     try {
       runnable();
-    } catch (const jsi::JSError& ex) {
-      throwNewJavaException(
-          JavaJSException::create(ex.getMessage().c_str(), ex.getStack().c_str(), ex)
-          .get());
+    } catch (const JSException& ex) {
+      throwNewJavaException(JavaJSException::create(ex.what(), ex.getStack().c_str(), ex).get());
     }
   };
 }

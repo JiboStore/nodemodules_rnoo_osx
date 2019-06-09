@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #pragma once
 
@@ -11,10 +8,6 @@
 #include <cxxreact/NativeModule.h>
 #include <folly/dynamic.h>
 
-#ifndef RN_EXPORT
-#define RN_EXPORT __attribute__((visibility("default")))
-#endif
-
 namespace facebook {
 namespace react {
 
@@ -23,7 +16,6 @@ class JSExecutor;
 class JSModulesUnbundle;
 class MessageQueueThread;
 class ModuleRegistry;
-class RAMBundleRegistry;
 
 // This interface describes the delegate interface required by
 // Executor implementations to call from JS into native code.
@@ -39,8 +31,6 @@ class ExecutorDelegate {
     JSExecutor& executor, unsigned int moduleId, unsigned int methodId, folly::dynamic&& args) = 0;
 };
 
-using NativeExtensionsProvider = std::function<folly::dynamic(const std::string&)>;
-
 class JSExecutorFactory {
 public:
   virtual std::unique_ptr<JSExecutor> createJSExecutor(
@@ -49,7 +39,7 @@ public:
   virtual ~JSExecutorFactory() {}
 };
 
-class RN_EXPORT JSExecutor {
+class JSExecutor {
 public:
   /**
    * Execute an application script bundle in the JS context.
@@ -58,14 +48,9 @@ public:
                                      std::string sourceURL) = 0;
 
   /**
-   * Add an application "RAM" bundle registry
+   * Add an application "unbundle" file
    */
-  virtual void setBundleRegistry(std::unique_ptr<RAMBundleRegistry> bundleRegistry) = 0;
-
-  /**
-   * Register a file path for an additional "RAM" bundle
-   */
-  virtual void registerBundle(uint32_t bundleId, const std::string& bundlePath) = 0;
+  virtual void setJSModulesUnbundle(std::unique_ptr<JSModulesUnbundle> bundle) = 0;
 
   /**
    * Executes BatchedBridge.callFunctionReturnFlushedQueue with the module ID,
@@ -82,35 +67,23 @@ public:
    */
   virtual void invokeCallback(const double callbackId, const folly::dynamic& arguments) = 0;
 
-  virtual void setGlobalVariable(std::string propName, std::unique_ptr<const JSBigString> jsonValue) = 0;
-
+  virtual void setGlobalVariable(std::string propName,
+                                 std::unique_ptr<const JSBigString> jsonValue) = 0;
   virtual void* getJavaScriptContext() {
     return nullptr;
   }
-
-  /**
-   * Returns whether or not the underlying executor supports debugging via the
-   * Chrome remote debugging protocol.
-   */
-  virtual bool isInspectable() {
+  virtual bool supportsProfiling() {
     return false;
   }
+  virtual void startProfiler(const std::string &titleString) {}
+  virtual void stopProfiler(const std::string &titleString, const std::string &filename) {}
 
-  /**
-   * The description is displayed in the dev menu, if there is one in
-   * this build.  There is a default, but if this method returns a
-   * non-empty string, it will be used instead.
-   */
-  virtual std::string getDescription() = 0;
-
+  #ifdef WITH_JSC_MEMORY_PRESSURE
   virtual void handleMemoryPressure(int pressureLevel) {}
+  #endif
 
   virtual void destroy() {}
   virtual ~JSExecutor() {}
-
-  static std::string getSyntheticBundlePath(
-      uint32_t bundleId,
-      const std::string& bundlePath);
 };
 
 } }

@@ -1,12 +1,15 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.bridge.queue;
 
+import javax.annotation.Nullable;
 
 /**
  * Specifies which {@link MessageQueueThread}s must be used to run the various contexts of
@@ -19,6 +22,8 @@ package com.facebook.react.bridge.queue;
  */
 public interface ReactQueueConfiguration {
   MessageQueueThread getUIQueueThread();
+  @Nullable
+  MessageQueueThread getUIBackgroundQueueThread();
   MessageQueueThread getNativeModulesQueueThread();
   MessageQueueThread getJSQueueThread();
   void destroy();

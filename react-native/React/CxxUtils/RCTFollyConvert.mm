@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTFollyConvert.h"
@@ -27,7 +29,7 @@ id convertFollyDynamicToId(const folly::dynamic &dyn) {
     case folly::dynamic::DOUBLE:
       return @(dyn.getDouble());
     case folly::dynamic::STRING:
-      return [[NSString alloc] initWithBytes:dyn.c_str() length:dyn.size()
+      return [[NSString alloc] initWithData:[NSData dataWithBytes:dyn.data() length:dyn.size()]
                                    encoding:NSUTF8StringEncoding];
     case folly::dynamic::ARRAY: {
       NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:dyn.size()];

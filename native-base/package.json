@@ -1,78 +1,101 @@
 {
-  "_from": "native-base",
-  "_id": "native-base@2.12.1",
-  "_inBundle": false,
-  "_integrity": "sha512-4DH5aKaazOwh7//URZySVxgHFnoZnkhat3aMEJYd/eWW/RBJQ/lBk/nRmDicLqq1chzq/6Ok4KmkQnVwSTt3mA==",
+  "_args": [
+    [
+      {
+        "raw": "native-base@^2.3.3",
+        "scope": null,
+        "escapedName": "native-base",
+        "name": "native-base",
+        "rawSpec": "^2.3.3",
+        "spec": ">=2.3.3 <3.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "native-base@>=2.3.3 <3.0.0",
+  "_id": "native-base@2.3.3",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/native-base",
-  "_phantomChildren": {
-    "graceful-fs": "4.1.15"
+  "_nodeVersion": "7.6.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/native-base-2.3.3.tgz_1507900769513_0.9001827188767493"
   },
+  "_npmUser": {
+    "name": "geekyants",
+    "email": "npm@sahusoft.com"
+  },
+  "_npmVersion": "4.1.2",
+  "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "native-base",
-    "name": "native-base",
+    "raw": "native-base@^2.3.3",
+    "scope": null,
     "escapedName": "native-base",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "name": "native-base",
+    "rawSpec": "^2.3.3",
+    "spec": ">=2.3.3 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/native-base/-/native-base-2.12.1.tgz",
-  "_shasum": "0ce367076fd5694f92abab6e0a69a84dc5dfa800",
-  "_spec": "native-base",
-  "_where": "/Development/web/rnoleole/client/golegole",
+  "_resolved": "https://registry.npmjs.org/native-base/-/native-base-2.3.3.tgz",
+  "_shasum": "de35234cf9cf8d24b5ce5e1720f8330dd5f3c96a",
+  "_shrinkwrap": null,
+  "_spec": "native-base@^2.3.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
   "bugs": {
     "url": "https://github.com/GeekyAnts/NativeBase/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "blueimp-md5": "^2.5.0",
     "clamp": "^1.0.1",
     "color": "~1.0.3",
     "fs-extra": "^2.0.0",
-    "jest-react-native": "^18.0.0",
-    "lodash": "4.17.11",
-    "native-base-shoutem-theme": "0.2.3",
+    "lodash": "~4.11.1",
+    "native-base-shoutem-theme": "0.2.1",
     "print-message": "^2.1.0",
     "prop-types": "^15.5.10",
-    "react-native-drawer": "2.5.1",
-    "react-native-easy-grid": "0.2.1",
-    "react-native-keyboard-aware-scroll-view": "0.8.0",
-    "react-native-vector-icons": "6.1.0",
-    "react-timer-mixin": "^0.13.4",
+    "react-native-drawer": "git+https://github.com/GeekyAnts/react-native-drawer.git",
+    "react-native-easy-grid": "0.1.15",
+    "react-native-keyboard-aware-scroll-view": "git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git",
+    "react-native-vector-icons": "~4.4.2",
     "react-tween-state": "^0.1.5",
     "tween-functions": "^1.0.1"
   },
-  "deprecated": false,
   "description": "Essential cross-platform UI components for React Native",
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.2.3",
-    "babel-jest": "23.2.0",
-    "babel-preset-react-native": "4.0.0",
+    "babel-eslint": "^6.1.2",
+    "babel-jest": "^16.0.0",
+    "babel-preset-react-native": "^1.9.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.1.0",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.2.1",
     "eslint-plugin-react": "^6.2.0",
     "eslint-plugin-react-native": "^2.0.0",
-    "flow-bin": "0.47.0",
-    "jest": "23.3.0",
-    "react": "16.4.1",
-    "react-native": "0.56.0",
-    "react-native-vector-icons": "6.1.0",
-    "react-test-renderer": "16.4.1"
+    "flow-bin": "0.40.0",
+    "jest": "17.0.0",
+    "react": "^16.0.0-alpha.3",
+    "react-native": "^0.46.0",
+    "react-native-vector-icons": "~4.4.2",
+    "react-test-renderer": "^15.3.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "de35234cf9cf8d24b5ce5e1720f8330dd5f3c96a",
+    "tarball": "https://registry.npmjs.org/native-base/-/native-base-2.3.3.tgz"
   },
   "gitHead": "5bbeacc403ba97622703699132c55d8359344004",
   "homepage": "https://github.com/GeekyAnts/NativeBase#readme",
   "jest": {
     "preset": "react-native",
+    "rootDir": "src",
     "transformIgnorePatterns": [
-      "node_modules/(?!react-native|@shoutem|react-clone-referenced-element|native-base-shoutem-theme)"
+      "node_modules/(?!react-native|@shoutem|react-clone-referenced-element)"
     ]
   },
   "keywords": [
@@ -89,13 +112,32 @@
   ],
   "license": "Apache-2.0",
   "main": "dist/src/index.js",
+  "maintainers": [
+    {
+      "name": "geekyants",
+      "email": "npm@sahusoft.com"
+    },
+    {
+      "name": "himanshu-sahusoft",
+      "email": "himanshu@sahusoft.com"
+    },
+    {
+      "name": "sankhadeeproy007",
+      "email": "sankhadeep@sahusoft.com"
+    },
+    {
+      "name": "shivrajk",
+      "email": "shivraj@sahusoft.com"
+    }
+  ],
   "name": "native-base",
   "optionalDependencies": {},
   "peerDependencies": {
-    "react": ">=16.4.1",
-    "react-native": ">=0.56.0"
+    "react": ">=16.0.0-alpha.3",
+    "react-native": ">=0.46.0"
   },
   "private": false,
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GeekyAnts/NativeBase.git"
@@ -106,12 +148,13 @@
     ]
   },
   "scripts": {
-    "compile": "rm -rf dist/* && babel . --out-dir dist --ignore node_modules,dist --source-maps ",
+    "compile": "rm -rf dist/* && babel . --out-dir dist --ignore node_modules,dist --source-maps",
     "flow": "flow",
     "postinstall": "node addEjectScript.js",
     "prepublish": "npm run transpile",
+    "test": "jest",
     "transpile": "npm run compile && cp src/basic/Icon/NBIcons.json dist/src/basic/Icon"
   },
   "typings": "./index.d.ts",
-  "version": "2.12.1"
+  "version": "2.3.3"
 }

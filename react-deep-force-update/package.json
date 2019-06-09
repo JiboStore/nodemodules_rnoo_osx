@@ -1,27 +1,51 @@
 {
-  "_from": "react-deep-force-update@^1.0.0",
-  "_id": "react-deep-force-update@1.1.2",
-  "_inBundle": false,
-  "_integrity": "sha512-WUSQJ4P/wWcusaH+zZmbECOk7H5N2pOIl0vzheeornkIMhu+qrNdGFm0bDZLCb0hSF0jf/kH1SgkNGfBdTc4wA==",
+  "_args": [
+    [
+      {
+        "raw": "react-deep-force-update@^1.0.0",
+        "scope": null,
+        "escapedName": "react-deep-force-update",
+        "name": "react-deep-force-update",
+        "rawSpec": "^1.0.0",
+        "spec": ">=1.0.0 <2.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-proxy"
+    ]
+  ],
+  "_from": "react-deep-force-update@>=1.0.0 <2.0.0",
+  "_id": "react-deep-force-update@1.1.1",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react-deep-force-update",
+  "_nodeVersion": "8.1.2",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-deep-force-update-1.1.1.tgz_1503490298960_0.5825116515625268"
+  },
+  "_npmUser": {
+    "name": "gaearon",
+    "email": "dan.abramov@gmail.com"
+  },
+  "_npmVersion": "4.6.1",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
     "raw": "react-deep-force-update@^1.0.0",
-    "name": "react-deep-force-update",
+    "scope": null,
     "escapedName": "react-deep-force-update",
+    "name": "react-deep-force-update",
     "rawSpec": "^1.0.0",
-    "saveSpec": null,
-    "fetchSpec": "^1.0.0"
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/react-proxy"
   ],
-  "_resolved": "https://registry.npmjs.org/react-deep-force-update/-/react-deep-force-update-1.1.2.tgz",
-  "_shasum": "3d2ae45c2c9040cbb1772be52f8ea1ade6ca2ee1",
+  "_resolved": "https://registry.npmjs.org/react-deep-force-update/-/react-deep-force-update-1.1.1.tgz",
+  "_shasum": "bcd31478027b64b3339f108921ab520b4313dc2c",
+  "_shrinkwrap": null,
   "_spec": "react-deep-force-update@^1.0.0",
-  "_where": "/Development/web/rnoleole/node_modules/react-proxy",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-proxy",
   "author": {
     "name": "Dan Abramov",
     "email": "dan.abramov@me.com"
@@ -29,8 +53,7 @@
   "bugs": {
     "url": "https://github.com/gaearon/react-deep-force-update/issues"
   },
-  "bundleDependencies": false,
-  "deprecated": false,
+  "dependencies": {},
   "description": "Force-updates React component tree recursively",
   "devDependencies": {
     "babel": "^5.5.8",
@@ -47,17 +70,35 @@
     "react-addons-test-utils": "^0.14.0-rc1",
     "rimraf": "^2.3.4"
   },
+  "directories": {},
+  "dist": {
+    "shasum": "bcd31478027b64b3339f108921ab520b4313dc2c",
+    "tarball": "https://registry.npmjs.org/react-deep-force-update/-/react-deep-force-update-1.1.1.tgz"
+  },
   "files": [
     "lib",
     "src"
   ],
+  "gitHead": "8cb0bc8288c302d56d47bf6eef5a63c5a92e9efd",
   "homepage": "https://github.com/gaearon/react-deep-force-update",
   "keywords": [
     "react"
   ],
   "license": "MIT",
   "main": "lib/index.js",
+  "maintainers": [
+    {
+      "name": "gaearon",
+      "email": "dan.abramov@gmail.com"
+    },
+    {
+      "name": "wkwiatek",
+      "email": "wojtek.kwiatek@gmail.com"
+    }
+  ],
   "name": "react-deep-force-update",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gaearon/react-deep-force-update.git"
@@ -70,5 +111,5 @@
     "test": "mocha --compilers js:babel/register --recursive",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "1.1.2"
+  "version": "1.1.1"
 }

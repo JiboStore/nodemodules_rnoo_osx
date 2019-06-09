@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTAnimationUtils.h"
@@ -92,24 +94,4 @@ CGFloat RCTRadiansToDegrees(CGFloat radians)
 CGFloat RCTDegreesToRadians(CGFloat degrees)
 {
   return degrees / 180.0 * M_PI;
-}
-
-#if TARGET_IPHONE_SIMULATOR
-// Based on https://stackoverflow.com/a/13307674
-float UIAnimationDragCoefficient(void);
-#endif
-
-CGFloat RCTAnimationDragCoefficient()
-{
-#if TARGET_IPHONE_SIMULATOR
-  if (NSClassFromString(@"XCTest") != nil) {
-    // UIAnimationDragCoefficient is 10.0 in tests for some reason, but
-    // we need it to be 1.0. Fixes T34233294
-    return 1.0;
-  } else {
-    return (CGFloat)UIAnimationDragCoefficient();
-  }
-#else
-  return 1.0;
-#endif
 }

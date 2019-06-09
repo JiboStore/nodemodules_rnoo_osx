@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTImageUtils.h"
@@ -31,22 +33,6 @@ static CGSize RCTCeilSize(CGSize size, CGFloat scale)
     RCTCeilValue(size.width, scale),
     RCTCeilValue(size.height, scale)
   };
-}
-
-static CGImagePropertyOrientation CGImagePropertyOrientationFromUIImageOrientation(UIImageOrientation imageOrientation)
-{
-  // see https://stackoverflow.com/a/6699649/496389
-  switch (imageOrientation) {
-    case UIImageOrientationUp: return kCGImagePropertyOrientationUp;
-    case UIImageOrientationDown: return kCGImagePropertyOrientationDown;
-    case UIImageOrientationLeft: return kCGImagePropertyOrientationLeft;
-    case UIImageOrientationRight: return kCGImagePropertyOrientationRight;
-    case UIImageOrientationUpMirrored: return kCGImagePropertyOrientationUpMirrored;
-    case UIImageOrientationDownMirrored: return kCGImagePropertyOrientationDownMirrored;
-    case UIImageOrientationLeftMirrored: return kCGImagePropertyOrientationLeftMirrored;
-    case UIImageOrientationRightMirrored: return kCGImagePropertyOrientationRightMirrored;
-    default: return kCGImagePropertyOrientationUp;
-  }
 }
 
 CGRect RCTTargetRect(CGSize sourceSize, CGSize destSize,
@@ -328,23 +314,20 @@ NSDictionary<NSString *, id> *__nullable RCTGetImageMetadata(NSData *data)
   return (__bridge_transfer id)imageProperties;
 }
 
-NSData *__nullable RCTGetImageData(UIImage *image, float quality)
+NSData *__nullable RCTGetImageData(CGImageRef image, float quality)
 {
-  NSMutableDictionary *properties = [[NSMutableDictionary alloc] initWithDictionary:@{
-    (id)kCGImagePropertyOrientation : @(CGImagePropertyOrientationFromUIImageOrientation(image.imageOrientation))
-  }];
+  NSDictionary *properties;
   CGImageDestinationRef destination;
   CFMutableDataRef imageData = CFDataCreateMutable(NULL, 0);
-  CGImageRef cgImage = image.CGImage;
-  if (RCTImageHasAlpha(cgImage)) {
+  if (RCTImageHasAlpha(image)) {
     // get png data
     destination = CGImageDestinationCreateWithData(imageData, kUTTypePNG, 1, NULL);
   } else {
     // get jpeg data
     destination = CGImageDestinationCreateWithData(imageData, kUTTypeJPEG, 1, NULL);
-    [properties setValue:@(quality) forKey:(id)kCGImageDestinationLossyCompressionQuality];
+    properties = @{(NSString *)kCGImageDestinationLossyCompressionQuality: @(quality)};
   }
-  CGImageDestinationAddImage(destination, cgImage, (__bridge CFDictionaryRef)properties);
+  CGImageDestinationAddImage(destination, image, (__bridge CFDictionaryRef)properties);
   if (!CGImageDestinationFinalize(destination))
   {
     CFRelease(imageData);

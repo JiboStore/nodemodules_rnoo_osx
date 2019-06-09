@@ -1,6 +1,6 @@
 'use strict';
 
-const React = require('react');
+let React = require('react');
 
 function cloneReferencedElement(element, config, ...children) {
   let cloneRef = config.ref;

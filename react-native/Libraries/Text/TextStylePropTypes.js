@@ -1,23 +1,24 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule TextStylePropTypes
  * @flow
  */
-
 'use strict';
 
-const DeprecatedColorPropType = require('DeprecatedColorPropType');
+const ColorPropType = require('ColorPropType');
 const ReactPropTypes = require('prop-types');
-const DeprecatedViewStylePropTypes = require('DeprecatedViewStylePropTypes');
+const ViewStylePropTypes = require('ViewStylePropTypes');
 
 const TextStylePropTypes = {
-  ...DeprecatedViewStylePropTypes,
+  ...ViewStylePropTypes,
 
-  color: DeprecatedColorPropType,
+  color: ColorPropType,
   fontFamily: ReactPropTypes.string,
   fontSize: ReactPropTypes.number,
   fontStyle: ReactPropTypes.oneOf(['normal', 'italic']),
@@ -26,19 +27,10 @@ const TextStylePropTypes = {
    * most fonts. Not all fonts have a variant for each of the numeric values,
    * in that case the closest one is chosen.
    */
-  fontWeight: ReactPropTypes.oneOf([
-    'normal' /*default*/,
-    'bold',
-    '100',
-    '200',
-    '300',
-    '400',
-    '500',
-    '600',
-    '700',
-    '800',
-    '900',
-  ]),
+  fontWeight: ReactPropTypes.oneOf(
+    ['normal' /*default*/, 'bold',
+     '100', '200', '300', '400', '500', '600', '700', '800', '900']
+  ),
   /**
    * @platform ios
    */
@@ -49,14 +41,13 @@ const TextStylePropTypes = {
       'lining-nums',
       'tabular-nums',
       'proportional-nums',
-    ]),
+    ])
   ),
-  textShadowOffset: ReactPropTypes.shape({
-    width: ReactPropTypes.number,
-    height: ReactPropTypes.number,
-  }),
+  textShadowOffset: ReactPropTypes.shape(
+    {width: ReactPropTypes.number, height: ReactPropTypes.number}
+  ),
   textShadowRadius: ReactPropTypes.number,
-  textShadowColor: DeprecatedColorPropType,
+  textShadowColor: ColorPropType,
   /**
    * @platform ios
    */
@@ -66,22 +57,15 @@ const TextStylePropTypes = {
    * Specifies text alignment. The value 'justify' is only supported on iOS and
    * fallbacks to `left` on Android.
    */
-  textAlign: ReactPropTypes.oneOf([
-    'auto' /*default*/,
-    'left',
-    'right',
-    'center',
-    'justify',
-  ]),
+  textAlign: ReactPropTypes.oneOf(
+    ['auto' /*default*/, 'left', 'right', 'center', 'justify']
+  ),
   /**
    * @platform android
    */
-  textAlignVertical: ReactPropTypes.oneOf([
-    'auto' /*default*/,
-    'top',
-    'bottom',
-    'center',
-  ]),
+  textAlignVertical: ReactPropTypes.oneOf(
+    ['auto' /*default*/, 'top', 'bottom', 'center']
+  ),
   /**
    * Set to `false` to remove extra font padding intended to make space for certain ascenders / descenders.
    * With some fonts, this padding can make text look slightly misaligned when centered vertically.
@@ -89,35 +73,25 @@ const TextStylePropTypes = {
    * @platform android
    */
   includeFontPadding: ReactPropTypes.bool,
-  textDecorationLine: ReactPropTypes.oneOf([
-    'none' /*default*/,
-    'underline',
-    'line-through',
-    'underline line-through',
-  ]),
+  textDecorationLine: ReactPropTypes.oneOf(
+    ['none' /*default*/, 'underline', 'line-through', 'underline line-through']
+  ),
   /**
    * @platform ios
    */
-  textDecorationStyle: ReactPropTypes.oneOf([
-    'solid' /*default*/,
-    'double',
-    'dotted',
-    'dashed',
-  ]),
+  textDecorationStyle: ReactPropTypes.oneOf(
+    ['solid' /*default*/, 'double', 'dotted','dashed']
+  ),
   /**
    * @platform ios
    */
-  textDecorationColor: DeprecatedColorPropType,
-  textTransform: ReactPropTypes.oneOf([
-    'none' /*default*/,
-    'capitalize',
-    'uppercase',
-    'lowercase',
-  ]),
+  textDecorationColor: ColorPropType,
   /**
    * @platform ios
    */
-  writingDirection: ReactPropTypes.oneOf(['auto' /*default*/, 'ltr', 'rtl']),
+  writingDirection: ReactPropTypes.oneOf(
+    ['auto' /*default*/, 'ltr', 'rtl']
+  ),
 };
 
 module.exports = TextStylePropTypes;

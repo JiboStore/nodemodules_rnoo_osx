@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <Foundation/Foundation.h>
@@ -45,17 +47,7 @@ typedef void (^RCTPromiseRejectBlock)(NSString *code, NSString *message, NSError
  *
  * NOTE: RCTJSThread is not a real libdispatch queue
  */
-RCT_EXTERN dispatch_queue_t RCTJSThread;
-
-RCT_EXTERN_C_BEGIN
-
-typedef struct RCTMethodInfo {
-  const char *const jsName;
-  const char *const objcName;
-  const BOOL isSync;
-} RCTMethodInfo;
-
-RCT_EXTERN_C_END
+extern dispatch_queue_t RCTJSThread;
 
 /**
  * Provides the interface needed to register a bridge module.
@@ -73,27 +65,6 @@ RCT_EXTERN void RCTRegisterModule(Class); \
 + (NSString *)moduleName { return @#js_name; } \
 + (void)load { RCTRegisterModule(self); }
 
-/**
- * Same as RCT_EXPORT_MODULE, but uses __attribute__((constructor)) for module
- * registration. Useful for registering swift classes that forbids use of load
- * Used in RCT_EXTERN_REMAP_MODULE
- */
-#define RCT_EXPORT_MODULE_NO_LOAD(js_name, objc_name) \
-RCT_EXTERN void RCTRegisterModule(Class); \
-+ (NSString *)moduleName { return @#js_name; } \
-__attribute__((constructor)) static void \
-RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
-
-/**
- * To improve startup performance users may want to generate their module lists
- * at build time and hook the delegate to merge with the runtime list. This
- * macro takes the place of the above for those cases by omitting the +load
- * generation.
- *
- */
-#define RCT_EXPORT_PRE_REGISTERED_MODULE(js_name) \
-+ (NSString *)moduleName { return @#js_name; }
-
 // Implemented by RCT_EXPORT_MODULE
 + (NSString *)moduleName;
 
@@ -104,7 +75,6 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
  * to bridge features, such as sending events or making JS calls. This
  * will be set automatically by the bridge when it initializes the module.
  * To implement this in your module, just add `@synthesize bridge = _bridge;`
- * If using Swift, add `@objc var bridge: RCTBridge!` to your module.
  */
 @property (nonatomic, weak, readonly) RCTBridge *bridge;
 
@@ -191,11 +161,7 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
  * is currently not supported.
  */
 #define RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(method) \
-  RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(id, method)
-
-#define RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(returnType, method) \
-  RCT_REMAP_BLOCKING_SYNCHRONOUS_METHOD(, returnType, method)
-
+  RCT_REMAP_BLOCKING_SYNCHRONOUS_METHOD(, method)
 
 /**
  * Similar to RCT_EXPORT_METHOD but lets you set the JS name of the exported
@@ -207,7 +173,7 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
  */
 #define RCT_REMAP_METHOD(js_name, method) \
   _RCT_EXTERN_REMAP_METHOD(js_name, method, NO) \
-  - (void)method RCT_DYNAMIC;
+  - (void)method;
 
 /**
  * Similar to RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD but lets you set
@@ -217,9 +183,9 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
  *   executeQuery:(NSString *)query parameters:(NSDictionary *)parameters)
  * { ... }
  */
-#define RCT_REMAP_BLOCKING_SYNCHRONOUS_METHOD(js_name, returnType, method) \
+#define RCT_REMAP_BLOCKING_SYNCHRONOUS_METHOD(js_name, method) \
   _RCT_EXTERN_REMAP_METHOD(js_name, method, YES) \
-  - (returnType)method RCT_DYNAMIC;
+  - (id)method;
 
 /**
  * Use this macro in a private Objective-C implementation file to automatically
@@ -261,7 +227,7 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
   @interface objc_name (RCTExternModule) <RCTBridgeModule> \
   @end \
   @implementation objc_name (RCTExternModule) \
-  RCT_EXPORT_MODULE_NO_LOAD(js_name, objc_name)
+  RCT_EXPORT_MODULE(js_name)
 
 /**
  * Use this macro in accordance with RCT_EXTERN_MODULE to export methods
@@ -282,23 +248,10 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
  * and also whether this method is synchronous.
  */
 #define _RCT_EXTERN_REMAP_METHOD(js_name, method, is_blocking_synchronous_method) \
-  + (const RCTMethodInfo *)RCT_CONCAT(__rct_export__, RCT_CONCAT(js_name, RCT_CONCAT(__LINE__, __COUNTER__))) { \
-    static RCTMethodInfo config = {#js_name, #method, is_blocking_synchronous_method}; \
-    return &config; \
+  + (NSArray *)RCT_CONCAT(__rct_export__, \
+    RCT_CONCAT(js_name, RCT_CONCAT(__LINE__, __COUNTER__))) { \
+    return @[@#js_name, @#method, @is_blocking_synchronous_method]; \
   }
-
-/**
- * Most modules can be used from any thread. All of the modules exported non-sync method will be called on its
- * methodQueue, and the module will be constructed lazily when its first invoked. Some modules have main need to access
- * information that's main queue only (e.g. most UIKit classes). Since we don't want to dispatch synchronously to the
- * main thread to this safely, we construct these moduels and export their constants ahead-of-time.
- *
- * Note that when set to false, the module constructor will be called from any thread.
- *
- * This requirement is currently inferred by checking if the module has a custom initializer or if there's exported
- * constants. In the future, we'll stop automatically inferring this and instead only rely on this method.
- */
-+ (BOOL)requiresMainQueueSetup;
 
 /**
  * Injects methods into JS.  Entries in this array are used in addition to any
@@ -308,15 +261,13 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
 - (NSArray<id<RCTBridgeMethod>> *)methodsToExport;
 
 /**
- * Injects constants into JS. These constants are made accessible via NativeModules.ModuleName.X. It is only called once
- * for the lifetime of the bridge, so it is not suitable for returning dynamic values, but may be used for long-lived
- * values such as session keys, that are regenerated only as part of a reload of the entire React application.
- *
- * If you implement this method and do not implement `requiresMainQueueSetup`, you will trigger deprecated logic
- * that eagerly initializes your module on bridge startup. In the future, this behaviour will be changed to default
- * to initializing lazily, and even modules with constants will be initialized lazily.
+ * Injects constants into JS. These constants are made accessible via
+ * NativeModules.ModuleName.X.  It is only called once for the lifetime of the
+ * bridge, so it is not suitable for returning dynamic values, but may be used
+ * for long-lived values such as session keys, that are regenerated only as
+ * part of a reload of the entire React application.
  */
-- (NSDictionary *)constantsToExport;
+- (NSDictionary<NSString *, id> *)constantsToExport;
 
 /**
  * Notifies the module that a batch of JS method invocations has just completed.
@@ -332,31 +283,3 @@ RCT_CONCAT(initialize_, objc_name)() { RCTRegisterModule([objc_name class]); }
 - (void)partialBatchDidFlush;
 
 @end
-
-/**
- * A protocol that allows TurboModules to do lookup on other TurboModules.
- * Calling these methods may cause a module to be synchronously instantiated.
- */
- @protocol RCTTurboModuleLookupDelegate <NSObject>
- - (id)moduleForName:(const char *)moduleName;
-
- /**
-  * Rationale:
-  * When TurboModules lookup other modules by name, we first check the TurboModule
-  * registry to see if a TurboModule exists with the respective name. In this case,
-  * we don't want a RedBox to be raised if the TurboModule isn't found.
-  *
-  * This method is deprecated and will be deleted after the migration from
-  * TurboModules to TurboModules is complete.
-  */
- - (id)moduleForName:(const char *)moduleName warnOnLookupFailure:(BOOL)warnOnLookupFailure;
- - (BOOL)moduleIsInitialized:(const char *)moduleName;
- @end
-
-/**
- * Experimental.
- * A protocol to declare that a class supports TurboModule.
- * This may be removed in the future.
- * See RCTTurboModule.h for actual signature.
- */
-@protocol RCTTurboModule;

@@ -1,11 +1,18 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.bridge;
+
+import javax.annotation.Nullable;
+
+import java.lang.ref.WeakReference;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,13 +20,11 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.queue.MessageQueueThread;
 import com.facebook.react.bridge.queue.ReactQueueConfiguration;
 import com.facebook.react.common.LifecycleState;
-import java.lang.ref.WeakReference;
-import java.util.concurrent.CopyOnWriteArraySet;
-import javax.annotation.Nullable;
 
 /**
  * Abstract ContextWrapper for Android application or activity {@link Context} and
@@ -42,6 +47,7 @@ public class ReactContext extends ContextWrapper {
   private @Nullable CatalystInstance mCatalystInstance;
   private @Nullable LayoutInflater mInflater;
   private @Nullable MessageQueueThread mUiMessageQueueThread;
+  private @Nullable MessageQueueThread mUiBackgroundMessageQueueThread;
   private @Nullable MessageQueueThread mNativeModulesMessageQueueThread;
   private @Nullable MessageQueueThread mJSMessageQueueThread;
   private @Nullable NativeModuleCallExceptionHandler mNativeModuleCallExceptionHandler;
@@ -66,17 +72,9 @@ public class ReactContext extends ContextWrapper {
 
     ReactQueueConfiguration queueConfig = catalystInstance.getReactQueueConfiguration();
     mUiMessageQueueThread = queueConfig.getUIQueueThread();
+    mUiBackgroundMessageQueueThread = queueConfig.getUIBackgroundQueueThread();
     mNativeModulesMessageQueueThread = queueConfig.getNativeModulesQueueThread();
     mJSMessageQueueThread = queueConfig.getJSQueueThread();
-  }
-
-  public void resetPerfStats() {
-    if (mNativeModulesMessageQueueThread != null) {
-      mNativeModulesMessageQueueThread.resetPerfStats();
-    }
-    if (mJSMessageQueueThread != null) {
-      mJSMessageQueueThread.resetPerfStats();
-    }
   }
 
   public void setNativeModuleCallExceptionHandler(
@@ -148,20 +146,16 @@ public class ReactContext extends ContextWrapper {
         case BEFORE_RESUME:
           break;
         case RESUMED:
-          runOnUiQueueThread(
-              new Runnable() {
-                @Override
-                public void run() {
-                  if (!mLifecycleEventListeners.contains(listener)) {
-                    return;
-                  }
-                  try {
-                    listener.onHostResume();
-                  } catch (RuntimeException e) {
-                    handleException(e);
-                  }
-                }
-              });
+          runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                listener.onHostResume();
+              } catch (RuntimeException e) {
+                handleException(e);
+              }
+            }
+          });
           break;
         default:
           throw new RuntimeException("Unhandled lifecycle state.");
@@ -278,6 +272,14 @@ public class ReactContext extends ContextWrapper {
     Assertions.assertNotNull(mUiMessageQueueThread).runOnQueue(runnable);
   }
 
+  public void assertOnUiBackgroundQueueThread() {
+    Assertions.assertNotNull(mUiBackgroundMessageQueueThread).assertIsOnThread();
+  }
+
+  public void runOnUiBackgroundQueueThread(Runnable runnable) {
+    Assertions.assertNotNull(mUiBackgroundMessageQueueThread).runOnQueue(runnable);
+  }
+
   public void assertOnNativeModulesQueueThread() {
     Assertions.assertNotNull(mNativeModulesMessageQueueThread).assertIsOnThread();
   }
@@ -306,18 +308,38 @@ public class ReactContext extends ContextWrapper {
     Assertions.assertNotNull(mJSMessageQueueThread).runOnQueue(runnable);
   }
 
+  public boolean hasUIBackgroundRunnableThread() {
+    return mUiBackgroundMessageQueueThread != null;
+  }
+
+  public void assertOnUIBackgroundOrNativeModulesThread() {
+    if (mUiBackgroundMessageQueueThread == null) {
+      assertOnNativeModulesQueueThread();
+    } else {
+      assertOnUiBackgroundQueueThread();
+    }
+  }
+
+  public void runUIBackgroundRunnable(Runnable runnable) {
+    if (mUiBackgroundMessageQueueThread == null) {
+      runOnNativeModulesQueueThread(runnable);
+    } else {
+      runOnUiBackgroundQueueThread(runnable);
+    }
+  }
+
   /**
    * Passes the given exception to the current
    * {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler} if one exists, rethrowing
    * otherwise.
    */
-  public void handleException(Exception e) {
+  public void handleException(RuntimeException e) {
     if (mCatalystInstance != null &&
         !mCatalystInstance.isDestroyed() &&
         mNativeModuleCallExceptionHandler != null) {
       mNativeModuleCallExceptionHandler.handleException(e);
     } else {
-      throw new RuntimeException(e);
+      throw e;
     }
   }
 
@@ -350,13 +372,9 @@ public class ReactContext extends ContextWrapper {
   }
 
   /**
-   * Get the C pointer (as a long) to the JavaScriptCore context associated with this instance. Use
-   * the following pattern to ensure that the JS context is not cleared while you are using it:
-   * JavaScriptContextHolder jsContext = reactContext.getJavaScriptContextHolder()
-   * synchronized(jsContext) { nativeThingNeedingJsContext(jsContext.get()); }
+   * Get the C pointer (as a long) to the JavaScriptCore context associated with this instance.
    */
-  public JavaScriptContextHolder getJavaScriptContextHolder() {
-    return mCatalystInstance.getJavaScriptContextHolder();
+  public long getJavaScriptContext() {
+    return mCatalystInstance.getJavaScriptContext();
   }
-
 }

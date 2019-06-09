@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <Foundation/Foundation.h>
@@ -56,26 +58,45 @@ typedef id<RCTBridgeModule>(^RCTBridgeModuleProvider)(void);
 
 /**
  * Returns YES if module instance must be created on the main thread.
+ * May be overriden by "allowOffMainQueueRegistration".
  */
-@property (nonatomic, assign) BOOL requiresMainQueueSetup;
+@property (nonatomic, assign, readonly) BOOL requiresMainQueueSetup;
 
 /**
  * Returns YES if module has constants to export.
+ * May be overriden by "allowOffMainQueueRegistration".
  */
 @property (nonatomic, assign, readonly) BOOL hasConstantsToExport;
+
+/**
+ * If set to YES, it will force both setup and constants export process
+ * to explicitly happen off the main queue.
+ * Overrides "requiresMainQueueSetup" & "hasConstantsToExport"
+ * Defaults to NO.
+ *
+ * @experimental
+ */
+
+@property (nonatomic, assign) BOOL allowOffMainQueueRegistration;
 
 /**
  * Returns the current module instance. Note that this will init the instance
  * if it has not already been created. To check if the module instance exists
  * without causing it to be created, use `hasInstance` instead.
  */
-@property (nonatomic, strong, readwrite) id<RCTBridgeModule> instance;
+@property (nonatomic, strong, readonly) id<RCTBridgeModule> instance;
 
 /**
  * Returns the module method dispatch queue. Note that this will init both the
  * queue and the module itself if they have not already been created.
  */
 @property (nonatomic, strong, readonly) dispatch_queue_t methodQueue;
+
+/**
+ * Returns the module config. Calls `gatherConstants` internally, so the same
+ * usage caveats apply.
+ */
+@property (nonatomic, copy, readonly) NSArray *config;
 
 /**
  * Whether the receiver has a valid `instance` which implements -batchDidComplete.

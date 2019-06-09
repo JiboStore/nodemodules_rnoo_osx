@@ -1,27 +1,31 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.modules.toast;
 
 import android.view.Gravity;
 import android.widget.Toast;
+
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.MapBuilder;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.module.annotations.ReactModule;
+
 import java.util.Map;
 
 /**
  * {@link NativeModule} that allows JS to show an Android Toast.
  */
-@ReactModule(name = ToastModule.NAME)
+@ReactModule(name = "ToastAndroid")
 public class ToastModule extends ReactContextBaseJavaModule {
 
   private static final String DURATION_SHORT_KEY = "SHORT";
@@ -30,7 +34,6 @@ public class ToastModule extends ReactContextBaseJavaModule {
   private static final String GRAVITY_TOP_KEY = "TOP";
   private static final String GRAVITY_BOTTOM_KEY = "BOTTOM";
   private static final String GRAVITY_CENTER = "CENTER";
-  public static final String NAME = "ToastAndroid";
 
   public ToastModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -38,7 +41,7 @@ public class ToastModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return NAME;
+    return "ToastAndroid";
   }
 
   @Override
@@ -72,23 +75,5 @@ public class ToastModule extends ReactContextBaseJavaModule {
         toast.show();
       }
     });
-  }
-
-  @ReactMethod
-  public void showWithGravityAndOffset(
-      final String message,
-      final int duration,
-      final int gravity,
-      final int xOffset,
-      final int yOffset) {
-    UiThreadUtil.runOnUiThread(
-        new Runnable() {
-          @Override
-          public void run() {
-            Toast toast = Toast.makeText(getReactApplicationContext(), message, duration);
-            toast.setGravity(gravity, xOffset, yOffset);
-            toast.show();
-          }
-        });
   }
 }

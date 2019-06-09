@@ -1,34 +1,39 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.tests;
+
+import java.util.Arrays;
+import java.util.List;
 
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.modules.appstate.AppStateModule;
 import com.facebook.react.modules.deviceinfo.DeviceInfoModule;
 import com.facebook.react.modules.systeminfo.AndroidInfoModule;
-import com.facebook.react.testing.FakeWebSocketModule;
-import com.facebook.react.testing.ReactIntegrationTestCase;
-import com.facebook.react.testing.ReactTestHelper;
 import com.facebook.react.uimanager.PixelUtil;
+import com.facebook.react.uimanager.UIImplementationProvider;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.views.text.ReactRawTextManager;
 import com.facebook.react.views.text.ReactTextViewManager;
 import com.facebook.react.views.view.ReactViewManager;
-import java.util.Arrays;
-import java.util.List;
+import com.facebook.react.testing.FakeWebSocketModule;
+import com.facebook.react.testing.ReactIntegrationTestCase;
+import com.facebook.react.testing.ReactTestHelper;
 
 /**
  * Test case for basic {@link UIManagerModule} functionality.
@@ -75,8 +80,11 @@ public class CatalystUIManagerTestCase extends ReactIntegrationTestCase {
         new ReactViewManager(),
         new ReactTextViewManager(),
         new ReactRawTextManager());
-    uiManager =
-        new UIManagerModule(getContext(), viewManagers, 0);
+    uiManager = new UIManagerModule(
+        getContext(),
+        viewManagers,
+        new UIImplementationProvider(),
+        false);
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
       public void run() {
@@ -87,7 +95,7 @@ public class CatalystUIManagerTestCase extends ReactIntegrationTestCase {
 
     jsModule = ReactTestHelper.catalystInstanceBuilder(this)
         .addNativeModule(uiManager)
-        .addNativeModule(new AndroidInfoModule(getContext()))
+        .addNativeModule(new AndroidInfoModule())
         .addNativeModule(new DeviceInfoModule(getContext()))
         .addNativeModule(new AppStateModule(getContext()))
         .addNativeModule(new FakeWebSocketModule())

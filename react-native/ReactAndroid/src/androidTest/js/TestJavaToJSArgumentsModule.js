@@ -1,22 +1,24 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule TestJavaToJSArgumentsModule
  */
 
 'use strict';
 
-const BatchedBridge = require('BatchedBridge');
-const {assertEquals, assertTrue} = require('Asserts');
+var BatchedBridge = require('BatchedBridge');
+var {assertEquals, assertTrue} = require('Asserts');
 
 function strictStringCompare(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) {
     return false;
   }
-  for (let i = 0; i < a.length; i++) {
+  for (var i = 0; i < a.length; i++) {
     if (a.charCodeAt(i) !== b.charCodeAt(i)) {
       return false;
     }
@@ -25,52 +27,54 @@ function strictStringCompare(a, b) {
 }
 
 function assertStrictStringEquals(a, b) {
-  assertTrue(strictStringCompare(a, b), 'Expected: ' + a + ', received: ' + b);
+  assertTrue(
+    strictStringCompare(a,b),
+    'Expected: ' + a + ', received: ' + b);
 }
 
-const TestJavaToJSArgumentsModule = {
+var TestJavaToJSArgumentsModule = {
   receiveBasicTypes: function(str, dbl, bool, null_arg) {
-    assertEquals('foo', str);
+    assertEquals("foo", str);
     assertEquals(3.14, dbl);
     assertEquals(true, bool);
     assertEquals(null, null_arg);
   },
   receiveArrayWithBasicTypes: function(arr) {
     assertEquals(4, arr.length);
-    assertEquals('red panda', arr[0]);
+    assertEquals("red panda", arr[0]);
     assertEquals(1.19, arr[1]);
     assertEquals(true, arr[2]);
     assertEquals(null, arr[3]);
   },
   receiveNestedArray: function(arr) {
     assertEquals(2, arr.length);
-    assertEquals('level1', arr[0]);
-    const arr2 = arr[1];
-    assertEquals('level2', arr2[0]);
-    const arr3 = arr2[1];
-    assertEquals('level3', arr3[0]);
+    assertEquals("level1", arr[0]);
+    var arr2 = arr[1];
+    assertEquals("level2", arr2[0]);
+    var arr3 = arr2[1];
+    assertEquals("level3", arr3[0]);
   },
   receiveArrayWithMaps: function(arr) {
     assertEquals(2, arr.length);
-    const m1 = arr[0];
-    const m2 = arr[1];
-    assertEquals('m1v1', m1.m1k1);
-    assertEquals('m1v2', m1.m1k2);
-    assertEquals('m2v1', m2.m2k1);
+    var m1 = arr[0];
+    var m2 = arr[1];
+    assertEquals("m1v1", m1["m1k1"]);
+    assertEquals("m1v2", m1["m1k2"]);
+    assertEquals("m2v1", m2["m2k1"]);
   },
   receiveMapWithBasicTypes: function(map) {
-    assertEquals('stringValue', map.stringKey);
-    assertEquals(3.14, map.doubleKey);
-    assertEquals(true, map.booleanKey);
-    assertEquals(null, map.nullKey);
+    assertEquals("stringValue", map["stringKey"]);
+    assertEquals(3.14, map["doubleKey"]);
+    assertEquals(true, map["booleanKey"]);
+    assertEquals(null, map["nullKey"]);
   },
   receiveNestedMap: function(map) {
-    const nestedMap = map.nestedMap;
-    assertEquals('foxes', nestedMap.animals);
+    var nestedMap = map["nestedMap"];
+    assertEquals("foxes", nestedMap["animals"]);
   },
   receiveMapWithArrays: function(map) {
-    const a1 = map.array1;
-    const a2 = map.array2;
+    var a1 = map["array1"];
+    var a2 = map["array2"];
     assertEquals(3, a1.length);
     assertEquals(2, a2.length);
     assertEquals(3, a1[0]);
@@ -91,8 +95,7 @@ const TestJavaToJSArgumentsModule = {
     assertStrictStringEquals('\uD83D\uDE1C', map['four-bytes']);
     assertStrictStringEquals(
       '\u017C\u00F3\u0142\u0107 g\u0119\u015Bl\u0105 \u6211 \uD83D\uDE0E ja\u017A\u0107',
-      map.mixed,
-    );
+      map.mixed);
   },
   receiveArrayWithMultibyteUTF8CharacterString: function(array) {
     assertTrue(true);
@@ -101,14 +104,13 @@ const TestJavaToJSArgumentsModule = {
     assertStrictStringEquals('\uD83D\uDE1C', array[2]);
     assertStrictStringEquals(
       '\u017C\u00F3\u0142\u0107 g\u0119\u015Bl\u0105 \u6211 \uD83D\uDE0E ja\u017A\u0107',
-      array[3],
-    );
+      array[3]);
   },
 };
 
 BatchedBridge.registerCallableModule(
   'TestJavaToJSArgumentsModule',
-  TestJavaToJSArgumentsModule,
+  TestJavaToJSArgumentsModule
 );
 
 module.exports = TestJavaToJSArgumentsModule;

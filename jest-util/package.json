@@ -1,85 +1,104 @@
 {
-  "_from": "jest-util@^24.8.0",
-  "_id": "jest-util@24.8.0",
-  "_inBundle": false,
-  "_integrity": "sha512-DYZeE+XyAnbNt0BG1OQqKy/4GVLPtzwGx5tsnDrFcax36rVE3lTA5fbvgmbVPUZf9w77AJ8otqR4VBbfFJkUZA==",
+  "_args": [
+    [
+      {
+        "raw": "jest-util@^20.0.3",
+        "scope": null,
+        "escapedName": "jest-util",
+        "name": "jest-util",
+        "rawSpec": "^20.0.3",
+        "spec": ">=20.0.3 <21.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli"
+    ]
+  ],
+  "_from": "jest-util@>=20.0.3 <21.0.0",
+  "_id": "jest-util@20.0.3",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/jest-util",
-  "_phantomChildren": {},
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/jest-util-20.0.3.tgz_1495018646396_0.013528234791010618"
+  },
+  "_npmUser": {
+    "name": "cpojer",
+    "email": "christoph.pojer@gmail.com"
+  },
+  "_npmVersion": "4.2.0",
+  "_phantomChildren": {
+    "ansi-styles": "2.2.1",
+    "escape-string-regexp": "1.0.5",
+    "has-ansi": "2.0.0",
+    "strip-ansi": "3.0.1",
+    "supports-color": "2.0.0"
+  },
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "jest-util@^24.8.0",
-    "name": "jest-util",
+    "raw": "jest-util@^20.0.3",
+    "scope": null,
     "escapedName": "jest-util",
-    "rawSpec": "^24.8.0",
-    "saveSpec": null,
-    "fetchSpec": "^24.8.0"
+    "name": "jest-util",
+    "rawSpec": "^20.0.3",
+    "spec": ">=20.0.3 <21.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/@jest/core",
-    "/@jest/core/jest-haste-map",
-    "/@jest/reporters",
-    "/@jest/reporters/jest-haste-map",
-    "/@jest/test-sequencer/jest-haste-map",
-    "/@jest/transform",
-    "/@jest/transform/jest-haste-map",
-    "/jest-config",
-    "/jest-each",
     "/jest-environment-jsdom",
     "/jest-environment-node",
-    "/jest-jasmine2",
-    "/jest-runner",
-    "/jest-runner/jest-haste-map",
     "/jest-runtime",
-    "/jest-runtime/jest-haste-map",
-    "/jest-watcher",
+    "/jest-snapshot",
     "/jest/jest-cli"
   ],
-  "_resolved": "https://registry.npmjs.org/jest-util/-/jest-util-24.8.0.tgz",
-  "_shasum": "41f0e945da11df44cc76d64ffb915d0716f46cd1",
-  "_spec": "jest-util@^24.8.0",
-  "_where": "/Development/web/rnoleole/node_modules/@jest/transform",
+  "_resolved": "https://registry.npmjs.org/jest-util/-/jest-util-20.0.3.tgz",
+  "_shasum": "0c07f7d80d82f4e5a67c6f8b9c3fe7f65cfd32ad",
+  "_shrinkwrap": null,
+  "_spec": "jest-util@^20.0.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli",
+  "browser": "build-es5/index.js",
   "bugs": {
     "url": "https://github.com/facebook/jest/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "@jest/console": "^24.7.1",
-    "@jest/fake-timers": "^24.8.0",
-    "@jest/source-map": "^24.3.0",
-    "@jest/test-result": "^24.8.0",
-    "@jest/types": "^24.8.0",
-    "callsites": "^3.0.0",
-    "chalk": "^2.0.1",
-    "graceful-fs": "^4.1.15",
-    "is-ci": "^2.0.0",
-    "mkdirp": "^0.5.1",
-    "slash": "^2.0.0",
-    "source-map": "^0.6.0"
+    "chalk": "^1.1.3",
+    "graceful-fs": "^4.1.11",
+    "jest-message-util": "^20.0.3",
+    "jest-mock": "^20.0.3",
+    "jest-validate": "^20.0.3",
+    "leven": "^2.1.0",
+    "mkdirp": "^0.5.1"
   },
-  "deprecated": false,
-  "devDependencies": {
-    "@types/graceful-fs": "^4.1.2",
-    "@types/is-ci": "^1.0.10",
-    "@types/mkdirp": "^0.5.2",
-    "@types/slash": "^2.0.0"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "0c07f7d80d82f4e5a67c6f8b9c3fe7f65cfd32ad",
+    "tarball": "https://registry.npmjs.org/jest-util/-/jest-util-20.0.3.tgz"
   },
-  "engines": {
-    "node": ">= 6"
-  },
-  "gitHead": "845728f24b3ef41e450595c384e9b5c9fdf248a4",
   "homepage": "https://github.com/facebook/jest#readme",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "build/index.js",
+  "maintainers": [
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "dmitriiabramov",
+      "email": "dmitrii@rheia.us"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    }
+  ],
   "name": "jest-util",
-  "publishConfig": {
-    "access": "public"
-  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/jest.git",
-    "directory": "packages/jest-util"
+    "url": "git+https://github.com/facebook/jest.git"
   },
-  "types": "build/index.d.ts",
-  "version": "24.8.0"
+  "scripts": {},
+  "version": "20.0.3"
 }

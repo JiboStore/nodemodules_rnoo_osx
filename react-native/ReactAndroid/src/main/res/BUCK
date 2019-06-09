@@ -1,6 +1,6 @@
-load("//tools/build_defs/oss:rn_defs.bzl", "react_native_target", "rn_android_resource")
+include_defs("//ReactAndroid/DEFS")
 
-rn_android_resource(
+android_resource(
     name = "devsupport",
     package = "com.facebook.react",
     res = "devsupport",
@@ -9,7 +9,7 @@ rn_android_resource(
     ],
 )
 
-rn_android_resource(
+android_resource(
     name = "shell",
     package = "com.facebook.react",
     res = "shell",
@@ -18,7 +18,7 @@ rn_android_resource(
     ],
 )
 
-rn_android_resource(
+android_resource(
     name = "modal",
     package = "com.facebook.react",
     res = "views/modal",
@@ -27,7 +27,7 @@ rn_android_resource(
     ],
 )
 
-rn_android_resource(
+android_resource(
     name = "uimanager",
     package = "com.facebook.react",
     res = "views/uimanager",

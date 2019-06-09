@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    }
+]

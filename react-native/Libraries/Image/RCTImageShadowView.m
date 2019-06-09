@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTImageShadowView.h"
@@ -11,14 +13,13 @@
 
 @implementation RCTImageShadowView
 
-- (BOOL)isYogaLeafNode
+- (void)insertReactSubview:(RCTShadowView *)subview atIndex:(NSInteger)atIndex
 {
-  return YES;
-}
+  RCTLogWarn(@"Using <Image> with children is deprecated "
+             "and will be an error in the near future. "
+             "Please reconsider the layout or use <ImageBackground> instead.");
 
-- (BOOL)canHaveSubviews
-{
-  return NO;
+  [super insertReactSubview:subview atIndex:atIndex];
 }
 
 @end

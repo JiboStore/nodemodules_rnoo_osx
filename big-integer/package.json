@@ -1,8 +1,8 @@
 {
   "_from": "big-integer@^1.6.7",
-  "_id": "big-integer@1.6.43",
+  "_id": "big-integer@1.6.32",
   "_inBundle": false,
-  "_integrity": "sha512-9dULc9jsKmXl0Aeunug8wbF+58n+hQoFjqClN7WeZwGLh0XJUWyJJ9Ee+Ep+Ql/J9fRsTVaeThp8MhiCCrY0Jg==",
+  "_integrity": "sha512-ljKJdR3wk9thHfLj4DtrNiOSTxvGFaMjWrG4pW75juXC4j7+XuKJVFdg4kgFMYp85PVkO05dFMj2dk2xVsH4xw==",
   "_location": "/big-integer",
   "_phantomChildren": {},
   "_requested": {
@@ -18,10 +18,10 @@
   "_requiredBy": [
     "/bplist-parser"
   ],
-  "_resolved": "https://registry.npmjs.org/big-integer/-/big-integer-1.6.43.tgz",
-  "_shasum": "8ac15bf13e93e509500859061233e19d8d0d99d1",
+  "_resolved": "https://registry.npmjs.org/big-integer/-/big-integer-1.6.32.tgz",
+  "_shasum": "5867458b25ecd5bcb36b627c30bb501a13c07e89",
   "_spec": "big-integer@^1.6.7",
-  "_where": "/Development/web/rnoleole/node_modules/bplist-parser",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/bplist-parser",
   "author": {
     "name": "Peter Olson",
     "email": "peter.e.c.olson+npm@gmail.com"
@@ -35,8 +35,8 @@
   "deprecated": false,
   "description": "An arbitrary length integer library for Javascript",
   "devDependencies": {
-    "@types/lodash": "^4.14.118",
-    "@types/node": "^7.10.2",
+    "@types/lodash": "^4.14.109",
+    "@types/node": "^7.0.65",
     "coveralls": "^2.11.4",
     "jasmine": "2.1.x",
     "jasmine-core": "^2.3.4",
@@ -45,8 +45,8 @@
     "karma-coverage": "^0.4.2",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^1.0.4",
-    "lodash": "^4.17.11",
-    "typescript": "^2.9.2",
+    "lodash": "^4.17.4",
+    "typescript": "^2.3.3",
     "uglifyjs": "^2.4.10"
   },
   "engines": {
@@ -76,5 +76,5 @@
     "test": "tsc && karma start my.conf.js && node spec/tsDefinitions.js"
   },
   "typings": "./BigInteger.d.ts",
-  "version": "1.6.43"
+  "version": "1.6.32"
 }

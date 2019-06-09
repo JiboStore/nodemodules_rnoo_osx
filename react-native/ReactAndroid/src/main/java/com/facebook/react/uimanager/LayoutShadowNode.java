@@ -1,16 +1,14 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react.uimanager;
+
+import javax.annotation.Nullable;
+
 
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReadableType;
-import com.facebook.react.modules.i18nmanager.I18nUtil;
-import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.uimanager.annotations.ReactPropGroup;
+
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaConstants;
 import com.facebook.yoga.YogaDisplay;
@@ -20,18 +18,19 @@ import com.facebook.yoga.YogaOverflow;
 import com.facebook.yoga.YogaPositionType;
 import com.facebook.yoga.YogaUnit;
 import com.facebook.yoga.YogaWrap;
-import javax.annotation.Nullable;
+import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.annotations.ReactPropGroup;
 
 /**
- * Supply setters for base view layout properties such as width, height, flex properties, borders,
- * etc.
+ * Supply setters for base view layout properties such as width, height, flex properties,
+ * borders, etc.
  *
- * <p>Checking for isVirtual everywhere is a hack to get around the fact that some virtual nodes
- * still have layout properties set on them in JS: for example, a component that returns a <Text>
- * may or may not be embedded in a parent text. There are better solutions that should probably be
+ * Checking for isVirtual everywhere is a hack to get around the fact that some virtual nodes still
+ * have layout properties set on them in JS: for example, a component that returns a <Text> may
+ * or may not be embedded in a parent text. There are better solutions that should probably be
  * explored, namely using the VirtualText class in JS and setting the correct set of validAttributes
  */
-public class LayoutShadowNode extends ReactShadowNodeImpl {
+public class LayoutShadowNode extends ReactShadowNode {
 
   /**
    * A Mutable version of com.facebook.yoga.YogaValue
@@ -39,13 +38,6 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
   private static class MutableYogaValue {
     float value;
     YogaUnit unit;
-
-    private MutableYogaValue() { }
-
-    private MutableYogaValue(MutableYogaValue mutableYogaValue) {
-      this.value = mutableYogaValue.value;
-      this.unit = mutableYogaValue.unit;
-    }
 
     void setFromDynamic(Dynamic dynamic) {
       if (dynamic.isNull()) {
@@ -69,11 +61,7 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
     }
   }
 
-  private final MutableYogaValue mTempYogaValue;
-
-  public LayoutShadowNode() {
-    mTempYogaValue = new MutableYogaValue();
-  }
+  private final MutableYogaValue mTempYogaValue = new MutableYogaValue();
 
   @ReactProp(name = ViewProps.WIDTH)
   public void setWidth(Dynamic width) {
@@ -308,10 +296,6 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
         setFlexWrap(YogaWrap.WRAP);
         break;
       }
-      case "wrap-reverse": {
-        setFlexWrap(YogaWrap.WRAP_REVERSE);
-        break;
-      }
       default: {
         throw new JSApplicationIllegalArgumentException(
             "invalid value for flexWrap: " + flexWrap);
@@ -504,10 +488,6 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
         setJustifyContent(YogaJustify.SPACE_AROUND);
         break;
       }
-      case "space-evenly": {
-        setJustifyContent(YogaJustify.SPACE_EVENLY);
-        break;
-      }
       default: {
         throw new JSApplicationIllegalArgumentException(
             "invalid value for justifyContent: " + justifyContent);
@@ -520,6 +500,7 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
     if (isVirtual()) {
       return;
     }
+
     if (overflow == null) {
       setOverflow(YogaOverflow.VISIBLE);
       return;
@@ -572,147 +553,102 @@ public class LayoutShadowNode extends ReactShadowNodeImpl {
     }
   }
 
-  @ReactPropGroup(
-    names = {
+  @ReactPropGroup(names = {
       ViewProps.MARGIN,
       ViewProps.MARGIN_VERTICAL,
       ViewProps.MARGIN_HORIZONTAL,
-      ViewProps.MARGIN_START,
-      ViewProps.MARGIN_END,
-      ViewProps.MARGIN_TOP,
-      ViewProps.MARGIN_BOTTOM,
       ViewProps.MARGIN_LEFT,
       ViewProps.MARGIN_RIGHT,
-    }
-  )
+      ViewProps.MARGIN_TOP,
+      ViewProps.MARGIN_BOTTOM,
+  })
   public void setMargins(int index, Dynamic margin) {
     if (isVirtual()) {
       return;
     }
 
-    int spacingType =
-        maybeTransformLeftRightToStartEnd(ViewProps.PADDING_MARGIN_SPACING_TYPES[index]);
-
     mTempYogaValue.setFromDynamic(margin);
     switch (mTempYogaValue.unit) {
       case POINT:
       case UNDEFINED:
-        setMargin(spacingType, mTempYogaValue.value);
+        setMargin(ViewProps.PADDING_MARGIN_SPACING_TYPES[index], mTempYogaValue.value);
         break;
       case AUTO:
-        setMarginAuto(spacingType);
+        setMarginAuto(ViewProps.PADDING_MARGIN_SPACING_TYPES[index]);
         break;
       case PERCENT:
-        setMarginPercent(spacingType, mTempYogaValue.value);
+        setMarginPercent(ViewProps.PADDING_MARGIN_SPACING_TYPES[index], mTempYogaValue.value);
         break;
     }
 
     margin.recycle();
   }
 
-  @ReactPropGroup(
-    names = {
+  @ReactPropGroup(names = {
       ViewProps.PADDING,
       ViewProps.PADDING_VERTICAL,
       ViewProps.PADDING_HORIZONTAL,
-      ViewProps.PADDING_START,
-      ViewProps.PADDING_END,
-      ViewProps.PADDING_TOP,
-      ViewProps.PADDING_BOTTOM,
       ViewProps.PADDING_LEFT,
       ViewProps.PADDING_RIGHT,
-    }
-  )
+      ViewProps.PADDING_TOP,
+      ViewProps.PADDING_BOTTOM,
+  })
   public void setPaddings(int index, Dynamic padding) {
     if (isVirtual()) {
       return;
     }
 
-    int spacingType =
-        maybeTransformLeftRightToStartEnd(ViewProps.PADDING_MARGIN_SPACING_TYPES[index]);
-
     mTempYogaValue.setFromDynamic(padding);
     switch (mTempYogaValue.unit) {
       case POINT:
       case UNDEFINED:
-        setPadding(spacingType, mTempYogaValue.value);
+        setPadding(ViewProps.PADDING_MARGIN_SPACING_TYPES[index], mTempYogaValue.value);
         break;
       case PERCENT:
-        setPaddingPercent(spacingType, mTempYogaValue.value);
+        setPaddingPercent(ViewProps.PADDING_MARGIN_SPACING_TYPES[index], mTempYogaValue.value);
         break;
     }
 
     padding.recycle();
   }
 
-  @ReactPropGroup(
-    names = {
+  @ReactPropGroup(names = {
       ViewProps.BORDER_WIDTH,
-      ViewProps.BORDER_START_WIDTH,
-      ViewProps.BORDER_END_WIDTH,
-      ViewProps.BORDER_TOP_WIDTH,
-      ViewProps.BORDER_BOTTOM_WIDTH,
       ViewProps.BORDER_LEFT_WIDTH,
       ViewProps.BORDER_RIGHT_WIDTH,
-    },
-    defaultFloat = YogaConstants.UNDEFINED
-  )
+      ViewProps.BORDER_TOP_WIDTH,
+      ViewProps.BORDER_BOTTOM_WIDTH,
+  }, defaultFloat = YogaConstants.UNDEFINED)
   public void setBorderWidths(int index, float borderWidth) {
     if (isVirtual()) {
       return;
     }
-    int spacingType = maybeTransformLeftRightToStartEnd(ViewProps.BORDER_SPACING_TYPES[index]);
-    setBorder(spacingType, PixelUtil.toPixelFromDIP(borderWidth));
+    setBorder(ViewProps.BORDER_SPACING_TYPES[index], PixelUtil.toPixelFromDIP(borderWidth));
   }
 
-  @ReactPropGroup(
-    names = {
-      ViewProps.START,
-      ViewProps.END,
+  @ReactPropGroup(names = {
       ViewProps.LEFT,
       ViewProps.RIGHT,
       ViewProps.TOP,
       ViewProps.BOTTOM,
-    }
-  )
+  })
   public void setPositionValues(int index, Dynamic position) {
     if (isVirtual()) {
       return;
     }
 
-    final int[] POSITION_SPACING_TYPES = {
-      Spacing.START, Spacing.END, Spacing.LEFT, Spacing.RIGHT, Spacing.TOP, Spacing.BOTTOM
-    };
-
-    int spacingType = maybeTransformLeftRightToStartEnd(POSITION_SPACING_TYPES[index]);
-
     mTempYogaValue.setFromDynamic(position);
     switch (mTempYogaValue.unit) {
       case POINT:
       case UNDEFINED:
-        setPosition(spacingType, mTempYogaValue.value);
+        setPosition(ViewProps.POSITION_SPACING_TYPES[index], mTempYogaValue.value);
         break;
       case PERCENT:
-        setPositionPercent(spacingType, mTempYogaValue.value);
+        setPositionPercent(ViewProps.POSITION_SPACING_TYPES[index], mTempYogaValue.value);
         break;
     }
 
     position.recycle();
-  }
-
-  private int maybeTransformLeftRightToStartEnd(int spacingType) {
-    if (!I18nUtil.getInstance().doLeftAndRightSwapInRTL(getThemedContext())) {
-      return spacingType;
-    }
-
-    switch (spacingType) {
-      case Spacing.LEFT:
-        return Spacing.START;
-      case Spacing.RIGHT:
-        return Spacing.END;
-      default:
-        return spacingType;
-    }
   }
 
   @ReactProp(name = ViewProps.POSITION)

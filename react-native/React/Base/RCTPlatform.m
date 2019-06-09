@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTPlatform.h"
@@ -10,7 +12,8 @@
 #import <UIKit/UIKit.h>
 
 #import "RCTUtils.h"
-#import "RCTVersion.h"
+
+@implementation RCTPlatform
 
 static NSString *interfaceIdiom(UIUserInterfaceIdiom idiom) {
   switch(idiom) {
@@ -27,21 +30,9 @@ static NSString *interfaceIdiom(UIUserInterfaceIdiom idiom) {
   }
 }
 
-@implementation RCTPlatform
-
 RCT_EXPORT_MODULE(PlatformConstants)
 
-+ (BOOL)requiresMainQueueSetup
-{
-  return YES;
-}
-
 - (NSDictionary<NSString *, id> *)constantsToExport
-{
-  return [self getConstants];
-}
-
-- (NSDictionary<NSString *, id> *)getConstants
 {
   UIDevice *device = [UIDevice currentDevice];
   return @{
@@ -50,7 +41,6 @@ RCT_EXPORT_MODULE(PlatformConstants)
     @"systemName": [device systemName],
     @"interfaceIdiom": interfaceIdiom([device userInterfaceIdiom]),
     @"isTesting": @(RCTRunningInTestEnvironment()),
-    @"reactNativeVersion": RCTGetReactNativeVersion(),
   };
 }
 

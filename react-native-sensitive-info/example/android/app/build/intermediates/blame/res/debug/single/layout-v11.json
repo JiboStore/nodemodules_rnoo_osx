@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_narrow_custom.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_narrow.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_media_action.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_custom.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v11/notification_media_cancel_action.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v11/notification_media_cancel_action.xml"
+    }
+]

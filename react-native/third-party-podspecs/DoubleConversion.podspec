@@ -1,12 +1,7 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory of this source tree.
-
 Pod::Spec.new do |spec|
   spec.name = 'DoubleConversion'
-  spec.version = '1.1.6'
-  spec.license = { :type => 'MIT' }
+  spec.version = '1.1.5'
+  spec.license = { :type => 'BSD' }
   spec.homepage = 'https://github.com/google/double-conversion'
   spec.summary = 'Efficient binary-decimal and decimal-binary conversion routines for IEEE doubles'
   spec.authors = 'Google'
@@ -17,6 +12,6 @@ Pod::Spec.new do |spec|
   spec.source_files = 'double-conversion/*.{h,cc}'
 
   # Pinning to the same version as React.podspec.
-  spec.platforms = { :ios => "9.0", :tvos => "9.2" }
+  spec.platform = :ios, '8.0'
 
 end

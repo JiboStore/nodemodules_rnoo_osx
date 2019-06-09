@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <CoreGraphics/CoreGraphics.h>
@@ -34,6 +36,8 @@ typedef void (^RCTBubblingEventBlock)(NSDictionary *body);
 // View/ShadowView is a root view
 - (BOOL)isReactRootView;
 
+@optional
+
 /**
  * Called each time props have been set.
  * Not all props have to be set - React can set only changed ones.
@@ -45,6 +49,11 @@ typedef void (^RCTBubblingEventBlock)(NSDictionary *body);
  * Called each time subviews have been updated
  */
 - (void)didUpdateReactSubviews;
+
+// TODO: Deprecate this
+// This method is called after layout has been performed for all views known
+// to the RCTViewManager. It is only called on UIViews, not shadow views.
+- (void)reactBridgeDidFinishTransaction;
 
 @end
 

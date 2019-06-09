@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.bridge.queue;
@@ -10,10 +12,9 @@ package com.facebook.react.bridge.queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-import android.os.SystemClock;
 import android.os.Looper;
 import android.os.Process;
-import android.util.Pair;
+
 import com.facebook.common.logging.FLog;
 import com.facebook.proguard.annotations.DoNotStrip;
 import com.facebook.react.bridge.AssertionException;
@@ -32,25 +33,15 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
   private final Looper mLooper;
   private final MessageQueueThreadHandler mHandler;
   private final String mAssertionErrorMessage;
-  private MessageQueueThreadPerfStats mPerfStats;
   private volatile boolean mIsFinished = false;
 
   private MessageQueueThreadImpl(
       String name,
       Looper looper,
       QueueThreadExceptionHandler exceptionHandler) {
-        this(name, looper, exceptionHandler, null);
-  }
-
-  private MessageQueueThreadImpl(
-      String name,
-      Looper looper,
-      QueueThreadExceptionHandler exceptionHandler,
-      MessageQueueThreadPerfStats stats) {
     mName = name;
     mLooper = looper;
     mHandler = new MessageQueueThreadHandler(looper, exceptionHandler);
-    mPerfStats = stats;
     mAssertionErrorMessage = "Expected to be called from the '" + getName() + "' thread!";
   }
 
@@ -137,31 +128,6 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
     }
   }
 
-  @DoNotStrip
-  @Override
-  public MessageQueueThreadPerfStats getPerfStats() {
-    return mPerfStats;
-  }
-
-  @DoNotStrip
-  @Override
-  public void resetPerfStats() {
-    assignToPerfStats(mPerfStats, -1, -1);
-    runOnQueue(new Runnable() {
-      @Override
-      public void run() {
-        long wallTime = SystemClock.uptimeMillis();
-        long cpuTime = SystemClock.currentThreadTimeMillis();
-        assignToPerfStats(mPerfStats, wallTime, cpuTime);
-      }
-    });
-  }
-
-  private static void assignToPerfStats(MessageQueueThreadPerfStats stats, long wall, long cpu) {
-    stats.wallTime = wall;
-    stats.cpuTime = cpu;
-  }
-
   public Looper getLooper() {
     return mLooper;
   }
@@ -216,25 +182,21 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
       final String name,
       long stackSize,
       QueueThreadExceptionHandler exceptionHandler) {
-    final SimpleSettableFuture<Pair<Looper, MessageQueueThreadPerfStats>> dataFuture = new SimpleSettableFuture<>();
-    long startTimeMillis;
+    final SimpleSettableFuture<Looper> looperFuture = new SimpleSettableFuture<>();
     Thread bgThread = new Thread(null,
         new Runnable() {
           @Override
           public void run() {
             Process.setThreadPriority(Process.THREAD_PRIORITY_DISPLAY);
             Looper.prepare();
-            MessageQueueThreadPerfStats stats = new MessageQueueThreadPerfStats();
-            long wallTime = SystemClock.uptimeMillis();
-            long cpuTime = SystemClock.currentThreadTimeMillis();
-            assignToPerfStats(stats, wallTime, cpuTime);
-            dataFuture.set(new Pair<>(Looper.myLooper(), stats));
+
+            looperFuture.set(Looper.myLooper());
             Looper.loop();
           }
         }, "mqt_" + name, stackSize);
     bgThread.start();
 
-    Pair<Looper, MessageQueueThreadPerfStats> pair = dataFuture.getOrThrow();
-    return new MessageQueueThreadImpl(name, pair.first, exceptionHandler, pair.second);
+    Looper myLooper = looperFuture.getOrThrow();
+    return new MessageQueueThreadImpl(name, myLooper, exceptionHandler);
   }
 }

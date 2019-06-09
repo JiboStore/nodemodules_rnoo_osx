@@ -1,8 +1,9 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import _ from 'lodash';
+var React = require("react");
+import ReactNativePropRegistry
+  from "react-native/Libraries/Renderer/shims/ReactNativePropRegistry";
+var _ = require("lodash");
 
-function computeProps(incomingProps, defaultProps) {
+module.exports = function(incomingProps, defaultProps) {
   // External props has a higher precedence
   var computedProps = {};
 
@@ -24,14 +25,14 @@ function computeProps(incomingProps, defaultProps) {
     if (Array.isArray(incomingPropsStyle)) {
       _.forEach(incomingPropsStyle, style => {
         if (typeof style == "number") {
-          _.merge(computedPropsStyle, StyleSheet.flatten(style));
+          _.merge(computedPropsStyle, ReactNativePropRegistry.getByID(style));
         } else {
           _.merge(computedPropsStyle, style);
         }
       });
     } else {
       if (typeof incomingPropsStyle == "number") {
-        computedPropsStyle = StyleSheet.flatten(
+        computedPropsStyle = ReactNativePropRegistry.getByID(
           incomingPropsStyle
         );
       } else {
@@ -46,5 +47,3 @@ function computeProps(incomingProps, defaultProps) {
 
   return computedProps;
 };
-
-export default computeProps;

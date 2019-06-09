@@ -1,14 +1,17 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.picker;
 
+import javax.annotation.Nullable;
+
 import android.content.Context;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,30 +19,13 @@ import android.widget.Spinner;
 
 import com.facebook.react.common.annotations.VisibleForTesting;
 
-import javax.annotation.Nullable;
+public class ReactPicker extends Spinner {
 
-public class ReactPicker extends AppCompatSpinner {
-
-  private int mMode = Spinner.MODE_DIALOG;
+  private int mMode = MODE_DIALOG;
   private @Nullable Integer mPrimaryColor;
+  private boolean mSuppressNextEvent;
   private @Nullable OnSelectListener mOnSelectListener;
   private @Nullable Integer mStagedSelection;
-
-  private final OnItemSelectedListener mItemSelectedListener = new OnItemSelectedListener() {
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-      if (mOnSelectListener != null) {
-        mOnSelectListener.onItemSelected(position);
-      }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-      if (mOnSelectListener != null) {
-        mOnSelectListener.onItemSelected(-1);
-      }
-    }
-  };
 
   /**
    * Listener interface for ReactPicker events.
@@ -91,19 +77,31 @@ public class ReactPicker extends AppCompatSpinner {
     post(measureAndLayout);
   }
 
-  @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-    super.onLayout(changed, left, top, right, bottom);
-
-    // onItemSelected gets fired immediately after layout because checkSelectionChanged() in
-    // AdapterView updates the selection position from the default INVALID_POSITION.
-    // To match iOS behavior, which no onItemSelected during initial layout.
-    // We setup the listener after layout.
-    if (getOnItemSelectedListener() == null)
-      setOnItemSelectedListener(mItemSelectedListener);
-  }
-
   public void setOnSelectListener(@Nullable OnSelectListener onSelectListener) {
+    if (getOnItemSelectedListener() == null) {
+      // onItemSelected gets fired immediately after layout because checkSelectionChanged() in
+      // AdapterView updates the selection position from the default INVALID_POSITION. To match iOS
+      // behavior, we don't want the event emitter for onItemSelected to fire right after layout.
+      mSuppressNextEvent = true;
+      setOnItemSelectedListener(
+          new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              if (!mSuppressNextEvent && mOnSelectListener != null) {
+                mOnSelectListener.onItemSelected(position);
+              }
+              mSuppressNextEvent = false;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+              if (!mSuppressNextEvent && mOnSelectListener != null) {
+                mOnSelectListener.onItemSelected(-1);
+              }
+              mSuppressNextEvent = false;
+            }
+          });
+    }
     mOnSelectListener = onSelectListener;
   }
 
@@ -134,9 +132,8 @@ public class ReactPicker extends AppCompatSpinner {
    */
   private void setSelectionWithSuppressEvent(int position) {
     if (position != getSelectedItemPosition()) {
-      setOnItemSelectedListener(null);
-      setSelection(position, false);
-      setOnItemSelectedListener(mItemSelectedListener);
+      mSuppressNextEvent = true;
+      setSelection(position);
     }
   }
 

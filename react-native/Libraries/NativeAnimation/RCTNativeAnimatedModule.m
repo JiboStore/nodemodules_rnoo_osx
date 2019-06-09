@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 #import "RCTNativeAnimatedModule.h"
 
@@ -32,7 +34,7 @@ RCT_EXPORT_MODULE();
 - (dispatch_queue_t)methodQueue
 {
   // This module needs to be on the same queue as the UIManager to avoid
-  // having to lock `_operations` and `_preOperations` since `uiManagerWillPerformMounting`
+  // having to lock `_operations` and `_preOperations` since `uiManagerWillFlushUIBlocks`
   // will be called from that queue.
   return RCTGetUIManagerQueue();
 }
@@ -196,7 +198,7 @@ RCT_EXPORT_METHOD(removeAnimatedEventFromView:(nonnull NSNumber *)viewTag
 
 #pragma mark - RCTUIManagerObserver
 
-- (void)uiManagerWillPerformMounting:(RCTUIManager *)uiManager
+- (void)uiManagerWillFlushUIBlocks:(RCTUIManager *)uiManager
 {
   if (_preOperations.count == 0 && _operations.count == 0) {
     return;
@@ -237,11 +239,11 @@ RCT_EXPORT_METHOD(removeAnimatedEventFromView:(nonnull NSNumber *)viewTag
 
 - (void)eventDispatcherWillDispatchEvent:(id<RCTEvent>)event
 {
-  // Events can be dispatched from any queue so we have to make sure handleAnimatedEvent
-  // is run from the main queue.
-  RCTExecuteOnMainQueue(^{
-    [self->_nodesManager handleAnimatedEvent:event];
-  });
+  // Native animated events only work for events dispatched from the main queue.
+  if (!RCTIsMainQueue()) {
+    return;
+  }
+  return [_nodesManager handleAnimatedEvent:event];
 }
 
 @end

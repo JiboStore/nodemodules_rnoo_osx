@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTDefines.h"
@@ -62,14 +64,17 @@ static BOOL RCTJSCSetOption(const char *option)
 
 static vm_size_t RCTGetResidentMemorySize(void)
 {
-    vm_size_t memoryUsageInByte = 0;
-    task_vm_info_data_t vmInfo;
-    mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
-    kern_return_t kernelReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
-    if(kernelReturn == KERN_SUCCESS) {
-        memoryUsageInByte = (vm_size_t) vmInfo.phys_footprint;
-    } 
-    return memoryUsageInByte;
+  struct task_basic_info info;
+  mach_msg_type_number_t size = sizeof(info);
+  kern_return_t kerr = task_info(mach_task_self(),
+                                 TASK_BASIC_INFO,
+                                 (task_info_t)&info,
+                                 &size);
+  if (kerr != KERN_SUCCESS) {
+    return 0;
+  }
+
+  return info.resident_size;
 }
 
 @interface RCTPerfMonitor : NSObject <RCTBridgeModule, RCTInvalidating, UITableViewDataSource, UITableViewDelegate>
@@ -126,9 +131,11 @@ static vm_size_t RCTGetResidentMemorySize(void)
 
 RCT_EXPORT_MODULE()
 
-+ (BOOL)requiresMainQueueSetup
+- (instancetype)init
 {
-  return YES;
+  // We're only overriding this to ensure the module gets created at startup
+  // TODO (t11106126): Remove once we have more declarative control over module setup.
+  return [super init];
 }
 
 - (dispatch_queue_t)methodQueue
@@ -156,9 +163,6 @@ RCT_EXPORT_MODULE()
   if (!_devMenuItem) {
     __weak __typeof__(self) weakSelf = self;
     __weak RCTDevSettings *devSettings = self.bridge.devSettings;
-    if (devSettings.isPerfMonitorShown) {
-      [weakSelf show];
-    }
     _devMenuItem =
     [RCTDevMenuItem buttonItemWithTitleBlock:^NSString *{
       return (devSettings.isPerfMonitorShown) ?

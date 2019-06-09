@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.systrace;
@@ -20,7 +22,7 @@ public class Systrace {
   public static final long TRACE_TAG_REACT_APPS = 0L;
   public static final long TRACE_TAG_REACT_FRESCO = 0L;
   public static final long TRACE_TAG_REACT_VIEW = 0L;
-  public static final long TRACE_TAG_REACT_JS_VM_CALLS = 0L;
+  public static final long TRACE_TAG_REACT_JSC_CALLS = 0L;
 
   public enum EventScope {
     THREAD('t'),
@@ -55,13 +57,13 @@ public class Systrace {
   }
 
   public static void beginSection(long tag, final String sectionName) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+    if (Build.VERSION.SDK_INT >= 18) {
       Trace.beginSection(sectionName);
     }
   }
 
   public static void endSection(long tag) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+    if (Build.VERSION.SDK_INT >= 18) {
       Trace.endSection();
     }
   }
@@ -72,18 +74,12 @@ public class Systrace {
       final int cookie) {
   }
 
-  public static void beginAsyncSection(
-      long tag, final String sectionName, final int cookie, final long startNanos) {}
-  
   public static void endAsyncSection(
       long tag,
       final String sectionName,
       final int cookie) {
   }
 
-  public static void endAsyncSection(
-      long tag, final String sectionName, final int cookie, final long endNanos) {}
-  
   public static void traceCounter(
       long tag,
       final String counterName,

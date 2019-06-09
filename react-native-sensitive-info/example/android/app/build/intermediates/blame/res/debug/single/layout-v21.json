@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/mateus/.android/build-cache/5d0baca522b63e50d6ad362217a7fb5c9650ff98/output/res/layout-v21/notification_action.xml"
+    }
+]

@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.scroll;
@@ -11,26 +13,20 @@ package com.facebook.react.views.scroll;
  * Scroll event types that JS module RCTEventEmitter can understand
  */
 public enum ScrollEventType {
-  BEGIN_DRAG,
-  END_DRAG,
-  SCROLL,
-  MOMENTUM_BEGIN,
-  MOMENTUM_END;
+  BEGIN_DRAG("topScrollBeginDrag"),
+  END_DRAG("topScrollEndDrag"),
+  SCROLL("topScroll"),
+  MOMENTUM_BEGIN("topMomentumScrollBegin"),
+  MOMENTUM_END("topMomentumScrollEnd"),
+  ANIMATION_END("topScrollAnimationEnd");
 
-  public static String getJSEventName(ScrollEventType type) {
-    switch (type) {
-      case BEGIN_DRAG:
-        return "topScrollBeginDrag";
-      case END_DRAG:
-        return "topScrollEndDrag";
-      case SCROLL:
-        return "topScroll";
-      case MOMENTUM_BEGIN:
-        return "topMomentumScrollBegin";
-      case MOMENTUM_END:
-        return "topMomentumScrollEnd";
-      default:
-        throw new IllegalArgumentException("Unsupported ScrollEventType: " + type);
-    }
+  private final String mJSEventName;
+
+  ScrollEventType(String jsEventName) {
+    mJSEventName = jsEventName;
+  }
+
+  public String getJSEventName() {
+    return mJSEventName;
   }
 }

@@ -1,4 +1,3 @@
-import { ViewPropTypes } from "react-native";
-import InteractionManager from "./interactionManager";
+import ViewPropTypes from './viewPropTypes'
 
-export { InteractionManager, ViewPropTypes };
+export { ViewPropTypes }

@@ -1,44 +1,44 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
- * @flow strict-local
+ * @providesModule BoxInspector
+ * @flow
  */
-
 'use strict';
 
-const React = require('React');
-const StyleSheet = require('StyleSheet');
-const Text = require('Text');
-const View = require('View');
-const resolveBoxStyle = require('resolveBoxStyle');
+var React = require('React');
+var StyleSheet = require('StyleSheet');
+var Text = require('Text');
+var View = require('View');
+var resolveBoxStyle = require('resolveBoxStyle');
 
-const blank = {
+var blank = {
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
 };
 
-class BoxInspector extends React.Component<$FlowFixMeProps> {
+class BoxInspector extends React.Component {
   render() {
-    const frame = this.props.frame;
-    const style = this.props.style;
-    const margin = (style && resolveBoxStyle('margin', style)) || blank;
-    const padding = (style && resolveBoxStyle('padding', style)) || blank;
+    var frame = this.props.frame;
+    var style = this.props.style;
+    var margin = style && resolveBoxStyle('margin', style) || blank;
+    var padding = style && resolveBoxStyle('padding', style) || blank;
     return (
       <BoxContainer title="margin" titleStyle={styles.marginLabel} box={margin}>
         <BoxContainer title="padding" box={padding}>
           <View>
             <Text style={styles.innerText}>
-              ({(frame.left || 0).toFixed(1)}, {(frame.top || 0).toFixed(1)})
+              ({frame.left}, {frame.top})
             </Text>
             <Text style={styles.innerText}>
-              {(frame.width || 0).toFixed(1)} &times;{' '}
-              {(frame.height || 0).toFixed(1)}
+              {frame.width} &times; {frame.height}
             </Text>
           </View>
         </BoxContainer>
@@ -47,16 +47,13 @@ class BoxInspector extends React.Component<$FlowFixMeProps> {
   }
 }
 
-class BoxContainer extends React.Component<$FlowFixMeProps> {
+class BoxContainer extends React.Component {
   render() {
-    const box = this.props.box;
+    var box = this.props.box;
     return (
       <View style={styles.box}>
         <View style={styles.row}>
-          {}
-          <Text style={[this.props.titleStyle, styles.label]}>
-            {this.props.title}
-          </Text>
+          <Text style={[this.props.titleStyle, styles.label]}>{this.props.title}</Text>
           <Text style={styles.boxText}>{box.top}</Text>
         </View>
         <View style={styles.row}>
@@ -70,7 +67,7 @@ class BoxContainer extends React.Component<$FlowFixMeProps> {
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -86,6 +83,12 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
     top: -3,
+  },
+  buffer: {
+    fontSize: 10,
+    color: 'yellow',
+    flex: 1,
+    textAlign: 'center',
   },
   innerText: {
     color: 'yellow',
@@ -107,3 +110,4 @@ const styles = StyleSheet.create({
 });
 
 module.exports = BoxInspector;
+

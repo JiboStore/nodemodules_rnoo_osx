@@ -1,23 +1,24 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule Settings
  * @flow
  */
-
 'use strict';
 
-const RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
-const RCTSettingsManager = require('NativeModules').SettingsManager;
+var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
+var RCTSettingsManager = require('NativeModules').SettingsManager;
 
-const invariant = require('invariant');
+var invariant = require('fbjs/lib/invariant');
 
-const subscriptions: Array<{keys: Array<string>, callback: ?Function}> = [];
+var subscriptions: Array<{keys: Array<string>, callback: ?Function}> = [];
 
-const Settings = {
+var Settings = {
   _settings: RCTSettingsManager && RCTSettingsManager.settings,
 
   get(key: string): mixed {
@@ -36,10 +37,10 @@ const Settings = {
 
     invariant(
       Array.isArray(keys),
-      'keys should be a string or array of strings',
+      'keys should be a string or array of strings'
     );
 
-    const sid = subscriptions.length;
+    var sid = subscriptions.length;
     subscriptions.push({keys: keys, callback: callback});
     return sid;
   },
@@ -51,13 +52,13 @@ const Settings = {
   },
 
   _sendObservations(body: Object) {
-    Object.keys(body).forEach(key => {
-      const newValue = body[key];
-      const didChange = this._settings[key] !== newValue;
+    Object.keys(body).forEach((key) => {
+      var newValue = body[key];
+      var didChange = this._settings[key] !== newValue;
       this._settings[key] = newValue;
 
       if (didChange) {
-        subscriptions.forEach(sub => {
+        subscriptions.forEach((sub) => {
           if (sub.keys.indexOf(key) !== -1 && sub.callback) {
             sub.callback();
           }
@@ -69,7 +70,7 @@ const Settings = {
 
 RCTDeviceEventEmitter.addListener(
   'settingsUpdated',
-  Settings._sendObservations.bind(Settings),
+  Settings._sendObservations.bind(Settings)
 );
 
 module.exports = Settings;

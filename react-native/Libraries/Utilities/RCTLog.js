@@ -1,16 +1,17 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule RCTLog
  * @flow
  */
-
 'use strict';
 
-const invariant = require('invariant');
+const invariant = require('fbjs/lib/invariant');
 
 const levelsMap = {
   log: 'log',
@@ -20,36 +21,29 @@ const levelsMap = {
   fatal: 'error',
 };
 
-let warningHandler: ?(Array<any>) => void = null;
-
-const RCTLog = {
+class RCTLog {
   // level one of log, info, warn, error, mustfix
-  logIfNoNativeHook(level: string, ...args: Array<any>): void {
-    // We already printed in the native console, so only log here if using a js debugger
+  static logIfNoNativeHook(...args) {
     if (typeof global.nativeLoggingHook === 'undefined') {
-      RCTLog.logToConsole(level, ...args);
-    } else {
-      // Report native warnings to YellowBox
-      if (warningHandler && level === 'warn') {
-        warningHandler(...args);
-      }
+      // We already printed in xcode, so only log here if using a js debugger
+      RCTLog.logToConsole(...args);
     }
-  },
+
+    return true;
+  }
 
   // Log to console regardless of nativeLoggingHook
-  logToConsole(level: string, ...args: Array<any>): void {
+  static logToConsole(level, ...args) {
     const logFn = levelsMap[level];
     invariant(
       logFn,
-      'Level "' + level + '" not one of ' + Object.keys(levelsMap).toString(),
+      'Level "' + level + '" not one of ' + Object.keys(levelsMap)
     );
 
     console[logFn](...args);
-  },
 
-  setWarningHandler(handler: typeof warningHandler): void {
-    warningHandler = handler;
-  },
-};
+    return true;
+  }
+}
 
 module.exports = RCTLog;

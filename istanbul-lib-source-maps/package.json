@@ -1,27 +1,54 @@
 {
-  "_from": "istanbul-lib-source-maps@^3.0.1",
-  "_id": "istanbul-lib-source-maps@3.0.6",
-  "_inBundle": false,
-  "_integrity": "sha512-R47KzMtDJH6X4/YW9XTx+jrLnZnscW4VpNN+1PViSYTejLVPWv7oov+Duf8YQSPyVRUvueQqz1TcsC6mooZTXw==",
+  "_args": [
+    [
+      {
+        "raw": "istanbul-lib-source-maps@^1.1.0",
+        "scope": null,
+        "escapedName": "istanbul-lib-source-maps",
+        "name": "istanbul-lib-source-maps",
+        "rawSpec": "^1.1.0",
+        "spec": ">=1.1.0 <2.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli"
+    ]
+  ],
+  "_from": "istanbul-lib-source-maps@>=1.1.0 <2.0.0",
+  "_id": "istanbul-lib-source-maps@1.2.2",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/istanbul-lib-source-maps",
-  "_phantomChildren": {},
+  "_nodeVersion": "8.7.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/istanbul-lib-source-maps-1.2.2.tgz_1508612368677_0.8676236979663372"
+  },
+  "_npmUser": {
+    "name": "bcoe",
+    "email": "ben@npmjs.com"
+  },
+  "_npmVersion": "5.5.1",
+  "_phantomChildren": {
+    "ms": "2.0.0"
+  },
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "istanbul-lib-source-maps@^3.0.1",
-    "name": "istanbul-lib-source-maps",
+    "raw": "istanbul-lib-source-maps@^1.1.0",
+    "scope": null,
     "escapedName": "istanbul-lib-source-maps",
-    "rawSpec": "^3.0.1",
-    "saveSpec": null,
-    "fetchSpec": "^3.0.1"
+    "name": "istanbul-lib-source-maps",
+    "rawSpec": "^1.1.0",
+    "spec": ">=1.1.0 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/@jest/reporters"
+    "/istanbul-api",
+    "/jest/jest-cli"
   ],
-  "_resolved": "https://registry.npmjs.org/istanbul-lib-source-maps/-/istanbul-lib-source-maps-3.0.6.tgz",
-  "_shasum": "284997c48211752ec486253da97e3879defba8c8",
-  "_spec": "istanbul-lib-source-maps@^3.0.1",
-  "_where": "/Development/web/rnoleole/node_modules/@jest/reporters",
+  "_resolved": "https://registry.npmjs.org/istanbul-lib-source-maps/-/istanbul-lib-source-maps-1.2.2.tgz",
+  "_shasum": "750578602435f28a0c04ee6d7d9e0f2960e62c1c",
+  "_shrinkwrap": null,
+  "_spec": "istanbul-lib-source-maps@^1.1.0",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli",
   "author": {
     "name": "Krishnan Anantheswaran",
     "email": "kananthmail-github@yahoo.com"
@@ -29,28 +56,33 @@
   "bugs": {
     "url": "https://github.com/istanbuljs/istanbuljs/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "debug": "^4.1.1",
-    "istanbul-lib-coverage": "^2.0.5",
-    "make-dir": "^2.1.0",
-    "rimraf": "^2.6.3",
-    "source-map": "^0.6.1"
+    "debug": "^3.1.0",
+    "istanbul-lib-coverage": "^1.1.1",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.1",
+    "source-map": "^0.5.3"
   },
-  "deprecated": false,
   "description": "Source maps support for istanbul",
   "devDependencies": {
-    "ts-node": "^8.1.0"
+    "babel-core": "^6.2.1",
+    "chai": "^3.4.1",
+    "is-windows": "^1.0.0",
+    "jshint": "^2.8.0",
+    "mocha": "^3.2.0",
+    "ts-node": "^2.0.0"
   },
-  "engines": {
-    "node": ">=6"
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-8BfdqSfEdtip7/wo1RnrvLpHVEd8zMZEDmOFEnpC6dg0vXflHt9nvoAyQUzig2uMSXfF2OBEYBV3CVjIL9JvaQ==",
+    "shasum": "750578602435f28a0c04ee6d7d9e0f2960e62c1c",
+    "tarball": "https://registry.npmjs.org/istanbul-lib-source-maps/-/istanbul-lib-source-maps-1.2.2.tgz"
   },
   "files": [
     "lib",
     "index.js"
   ],
-  "gitHead": "90e60cc47833bb780680f916488ca24f0be36ca2",
-  "homepage": "https://istanbul.js.org/",
+  "homepage": "https://github.com/istanbuljs/istanbuljs#readme",
   "keywords": [
     "istanbul",
     "sourcemaps",
@@ -60,13 +92,26 @@
   ],
   "license": "BSD-3-Clause",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "bcoe",
+      "email": "ben@npmjs.com"
+    },
+    {
+      "name": "gotwarlost",
+      "email": "kananthmail-github@yahoo.com"
+    }
+  ],
   "name": "istanbul-lib-source-maps",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/istanbuljs/istanbuljs.git"
   },
   "scripts": {
+    "pretest": "jshint index.js lib/ test/",
     "test": "mocha"
   },
-  "version": "3.0.6"
+  "version": "1.2.2"
 }

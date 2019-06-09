@@ -1,4 +1,4 @@
-load("//tools/build_defs/oss:rn_defs.bzl", "react_native_dep", "react_native_target", "rn_robolectric_test")
+include_defs("//ReactAndroid/DEFS")
 
 rn_robolectric_test(
     name = "packagerconnection",

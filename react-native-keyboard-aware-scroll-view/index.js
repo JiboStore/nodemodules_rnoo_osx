@@ -1,13 +1,11 @@
 /* @flow */
 
-import listenToKeyboardEvents from './lib/KeyboardAwareHOC'
+import KeyboardAwareMixin from './lib/KeyboardAwareMixin'
 import KeyboardAwareScrollView from './lib/KeyboardAwareScrollView'
-import KeyboardAwareFlatList from './lib/KeyboardAwareFlatList'
-import KeyboardAwareSectionList from './lib/KeyboardAwareSectionList'
+import KeyboardAwareListView from './lib/KeyboardAwareListView'
 
 export {
-  listenToKeyboardEvents,
-  KeyboardAwareFlatList,
-  KeyboardAwareSectionList,
-  KeyboardAwareScrollView
+  KeyboardAwareMixin,
+  KeyboardAwareScrollView,
+  KeyboardAwareListView
 }

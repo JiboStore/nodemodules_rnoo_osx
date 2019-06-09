@@ -1,28 +1,29 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule DatePickerDialogTestModule
  */
 
 'use strict';
 
-const BatchedBridge = require('BatchedBridge');
-const DatePickerAndroid = require('DatePickerAndroid');
-const React = require('React');
-const RecordingModule = require('NativeModules')
-  .DatePickerDialogRecordingModule;
-const View = require('View');
+var BatchedBridge = require('BatchedBridge');
+var DatePickerAndroid = require('DatePickerAndroid');
+var React = require('React');
+var RecordingModule = require('NativeModules').DatePickerDialogRecordingModule;
+var View = require('View');
 
 class DatePickerDialogTestApp extends React.Component {
   render() {
-    return <View />;
+    return (<View />);
   }
 }
 
-const DatePickerDialogTestModule = {
+var DatePickerDialogTestModule = {
   DatePickerDialogTestApp: DatePickerDialogTestApp,
   showDatePickerDialog: function(options) {
     DatePickerAndroid.open(options).then(
@@ -33,14 +34,14 @@ const DatePickerDialogTestModule = {
           RecordingModule.recordDismissed();
         }
       },
-      ({code, message}) => RecordingModule.recordError(),
+      ({code, message}) => RecordingModule.recordError()
     );
   },
 };
 
 BatchedBridge.registerCallableModule(
   'DatePickerDialogTestModule',
-  DatePickerDialogTestModule,
+  DatePickerDialogTestModule
 );
 
 module.exports = DatePickerDialogTestModule;

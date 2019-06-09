@@ -1,25 +1,25 @@
-load("//tools/build_defs/oss:rn_defs.bzl", "GLOG_DEP", "cxx_library")
+include_defs("//ReactCommon/DEFS")
 
 cxx_library(
     name = "microprofiler",
     srcs = [
         "MicroProfiler.cpp",
     ],
-    header_namespace = "microprofiler",
-    exported_headers = [
-        "MicroProfiler.h",
-    ],
     compiler_flags = [
         "-Wall",
         "-Werror",
         "-std=c++11",
         "-fexceptions",
-        "-fno-data-sections",
+    ],
+    exported_headers = [
+        "MicroProfiler.h",
     ],
     force_static = True,
+    header_namespace = "microprofiler",
     visibility = [
         "PUBLIC",
     ],
+    xcode_public_headers_symlinks = True,
     deps = [
         GLOG_DEP,
     ],

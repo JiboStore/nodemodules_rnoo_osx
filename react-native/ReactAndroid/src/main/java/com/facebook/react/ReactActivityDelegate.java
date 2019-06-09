@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react;
 
@@ -9,12 +6,18 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
+import com.facebook.common.logging.FLog;
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.common.ReactConstants;
 import com.facebook.react.devsupport.DoubleTapReloadRecognizer;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionListener;
@@ -28,7 +31,14 @@ import javax.annotation.Nullable;
  */
 public class ReactActivityDelegate {
 
+  private final int REQUEST_OVERLAY_PERMISSION_CODE = 1111;
+  private static final String REDBOX_PERMISSION_GRANTED_MESSAGE =
+    "Overlay permissions have been granted.";
+  private static final String REDBOX_PERMISSION_MESSAGE =
+    "Overlay permissions needs to be granted in order for react native apps to run in dev mode";
+
   private final @Nullable Activity mActivity;
+  private final @Nullable FragmentActivity mFragmentActivity;
   private final @Nullable String mMainComponentName;
 
   private @Nullable ReactRootView mReactRootView;
@@ -36,15 +46,18 @@ public class ReactActivityDelegate {
   private @Nullable PermissionListener mPermissionListener;
   private @Nullable Callback mPermissionsCallback;
 
-  @Deprecated
   public ReactActivityDelegate(Activity activity, @Nullable String mainComponentName) {
     mActivity = activity;
     mMainComponentName = mainComponentName;
+    mFragmentActivity = null;
   }
 
-  public ReactActivityDelegate(ReactActivity activity, @Nullable String mainComponentName) {
-    mActivity = activity;
+  public ReactActivityDelegate(
+    FragmentActivity fragmentActivity,
+    @Nullable String mainComponentName) {
+    mFragmentActivity = fragmentActivity;
     mMainComponentName = mainComponentName;
+    mActivity = null;
   }
 
   protected @Nullable Bundle getLaunchOptions() {
@@ -71,7 +84,19 @@ public class ReactActivityDelegate {
   }
 
   protected void onCreate(Bundle savedInstanceState) {
-    if (mMainComponentName != null) {
+    boolean needsOverlayPermission = false;
+    if (getReactNativeHost().getUseDeveloperSupport() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      // Get permission to show redbox in dev builds.
+      if (!Settings.canDrawOverlays(getContext())) {
+        needsOverlayPermission = true;
+        Intent serviceIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+        FLog.w(ReactConstants.TAG, REDBOX_PERMISSION_MESSAGE);
+        Toast.makeText(getContext(), REDBOX_PERMISSION_MESSAGE, Toast.LENGTH_LONG).show();
+        ((Activity) getContext()).startActivityForResult(serviceIntent, REQUEST_OVERLAY_PERMISSION_CODE);
+      }
+    }
+
+    if (mMainComponentName != null && !needsOverlayPermission) {
       loadApp(mMainComponentName);
     }
     mDoubleTapReloadRecognizer = new DoubleTapReloadRecognizer();
@@ -122,17 +147,17 @@ public class ReactActivityDelegate {
     if (getReactNativeHost().hasInstance()) {
       getReactNativeHost().getReactInstanceManager()
         .onActivityResult(getPlainActivity(), requestCode, resultCode, data);
+    } else {
+      // Did we request overlay permissions?
+      if (requestCode == REQUEST_OVERLAY_PERMISSION_CODE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Settings.canDrawOverlays(getContext())) {
+          if (mMainComponentName != null) {
+            loadApp(mMainComponentName);
+          }
+          Toast.makeText(getContext(), REDBOX_PERMISSION_GRANTED_MESSAGE, Toast.LENGTH_LONG).show();
+        }
+      }
     }
-  }
-
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if (getReactNativeHost().hasInstance()
-      && getReactNativeHost().getUseDeveloperSupport()
-      && keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
-      event.startTracking();
-      return true;
-    }
-    return false;
   }
 
   public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -147,16 +172,6 @@ public class ReactActivityDelegate {
         getReactNativeHost().getReactInstanceManager().getDevSupportManager().handleReloadJS();
         return true;
       }
-    }
-    return false;
-  }
-
-  public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-    if (getReactNativeHost().hasInstance()
-        && getReactNativeHost().getUseDeveloperSupport()
-        && keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
-      getReactNativeHost().getReactInstanceManager().showDevOptionsDialog();
-      return true;
     }
     return false;
   }
@@ -200,11 +215,14 @@ public class ReactActivityDelegate {
     };
   }
 
-  protected Context getContext() {
-    return Assertions.assertNotNull(mActivity);
+  private Context getContext() {
+    if (mActivity != null) {
+      return mActivity;
+    }
+    return Assertions.assertNotNull(mFragmentActivity);
   }
 
-  protected Activity getPlainActivity() {
+  private Activity getPlainActivity() {
     return ((Activity) getContext());
   }
 }

@@ -1,13 +1,14 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule IncrementalExample
  * @flow
  */
-
 'use strict';
 
 const React = require('react');
@@ -27,9 +28,6 @@ const IncrementalPresenter = require('IncrementalPresenter');
 
 const JSEventLoopWatchdog = require('JSEventLoopWatchdog');
 
-/* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
- * found when Flow v0.54 was deployed. To see the error delete this comment and
- * run Flow. */
 const performanceNow = require('fbjs/lib/performanceNow');
 
 InteractionManager.setDeadline(1000);
@@ -37,10 +35,8 @@ JSEventLoopWatchdog.install({thresholdMS: 200});
 
 let totalWidgets = 0;
 
-class SlowWidget extends React.Component<
-  $FlowFixMeProps,
-  {ctorTimestamp: number, timeToMount: number},
-> {
+class SlowWidget extends React.Component {
+  state: {ctorTimestamp: number, timeToMount: number};
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -74,9 +70,7 @@ function stopInteraction() {
 }
 
 function Block(props: Object) {
-  const IncrementalContainer = props.stream
-    ? IncrementalGroup
-    : IncrementalPresenter;
+  const IncrementalContainer = props.stream ? IncrementalGroup : IncrementalPresenter;
   return (
     <IncrementalContainer name={'b_' + props.idx}>
       <TouchableOpacity
@@ -95,10 +89,11 @@ function Block(props: Object) {
 
 const Row = (props: Object) => <View style={styles.row} {...props} />;
 
-class IncrementalExample extends React.Component<mixed, {stats: ?Object}> {
+class IncrementalExample extends React.Component {
   static title = '<Incremental*>';
   static description = 'Enables incremental rendering of complex components.';
   start: number;
+  state: {stats: ?Object};
   constructor(props: mixed, context: mixed) {
     super(props, context);
     this.start = performanceNow();
@@ -121,39 +116,34 @@ class IncrementalExample extends React.Component<mixed, {stats: ?Object}> {
       console.log('onDone:', stats);
     }, 0);
   }
-  render(): React.Node {
+  render(): React.Element<any> {
     return (
-      <IncrementalGroup disabled={false} name="root" onDone={this._onDone}>
+      <IncrementalGroup
+        disabled={false}
+        name="root"
+        onDone={this._onDone}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.headerText}>
             Press and hold on a row to pause rendering.
           </Text>
-          {this.state.stats && (
-            <Text>Finished: {JSON.stringify(this.state.stats, null, 2)}</Text>
-          )}
-          {Array(8)
-            .fill()
-            .map((_, blockIdx) => {
-              return (
-                <Block key={blockIdx} idx={blockIdx} stream={blockIdx < 2}>
-                  {Array(4)
-                    .fill()
-                    .map((_b, rowIdx) => (
-                      <Row key={rowIdx}>
-                        {Array(14)
-                          .fill()
-                          .map((_c, widgetIdx) => (
-                            <Incremental
-                              key={widgetIdx}
-                              name={'w_' + widgetIdx}>
-                              <SlowWidget idx={widgetIdx} />
-                            </Incremental>
-                          ))}
-                      </Row>
+          {this.state.stats && <Text>
+            Finished: {JSON.stringify(this.state.stats, null, 2)}
+          </Text>}
+          {Array(8).fill().map((_, blockIdx) => {
+            return (
+              <Block key={blockIdx} idx={blockIdx} stream={blockIdx < 2}>
+                {Array(4).fill().map((_b, rowIdx) => (
+                  <Row key={rowIdx}>
+                    {Array(14).fill().map((_c, widgetIdx) => (
+                      <Incremental key={widgetIdx} name={'w_' + widgetIdx}>
+                        <SlowWidget idx={widgetIdx} />
+                      </Incremental>
                     ))}
-                </Block>
-              );
-            })}
+                  </Row>
+                ))}
+              </Block>
+            );
+          })}
         </ScrollView>
       </IncrementalGroup>
     );
@@ -162,10 +152,10 @@ class IncrementalExample extends React.Component<mixed, {stats: ?Object}> {
 
 function burnCPU(milliseconds) {
   const start = performanceNow();
-  while (performanceNow() < start + milliseconds) {}
+  while (performanceNow() < (start + milliseconds)) {}
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   scrollView: {
     margin: 10,
     backgroundColor: 'white',

@@ -1,20 +1,21 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @format
+ * @providesModule processTransform
  * @flow
  */
-
 'use strict';
 
-const MatrixMath = require('MatrixMath');
-const Platform = require('Platform');
+var MatrixMath = require('MatrixMath');
+var Platform = require('Platform');
 
-const invariant = require('invariant');
-const stringifySafe = require('stringifySafe');
+var invariant = require('fbjs/lib/invariant');
+var stringifySafe = require('stringifySafe');
 
 /**
  * Generate a transform matrix based on the provided transforms, and use that
@@ -24,9 +25,7 @@ const stringifySafe = require('stringifySafe');
  * be applied in an arbitrary order, and yet have a universal, singular
  * interface to native code.
  */
-function processTransform(
-  transform: Array<Object>,
-): Array<Object> | Array<number> {
+function processTransform(transform: Array<Object>): Array<Object> | Array<number> {
   if (__DEV__) {
     _validateTransforms(transform);
   }
@@ -38,11 +37,11 @@ function processTransform(
     return transform;
   }
 
-  const result = MatrixMath.createIdentityMatrix();
+  var result = MatrixMath.createIdentityMatrix();
 
   transform.forEach(transformation => {
-    const key = Object.keys(transformation)[0];
-    const value = transformation[key];
+    var key = Object.keys(transformation)[0];
+    var value = transformation[key];
 
     switch (key) {
       case 'matrix':
@@ -52,20 +51,14 @@ function processTransform(
         _multiplyTransform(result, MatrixMath.reusePerspectiveCommand, [value]);
         break;
       case 'rotateX':
-        _multiplyTransform(result, MatrixMath.reuseRotateXCommand, [
-          _convertToRadians(value),
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseRotateXCommand, [_convertToRadians(value)]);
         break;
       case 'rotateY':
-        _multiplyTransform(result, MatrixMath.reuseRotateYCommand, [
-          _convertToRadians(value),
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseRotateYCommand, [_convertToRadians(value)]);
         break;
       case 'rotate':
       case 'rotateZ':
-        _multiplyTransform(result, MatrixMath.reuseRotateZCommand, [
-          _convertToRadians(value),
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseRotateZCommand, [_convertToRadians(value)]);
         break;
       case 'scale':
         _multiplyTransform(result, MatrixMath.reuseScaleCommand, [value]);
@@ -77,33 +70,19 @@ function processTransform(
         _multiplyTransform(result, MatrixMath.reuseScaleYCommand, [value]);
         break;
       case 'translate':
-        _multiplyTransform(result, MatrixMath.reuseTranslate3dCommand, [
-          value[0],
-          value[1],
-          value[2] || 0,
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseTranslate3dCommand, [value[0], value[1], value[2] || 0]);
         break;
       case 'translateX':
-        _multiplyTransform(result, MatrixMath.reuseTranslate2dCommand, [
-          value,
-          0,
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseTranslate2dCommand, [value, 0]);
         break;
       case 'translateY':
-        _multiplyTransform(result, MatrixMath.reuseTranslate2dCommand, [
-          0,
-          value,
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseTranslate2dCommand, [0, value]);
         break;
       case 'skewX':
-        _multiplyTransform(result, MatrixMath.reuseSkewXCommand, [
-          _convertToRadians(value),
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseSkewXCommand, [_convertToRadians(value)]);
         break;
       case 'skewY':
-        _multiplyTransform(result, MatrixMath.reuseSkewYCommand, [
-          _convertToRadians(value),
-        ]);
+        _multiplyTransform(result, MatrixMath.reuseSkewYCommand, [_convertToRadians(value)]);
         break;
       default:
         throw new Error('Invalid transform name: ' + key);
@@ -119,10 +98,10 @@ function processTransform(
 function _multiplyTransform(
   result: Array<number>,
   matrixMathFunction: Function,
-  args: Array<number>,
+  args: Array<number>
 ): void {
-  const matrixToApply = MatrixMath.createIdentityMatrix();
-  const argsWithIdentity = [matrixToApply].concat(args);
+  var matrixToApply = MatrixMath.createIdentityMatrix();
+  var argsWithIdentity = [matrixToApply].concat(args);
   matrixMathFunction.apply(this, argsWithIdentity);
   MatrixMath.multiplyInto(result, result, matrixToApply);
 }
@@ -132,20 +111,20 @@ function _multiplyTransform(
  * Note that validation on the string is done in `_validateTransform()`.
  */
 function _convertToRadians(value: string): number {
-  const floatValue = parseFloat(value);
-  return value.indexOf('rad') > -1 ? floatValue : (floatValue * Math.PI) / 180;
+  var floatValue = parseFloat(value);
+  return value.indexOf('rad') > -1 ? floatValue : floatValue * Math.PI / 180;
 }
 
 function _validateTransforms(transform: Array<Object>): void {
   transform.forEach(transformation => {
-    const keys = Object.keys(transformation);
+    var keys = Object.keys(transformation);
     invariant(
       keys.length === 1,
       'You must specify exactly one property per transform object. Passed properties: %s',
       stringifySafe(transformation),
     );
-    const key = keys[0];
-    const value = transformation[key];
+    var key = keys[0];
+    var value = transformation[key];
     _validateTransform(key, value, transformation);
   });
 }
@@ -154,11 +133,14 @@ function _validateTransform(key, value, transformation) {
   invariant(
     !value.getValue,
     'You passed an Animated.Value to a normal component. ' +
-      'You need to wrap that component in an Animated. For example, ' +
-      'replace <View /> by <Animated.View />.',
+    'You need to wrap that component in an Animated. For example, ' +
+    'replace <View /> by <Animated.View />.'
   );
 
-  const multivalueTransforms = ['matrix', 'translate'];
+  var multivalueTransforms = [
+    'matrix',
+    'translate',
+  ];
   if (multivalueTransforms.indexOf(key) !== -1) {
     invariant(
       Array.isArray(value),
@@ -170,29 +152,17 @@ function _validateTransform(key, value, transformation) {
   switch (key) {
     case 'matrix':
       invariant(
-        /* $FlowFixMe(>=0.88.0 site=react_native_fb) This comment suppresses an
-         * error found when Flow v0.88 was deployed. To see the error, delete
-         * this comment and run Flow. */
         value.length === 9 || value.length === 16,
         'Matrix transform must have a length of 9 (2d) or 16 (3d). ' +
           'Provided matrix has a length of %s: %s',
-        /* $FlowFixMe(>=0.84.0 site=react_native_fb) This comment suppresses an
-         * error found when Flow v0.84 was deployed. To see the error, delete
-         * this comment and run Flow. */
         value.length,
         stringifySafe(transformation),
       );
       break;
     case 'translate':
       invariant(
-        /* $FlowFixMe(>=0.88.0 site=react_native_fb) This comment suppresses an
-         * error found when Flow v0.88 was deployed. To see the error, delete
-         * this comment and run Flow. */
         value.length === 2 || value.length === 3,
         'Transform with key translate must be an array of length 2 or 3, found %s: %s',
-        /* $FlowFixMe(>=0.84.0 site=react_native_fb) This comment suppresses an
-         * error found when Flow v0.84 was deployed. To see the error, delete
-         * this comment and run Flow. */
         value.length,
         stringifySafe(transformation),
       );
@@ -243,12 +213,7 @@ function _validateTransform(key, value, transformation) {
       );
       break;
     default:
-      invariant(
-        false,
-        'Invalid transform %s: %s',
-        key,
-        stringifySafe(transformation),
-      );
+      invariant(false, 'Invalid transform %s: %s', key, stringifySafe(transformation));
   }
 }
 

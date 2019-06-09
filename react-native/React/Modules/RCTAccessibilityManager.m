@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTAccessibilityManager.h"
@@ -15,7 +17,21 @@
 
 NSString *const RCTAccessibilityManagerDidUpdateMultiplierNotification = @"RCTAccessibilityManagerDidUpdateMultiplierNotification";
 
-static NSString *UIKitCategoryFromJSCategory(NSString *JSCategory)
+@interface RCTAccessibilityManager ()
+
+@property (nonatomic, copy) NSString *contentSizeCategory;
+@property (nonatomic, assign) CGFloat multiplier;
+
+@end
+
+@implementation RCTAccessibilityManager
+
+@synthesize bridge = _bridge;
+@synthesize multipliers = _multipliers;
+
+RCT_EXPORT_MODULE()
+
++ (NSDictionary<NSString *, NSString *> *)JSToUIKitMap
 {
   static NSDictionary *map = nil;
   static dispatch_once_t onceToken;
@@ -33,44 +49,29 @@ static NSString *UIKitCategoryFromJSCategory(NSString *JSCategory)
             @"accessibilityExtraExtraLarge": UIContentSizeCategoryAccessibilityExtraExtraLarge,
             @"accessibilityExtraExtraExtraLarge": UIContentSizeCategoryAccessibilityExtraExtraExtraLarge};
   });
-  return map[JSCategory];
+  return map;
 }
 
-@interface RCTAccessibilityManager ()
-
-@property (nonatomic, copy) NSString *contentSizeCategory;
-@property (nonatomic, assign) CGFloat multiplier;
-
-@end
-
-@implementation RCTAccessibilityManager
-
-@synthesize bridge = _bridge;
-@synthesize multipliers = _multipliers;
-
-RCT_EXPORT_MODULE()
-
-+ (BOOL)requiresMainQueueSetup
++ (NSString *)UIKitCategoryFromJSCategory:(NSString *)JSCategory
 {
-  return YES;
+  return [self JSToUIKitMap][JSCategory];
 }
 
 - (instancetype)init
 {
-  if (self = [super init]) {
-    _multiplier = 1.0;
+  if ((self = [super init])) {
 
     // TODO: can this be moved out of the startup path?
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveNewContentSizeCategory:)
                                                  name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
+                                               object:RCTSharedApplication()];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveNewVoiceOverStatus:)
                                                  name:UIAccessibilityVoiceOverStatusChanged
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(accessibilityAnnouncementDidFinish:)
                                                  name:UIAccessibilityAnnouncementDidFinishNotification
@@ -111,7 +112,7 @@ RCT_EXPORT_MODULE()
   // Response dictionary to populate the event with.
   NSDictionary *response = @{@"announcement": userInfo[UIAccessibilityAnnouncementKeyStringValue],
                               @"success": userInfo[UIAccessibilityAnnouncementKeyWasSuccessful]};
-
+    
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   [_bridge.eventDispatcher sendDeviceEventWithName:@"announcementDidFinish"
@@ -175,7 +176,7 @@ RCT_EXPORT_METHOD(setAccessibilityContentSizeMultipliers:(NSDictionary *)JSMulti
   NSMutableDictionary<NSString *, NSNumber *> *multipliers = [NSMutableDictionary new];
   for (NSString *__nonnull JSCategory in JSMultipliers) {
     NSNumber *m = [RCTConvert NSNumber:JSMultipliers[JSCategory]];
-    NSString *UIKitCategory = UIKitCategoryFromJSCategory(JSCategory);
+    NSString *UIKitCategory = [[self class] UIKitCategoryFromJSCategory:JSCategory];
     multipliers[UIKitCategory] = m;
   }
   self.multipliers = multipliers;

@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react.modules.network;
 
@@ -56,10 +53,7 @@ public class ForwardingCookieHandler extends CookieHandler {
   @Override
   public Map<String, List<String>> get(URI uri, Map<String, List<String>> headers)
       throws IOException {
-    CookieManager cookieManager = getCookieManager();
-    if (cookieManager == null) return Collections.emptyMap();
-
-    String cookies = cookieManager.getCookie(uri.toString());
+    String cookies = getCookieManager().getCookie(uri.toString());
     if (TextUtils.isEmpty(cookies)) {
       return Collections.emptyMap();
     }
@@ -83,10 +77,7 @@ public class ForwardingCookieHandler extends CookieHandler {
       new GuardedResultAsyncTask<Boolean>(mContext) {
         @Override
         protected Boolean doInBackgroundGuarded() {
-          CookieManager cookieManager = getCookieManager();
-          if (cookieManager != null) {
-            cookieManager.removeAllCookie();
-          }
+          getCookieManager().removeAllCookie();
           mCookieSaver.onCookiesModified();
           return true;
         }
@@ -102,40 +93,31 @@ public class ForwardingCookieHandler extends CookieHandler {
   }
 
   private void clearCookiesAsync(final Callback callback) {
-    CookieManager cookieManager = getCookieManager();
-    if (cookieManager != null) {
-      cookieManager.removeAllCookies(
-          new ValueCallback<Boolean>() {
-            @Override
-            public void onReceiveValue(Boolean value) {
-              mCookieSaver.onCookiesModified();
-              callback.invoke(value);
-            }
-          });
-    }
+    getCookieManager().removeAllCookies(
+        new ValueCallback<Boolean>() {
+          @Override
+          public void onReceiveValue(Boolean value) {
+            mCookieSaver.onCookiesModified();
+            callback.invoke(value);
+          }
+        });
   }
 
   public void destroy() {
     if (USES_LEGACY_STORE) {
-      CookieManager cookieManager = getCookieManager();
-      if (cookieManager != null) {
-        cookieManager.removeExpiredCookie();
-      }
+      getCookieManager().removeExpiredCookie();
       mCookieSaver.persistCookies();
     }
   }
 
   private void addCookies(final String url, final List<String> cookies) {
-    final CookieManager cookieManager = getCookieManager();
-    if (cookieManager == null) return;
-
     if (USES_LEGACY_STORE) {
       runInBackground(
           new Runnable() {
             @Override
             public void run() {
               for (String cookie : cookies) {
-                cookieManager.setCookie(url, cookie);
+                getCookieManager().setCookie(url, cookie);
               }
               mCookieSaver.onCookiesModified();
             }
@@ -144,17 +126,13 @@ public class ForwardingCookieHandler extends CookieHandler {
       for (String cookie : cookies) {
         addCookieAsync(url, cookie);
       }
-      cookieManager.flush();
       mCookieSaver.onCookiesModified();
     }
   }
 
   @TargetApi(21)
   private void addCookieAsync(String url, String cookie) {
-    CookieManager cookieManager = getCookieManager();
-    if (cookieManager != null) {
-      cookieManager.setCookie(url, cookie, null);
-    }
+    getCookieManager().setCookie(url, cookie, null);
   }
 
   private static boolean isCookieHeader(String name) {
@@ -174,26 +152,10 @@ public class ForwardingCookieHandler extends CookieHandler {
    * Instantiating CookieManager in KitKat+ will load the Chromium task taking a 100ish ms so we
    * do it lazily to make sure it's done on a background thread as needed.
    */
-  private @Nullable CookieManager getCookieManager() {
+  private CookieManager getCookieManager() {
     if (mCookieManager == null) {
       possiblyWorkaroundSyncManager(mContext);
-      try {
-          mCookieManager = CookieManager.getInstance();
-      } catch (IllegalArgumentException ex) {
-        // https://bugs.chromium.org/p/chromium/issues/detail?id=559720
-        return null;
-      } catch (Exception exception) {
-        String message = exception.getMessage();
-        // We cannot catch MissingWebViewPackageException as it is in a private / system API
-        // class. This validates the exception's message to ensure we are only handling this
-        // specific exception.
-        // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/webkit/WebViewFactory.java#98
-        if (message != null && message.contains("No WebView installed")) {
-          return null;
-        } else {
-          throw exception;
-        }
-      }
+      mCookieManager = CookieManager.getInstance();
 
       if (USES_LEGACY_STORE) {
         mCookieManager.removeExpiredCookie();
@@ -262,10 +224,7 @@ public class ForwardingCookieHandler extends CookieHandler {
 
     @TargetApi(21)
     private void flush() {
-      CookieManager cookieManager = getCookieManager();
-      if (cookieManager != null) {
-        cookieManager.flush();
-      }
+      getCookieManager().flush();
     }
   }
 }

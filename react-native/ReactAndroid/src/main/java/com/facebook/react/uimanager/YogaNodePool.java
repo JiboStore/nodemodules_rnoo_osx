@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react.uimanager;
 
@@ -23,7 +20,7 @@ public class YogaNodePool {
 
     synchronized (sInitLock) {
       if (sPool == null) {
-        sPool = new ClearableSynchronizedPool<>(1024);
+        sPool = new ClearableSynchronizedPool<YogaNode>(1024);
       }
       return sPool;
     }

@@ -1,7 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #include "ProxyExecutor.h"
 
@@ -87,16 +84,10 @@ void ProxyExecutor::loadApplicationScript(
   // we launch the application.
 }
 
-void ProxyExecutor::setBundleRegistry(std::unique_ptr<RAMBundleRegistry>) {
+void ProxyExecutor::setJSModulesUnbundle(std::unique_ptr<JSModulesUnbundle>) {
   jni::throwNewJavaException(
     "java/lang/UnsupportedOperationException",
-    "Loading application RAM bundles is not supported for proxy executors");
-}
-
-void ProxyExecutor::registerBundle(uint32_t bundleId, const std::string& bundlePath) {
-  jni::throwNewJavaException(
-    "java/lang/UnsupportedOperationException",
-    "Loading application RAM bundles is not supported for proxy executors");
+    "Loading application unbundles is not supported for proxy executors");
 }
 
 void ProxyExecutor::callFunction(const std::string& moduleId, const std::string& methodId, const folly::dynamic& arguments) {
@@ -121,10 +112,6 @@ void ProxyExecutor::setGlobalVariable(std::string propName,
     m_executor.get(),
     jni::make_jstring(propName).get(),
     jni::make_jstring(jsonValue->c_str()).get());
-}
-
-std::string ProxyExecutor::getDescription() {
-  return "Chrome";
 }
 
 } }

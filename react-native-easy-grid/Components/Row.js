@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 
 import computeProps from '../Utils/computeProps';
+import _ from 'lodash';
 
 
 export default class RowNB extends Component {
@@ -28,8 +29,7 @@ export default class RowNB extends Component {
     render() {
       if(this.props.onPress){
         return(
-            <TouchableOpacity onPress={this.props.onPress}
-            {...this.prepareRootProps()}>
+            <TouchableOpacity onPress={this.props.onPress}>
           <View
         ref={component => this._root = component}
         {...this.props}

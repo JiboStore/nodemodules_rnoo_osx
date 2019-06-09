@@ -1,24 +1,21 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTTVNavigationEventEmitter.h"
 
 NSString *const RCTTVNavigationEventNotification = @"RCTTVNavigationEventNotification";
 
-static NSString *const TVNavigationEventName = @"onHWKeyEvent";
+static NSString *const TVNavigationEventName = @"onTVNavEvent";
 
 @implementation RCTTVNavigationEventEmitter
 
 RCT_EXPORT_MODULE()
-
-+ (BOOL)requiresMainQueueSetup
-{
-  return NO;
-}
 
 - (instancetype)init
 {
@@ -44,9 +41,7 @@ RCT_EXPORT_MODULE()
 
 - (void)handleTVNavigationEventNotification:(NSNotification *)notif
 {
-  if (self.bridge) {
-    [self sendEventWithName:TVNavigationEventName body:notif.object];
-  }
+  [self sendEventWithName:TVNavigationEventName body:notif.object];
 }
 
 @end

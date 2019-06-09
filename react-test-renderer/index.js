@@ -1,7 +1,7 @@
 'use strict';
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./cjs/react-test-renderer.production.min.js');
+  throw Error('test renderer is not available in production mode.');
 } else {
-  module.exports = require('./cjs/react-test-renderer.development.js');
+  module.exports = require('./cjs/react-test-renderer.development');
 }

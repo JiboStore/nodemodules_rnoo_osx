@@ -1,13 +1,14 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.text.frescosupport;
 
-import com.facebook.react.uimanager.LayoutShadowNode;
 import javax.annotation.Nullable;
 
 import java.util.Locale;
@@ -41,7 +42,6 @@ public class FrescoBasedReactTextInlineImageShadowNode extends ReactTextInlineIm
   private final @Nullable Object mCallerContext;
   private float mWidth = YogaConstants.UNDEFINED;
   private float mHeight = YogaConstants.UNDEFINED;
-  private int mTintColor = 0;
 
   public FrescoBasedReactTextInlineImageShadowNode(
     AbstractDraweeControllerBuilder draweeControllerBuilder,
@@ -80,11 +80,6 @@ public class FrescoBasedReactTextInlineImageShadowNode extends ReactTextInlineIm
     mHeaders = headers;
   }
 
-  @ReactProp(name = "tintColor")
-  public void setTintColor(int tintColor) {
-    mTintColor = tintColor;
-  }
-
   /**
    * Besides width/height, all other layout props on inline images are ignored
    */
@@ -107,7 +102,7 @@ public class FrescoBasedReactTextInlineImageShadowNode extends ReactTextInlineIm
           "Inline images must not have percentage based height");
     }
   }
-  
+
   public @Nullable Uri getUri() {
     return mUri;
   }
@@ -146,7 +141,6 @@ public class FrescoBasedReactTextInlineImageShadowNode extends ReactTextInlineIm
       resources,
       height,
       width,
-      mTintColor,
       getUri(),
       getHeaders(),
       getDraweeControllerBuilder(),

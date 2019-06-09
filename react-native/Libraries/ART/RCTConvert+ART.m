@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTConvert+ART.h"
@@ -49,7 +51,7 @@
           CGPathAddArc(path, NULL, NEXT_VALUE, NEXT_VALUE, NEXT_VALUE, NEXT_VALUE, NEXT_VALUE, NEXT_VALUE == 0);
           break;
         default:
-          RCTLogError(@"Invalid CGPath type %llu at element %llu of %@", (unsigned long long)type, (unsigned long long)i, arr);
+          RCTLogError(@"Invalid CGPath type %zd at element %zd of %@", type, i, arr);
           CGPathRelease(path);
           return NULL;
       }
@@ -156,7 +158,7 @@ RCT_ENUM_CONVERTER(CTTextAlignment, (@{
     case 3: // pattern
       return [[ARTPattern alloc] initWithArray:arr];
     default:
-      RCTLogError(@"Unknown brush type: %llu", (unsigned long long)type);
+      RCTLogError(@"Unknown brush type: %zd", type);
       return nil;
   }
 }
@@ -165,7 +167,7 @@ RCT_ENUM_CONVERTER(CTTextAlignment, (@{
 {
   NSArray *arr = [self NSArray:json];
   if (arr.count < offset + 2) {
-    RCTLogError(@"Too few elements in array (expected at least %llu): %@", (unsigned long long)(2 + offset), arr);
+    RCTLogError(@"Too few elements in array (expected at least %zd): %@", 2 + offset, arr);
     return CGPointZero;
   }
   return (CGPoint){
@@ -178,7 +180,7 @@ RCT_ENUM_CONVERTER(CTTextAlignment, (@{
 {
   NSArray *arr = [self NSArray:json];
   if (arr.count < offset + 4) {
-    RCTLogError(@"Too few elements in array (expected at least %llu): %@", (unsigned long long)(4 + offset), arr);
+    RCTLogError(@"Too few elements in array (expected at least %zd): %@", 4 + offset, arr);
     return CGRectZero;
   }
   return (CGRect){
@@ -191,7 +193,7 @@ RCT_ENUM_CONVERTER(CTTextAlignment, (@{
 {
   NSArray *arr = [self NSArray:json];
   if (arr.count < offset + 4) {
-    RCTLogError(@"Too few elements in array (expected at least %llu): %@", (unsigned long long)(4 + offset), arr);
+    RCTLogError(@"Too few elements in array (expected at least %zd): %@", 4 + offset, arr);
     return NULL;
   }
   return [self CGColor:[arr subarrayWithRange:(NSRange){offset, 4}]];
@@ -201,7 +203,7 @@ RCT_ENUM_CONVERTER(CTTextAlignment, (@{
 {
   NSArray *arr = [self NSArray:json];
   if (arr.count < offset) {
-    RCTLogError(@"Too few elements in array (expected at least %llu): %@", (unsigned long long)offset, arr);
+    RCTLogError(@"Too few elements in array (expected at least %zd): %@", offset, arr);
     return NULL;
   }
   arr = [arr subarrayWithRange:(NSRange){offset, arr.count - offset}];

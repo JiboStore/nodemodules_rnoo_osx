@@ -1,7 +1,7 @@
 'use strict';
 
 var acorn = require('acorn');
-var walk = require('acorn-walk');
+var walk = require('acorn/dist/walk');
 
 function isScope(node) {
   return node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration' || node.type === 'ArrowFunctionExpression' || node.type === 'Program';
@@ -18,25 +18,21 @@ function declaresThis(node) {
   return node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration';
 }
 
-function reallyParse(source, options) {
-  var parseOptions = Object.assign({}, options,
-    {
-      allowReturnOutsideFunction: true,
-      allowImportExportEverywhere: true,
-      allowHashBang: true
-    }
-  );
-  return acorn.parse(source, parseOptions);
+function reallyParse(source) {
+  return acorn.parse(source, {
+    allowReturnOutsideFunction: true,
+    allowImportExportEverywhere: true,
+    allowHashBang: true
+  });
 }
 module.exports = findGlobals;
 module.exports.parse = reallyParse;
-function findGlobals(source, options) {
-  options = options || {};
+function findGlobals(source) {
   var globals = [];
   var ast;
   // istanbul ignore else
   if (typeof source === 'string') {
-    ast = reallyParse(source, options);
+    ast = reallyParse(source);
   } else {
     ast = source;
   }
@@ -53,7 +49,7 @@ function findGlobals(source, options) {
     if (node.id) {
       fn.locals[node.id.name] = true;
     }
-  };
+  }
   var declarePattern = function (node, parent) {
     switch (node.type) {
       case 'Identifier':
@@ -61,7 +57,7 @@ function findGlobals(source, options) {
         break;
       case 'ObjectPattern':
         node.properties.forEach(function (node) {
-          declarePattern(node.value || node.argument, parent);
+          declarePattern(node.value, parent);
         });
         break;
       case 'ArrayPattern':
@@ -79,11 +75,11 @@ function findGlobals(source, options) {
       default:
         throw new Error('Unrecognized pattern type: ' + node.type);
     }
-  };
+  }
   var declareModuleSpecifier = function (node, parents) {
     ast.locals = ast.locals || {};
     ast.locals[node.local.name] = true;
-  };
+  }
   walk.ancestor(ast, {
     'VariableDeclaration': function (node, parents) {
       var parent = null;
@@ -105,23 +101,19 @@ function findGlobals(source, options) {
         }
       }
       parent.locals = parent.locals || {};
-      if (node.id) {
-        parent.locals[node.id.name] = true;
-      }
+      parent.locals[node.id.name] = true;
       declareFunction(node);
     },
     'Function': declareFunction,
     'ClassDeclaration': function (node, parents) {
       var parent = null;
       for (var i = parents.length - 2; i >= 0 && parent === null; i--) {
-        if (isBlockScope(parents[i])) {
+        if (isScope(parents[i])) {
           parent = parents[i];
         }
       }
       parent.locals = parent.locals || {};
-      if (node.id) {
-        parent.locals[node.id.name] = true;
-      }
+      parent.locals[node.id.name] = true;
     },
     'TryStatement': function (node) {
       if (node.handler === null) return;
@@ -143,7 +135,7 @@ function findGlobals(source, options) {
         return;
       }
     }
-    node.parents = parents.slice();
+    node.parents = parents;
     globals.push(node);
   }
   walk.ancestor(ast, {
@@ -155,7 +147,7 @@ function findGlobals(source, options) {
           return;
         }
       }
-      node.parents = parents.slice();
+      node.parents = parents;
       globals.push(node);
     }
   });

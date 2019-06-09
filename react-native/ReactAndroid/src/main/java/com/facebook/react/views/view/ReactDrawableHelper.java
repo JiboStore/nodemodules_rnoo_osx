@@ -1,13 +1,14 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.views.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -30,7 +31,6 @@ public class ReactDrawableHelper {
 
   private static final TypedValue sResolveOutValue = new TypedValue();
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public static Drawable createDrawableFromJSDescription(
       Context context,
       ReadableMap drawableDescriptionDict) {
@@ -44,7 +44,8 @@ public class ReactDrawableHelper {
             " couldn't be found in the resource list");
       }
       if (context.getTheme().resolveAttribute(attrID, sResolveOutValue, true)) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 21) {
           return context.getResources()
               .getDrawable(sResolveOutValue.resourceId, context.getTheme());
         } else {
@@ -55,7 +56,7 @@ public class ReactDrawableHelper {
             " couldn't be resolved into a drawable");
       }
     } else if ("RippleAndroid".equals(type)) {
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      if (Build.VERSION.SDK_INT < 21) {
         throw new JSApplicationIllegalArgumentException("Ripple drawable is not available on " +
             "android API <21");
       }

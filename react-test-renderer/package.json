@@ -1,65 +1,142 @@
 {
-  "_from": "react-test-renderer@16.8.3",
-  "_id": "react-test-renderer@16.8.3",
-  "_inBundle": false,
-  "_integrity": "sha512-rjJGYebduKNZH0k1bUivVrRLX04JfIQ0FKJLPK10TAb06XWhfi4gTobooF9K/DEFNW98iGac3OSxkfIJUN9Mdg==",
+  "_args": [
+    [
+      {
+        "raw": "react-test-renderer@16.0.0-alpha.12",
+        "scope": null,
+        "escapedName": "react-test-renderer",
+        "name": "react-test-renderer",
+        "rawSpec": "16.0.0-alpha.12",
+        "spec": "16.0.0-alpha.12",
+        "type": "version"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "react-test-renderer@16.0.0-alpha.12",
+  "_id": "react-test-renderer@16.0.0-alpha.12",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react-test-renderer",
+  "_nodeVersion": "6.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-test-renderer-16.0.0-alpha.12.tgz_1493760315560_0.45927884825505316"
+  },
+  "_npmUser": {
+    "name": "acdlite",
+    "email": "acdlite@me.com"
+  },
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "react-test-renderer@16.8.3",
-    "name": "react-test-renderer",
+    "raw": "react-test-renderer@16.0.0-alpha.12",
+    "scope": null,
     "escapedName": "react-test-renderer",
-    "rawSpec": "16.8.3",
-    "saveSpec": null,
-    "fetchSpec": "16.8.3"
+    "name": "react-test-renderer",
+    "rawSpec": "16.0.0-alpha.12",
+    "spec": "16.0.0-alpha.12",
+    "type": "version"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "#DEV:/"
   ],
-  "_resolved": "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.8.3.tgz",
-  "_shasum": "230006af264cc46aeef94392e04747c21839e05e",
-  "_spec": "react-test-renderer@16.8.3",
-  "_where": "/Development/web/rnoleole",
+  "_resolved": "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.0.0-alpha.12.tgz",
+  "_shasum": "9e4cc5d8ce8bfca72778340de3e1454b9d6c0cc5",
+  "_shrinkwrap": null,
+  "_spec": "react-test-renderer@16.0.0-alpha.12",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
   "bugs": {
     "url": "https://github.com/facebook/react/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "object-assign": "^4.1.1",
-    "prop-types": "^15.6.2",
-    "react-is": "^16.8.3",
-    "scheduler": "^0.13.3"
+    "fbjs": "^0.8.9",
+    "object-assign": "^4.1.0"
   },
-  "deprecated": false,
   "description": "React package for snapshot testing.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "9e4cc5d8ce8bfca72778340de3e1454b9d6c0cc5",
+    "tarball": "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.0.0-alpha.12.tgz"
+  },
   "files": [
     "LICENSE",
+    "PATENTS",
     "README.md",
-    "build-info.json",
     "index.js",
     "shallow.js",
-    "cjs/",
-    "umd/"
+    "stack.js",
+    "cjs/"
   ],
-  "homepage": "https://reactjs.org/",
+  "homepage": "https://facebook.github.io/react/",
   "keywords": [
     "react",
     "react-native",
     "react-testing"
   ],
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "acdlite",
+      "email": "acdlite@me.com"
+    },
+    {
+      "name": "brianvaughn",
+      "email": "briandavidvaughn@gmail.com"
+    },
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    },
+    {
+      "name": "flarnie",
+      "email": "flarnie.npm@gmail.com"
+    },
+    {
+      "name": "gaearon",
+      "email": "dan.abramov@gmail.com"
+    },
+    {
+      "name": "sebmarkbage",
+      "email": "sebastian@calyptus.eu"
+    },
+    {
+      "name": "spicyj",
+      "email": "ben@benalpert.com"
+    },
+    {
+      "name": "thejameskyle",
+      "email": "me@thejameskyle.com"
+    },
+    {
+      "name": "tomocchino",
+      "email": "tomocchino@gmail.com"
+    },
+    {
+      "name": "trueadm",
+      "email": "dg@domgan.com"
+    },
+    {
+      "name": "zpao",
+      "email": "paul@oshannessy.com"
+    }
+  ],
   "name": "react-test-renderer",
+  "optionalDependencies": {},
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0-alpha.12"
   },
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/react.git",
-    "directory": "packages/react-test-renderer"
+    "url": "git+https://github.com/facebook/react.git"
   },
-  "version": "16.8.3"
+  "scripts": {},
+  "version": "16.0.0-alpha.12"
 }

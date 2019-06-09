@@ -1,58 +1,87 @@
 {
-  "_from": "jest-resolve-dependencies@^24.8.0",
-  "_id": "jest-resolve-dependencies@24.8.0",
-  "_inBundle": false,
-  "_integrity": "sha512-hyK1qfIf/krV+fSNyhyJeq3elVMhK9Eijlwy+j5jqmZ9QsxwKBiP6qukQxaHtK8k6zql/KYWwCTQ+fDGTIJauw==",
+  "_args": [
+    [
+      {
+        "raw": "jest-resolve-dependencies@^20.0.3",
+        "scope": null,
+        "escapedName": "jest-resolve-dependencies",
+        "name": "jest-resolve-dependencies",
+        "rawSpec": "^20.0.3",
+        "spec": ">=20.0.3 <21.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli"
+    ]
+  ],
+  "_from": "jest-resolve-dependencies@>=20.0.3 <21.0.0",
+  "_id": "jest-resolve-dependencies@20.0.3",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/jest-resolve-dependencies",
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/jest-resolve-dependencies-20.0.3.tgz_1495018638781_0.38290060590952635"
+  },
+  "_npmUser": {
+    "name": "cpojer",
+    "email": "christoph.pojer@gmail.com"
+  },
+  "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "jest-resolve-dependencies@^24.8.0",
-    "name": "jest-resolve-dependencies",
+    "raw": "jest-resolve-dependencies@^20.0.3",
+    "scope": null,
     "escapedName": "jest-resolve-dependencies",
-    "rawSpec": "^24.8.0",
-    "saveSpec": null,
-    "fetchSpec": "^24.8.0"
+    "name": "jest-resolve-dependencies",
+    "rawSpec": "^20.0.3",
+    "spec": ">=20.0.3 <21.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/@jest/core"
+    "/jest/jest-cli"
   ],
-  "_resolved": "https://registry.npmjs.org/jest-resolve-dependencies/-/jest-resolve-dependencies-24.8.0.tgz",
-  "_shasum": "19eec3241f2045d3f990dba331d0d7526acff8e0",
-  "_spec": "jest-resolve-dependencies@^24.8.0",
-  "_where": "/Development/web/rnoleole/node_modules/@jest/core",
+  "_resolved": "https://registry.npmjs.org/jest-resolve-dependencies/-/jest-resolve-dependencies-20.0.3.tgz",
+  "_shasum": "6e14a7b717af0f2cb3667c549de40af017b1723a",
+  "_shrinkwrap": null,
+  "_spec": "jest-resolve-dependencies@^20.0.3",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest/node_modules/jest-cli",
   "bugs": {
     "url": "https://github.com/facebook/jest/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "@jest/types": "^24.8.0",
-    "jest-regex-util": "^24.3.0",
-    "jest-snapshot": "^24.8.0"
+    "jest-regex-util": "^20.0.3"
   },
-  "deprecated": false,
-  "devDependencies": {
-    "jest-haste-map": "^24.8.0",
-    "jest-resolve": "^24.8.0",
-    "jest-runtime": "^24.8.0"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "6e14a7b717af0f2cb3667c549de40af017b1723a",
+    "tarball": "https://registry.npmjs.org/jest-resolve-dependencies/-/jest-resolve-dependencies-20.0.3.tgz"
   },
-  "engines": {
-    "node": ">= 6"
-  },
-  "gitHead": "845728f24b3ef41e450595c384e9b5c9fdf248a4",
   "homepage": "https://github.com/facebook/jest#readme",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "main": "build/index.js",
+  "maintainers": [
+    {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    {
+      "name": "dmitriiabramov",
+      "email": "dmitrii@rheia.us"
+    },
+    {
+      "name": "fb",
+      "email": "opensource+npm@fb.com"
+    }
+  ],
   "name": "jest-resolve-dependencies",
-  "publishConfig": {
-    "access": "public"
-  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/facebook/jest.git",
-    "directory": "packages/jest-resolve-dependencies"
+    "url": "git+https://github.com/facebook/jest.git"
   },
-  "types": "build/index.d.ts",
-  "version": "24.8.0"
+  "scripts": {},
+  "version": "20.0.3"
 }

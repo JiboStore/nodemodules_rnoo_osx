@@ -1,10 +1,8 @@
-// @flow
-
 import { Platform } from "react-native";
 
 import variable from "./../variables/platform";
 
-export default (variables /*: * */ = variable) => {
+export default (variables = variable) => {
   const platform = variables.platform;
 
   const footerTabTheme = {
@@ -33,7 +31,7 @@ export default (variables /*: * */ = variable) => {
       shadowOpacity: null,
       alignSelf: "center",
       flex: 1,
-      height: variables.footerHeight,
+      height: (variables.footerHeight - (variables.isIphoneX ? 34 : 0)),
       justifyContent: "center",
       ".badge": {
         "NativeBase.Badge": {
@@ -67,7 +65,7 @@ export default (variables /*: * */ = variable) => {
       }
     },
     backgroundColor: Platform.OS === "android"
-      ? variables.footerDefaultBg
+      ? variables.tabActiveBgColor
       : undefined,
     flexDirection: "row",
     justifyContent: "space-between",

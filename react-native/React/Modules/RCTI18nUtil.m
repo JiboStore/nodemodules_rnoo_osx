@@ -1,26 +1,25 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
+
+#import <Foundation/Foundation.h>
 
 #import "RCTI18nUtil.h"
 
-#import <UIKit/UIKit.h>
-
 @implementation RCTI18nUtil
 
-+ (instancetype)sharedInstance
-{
-  static RCTI18nUtil *sharedInstance;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    sharedInstance = [self new];
-    [sharedInstance swapLeftAndRightInRTL: true];
-  });
-  
-  return sharedInstance;
++ (id)sharedInstance {
+   static RCTI18nUtil *sharedRCTI18nUtilInstance = nil;
+   @synchronized(self) {
+     if (sharedRCTI18nUtilInstance == nil)
+      sharedRCTI18nUtilInstance = [self new];
+   }
+   return sharedRCTI18nUtilInstance;
 }
 
 /**
@@ -77,17 +76,6 @@
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (BOOL)doLeftAndRightSwapInRTL
-{
-  return [[NSUserDefaults standardUserDefaults] boolForKey:@"RCTI18nUtil_makeRTLFlipLeftAndRightStyles"];
-}
-
-- (void)swapLeftAndRightInRTL:(BOOL)value
-{
-  [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"RCTI18nUtil_makeRTLFlipLeftAndRightStyles"];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 // Check if the current device language is RTL
 - (BOOL)isDevicePreferredLanguageRTL
 {
@@ -98,8 +86,9 @@
 // Check if the current application language is RTL
 - (BOOL)isApplicationPreferredLanguageRTL
 {
-  NSWritingDirection direction = [NSParagraphStyle defaultWritingDirectionForLanguage:nil];
-  return direction == NSWritingDirectionRightToLeft;
+  NSString *preferredAppLanguage = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+  NSLocaleLanguageDirection direction = [NSLocale characterDirectionForLanguage:preferredAppLanguage];
+  return direction == NSLocaleLanguageDirectionRightToLeft;
 }
 
 @end

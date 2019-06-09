@@ -1,65 +1,79 @@
 {
-  "_from": "simple-plist@^1.0.0",
-  "_id": "simple-plist@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha512-043L2rO80LVF7zfZ+fqhsEkoJFvW8o59rt/l4ctx1TJWoTx7/jkiS1R5TatD15Z1oYnuLJytzE7gcnnBuIPL2g==",
+  "_args": [
+    [
+      {
+        "raw": "simple-plist@^0.2.1",
+        "scope": null,
+        "escapedName": "simple-plist",
+        "name": "simple-plist",
+        "rawSpec": "^0.2.1",
+        "spec": ">=0.2.1 <0.3.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/xcode"
+    ]
+  ],
+  "_from": "simple-plist@>=0.2.1 <0.3.0",
+  "_id": "simple-plist@0.2.1",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/simple-plist",
-  "_phantomChildren": {},
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/simple-plist-0.2.1.tgz_1477979624873_0.24517794768325984"
+  },
+  "_npmUser": {
+    "name": "wollardj",
+    "email": "joe.wollard@gmail.com"
+  },
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": {
+    "xmldom": "0.1.27"
+  },
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "simple-plist@^1.0.0",
-    "name": "simple-plist",
+    "raw": "simple-plist@^0.2.1",
+    "scope": null,
     "escapedName": "simple-plist",
-    "rawSpec": "^1.0.0",
-    "saveSpec": null,
-    "fetchSpec": "^1.0.0"
+    "name": "simple-plist",
+    "rawSpec": "^0.2.1",
+    "spec": ">=0.2.1 <0.3.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/xcode"
   ],
-  "_resolved": "https://registry.npmjs.org/simple-plist/-/simple-plist-1.0.0.tgz",
-  "_shasum": "bed3085633b22f371e111f45d159a1ccf94b81eb",
-  "_spec": "simple-plist@^1.0.0",
-  "_where": "/Development/web/rnoleole/node_modules/xcode",
+  "_resolved": "https://registry.npmjs.org/simple-plist/-/simple-plist-0.2.1.tgz",
+  "_shasum": "71766db352326928cf3a807242ba762322636723",
+  "_shrinkwrap": null,
+  "_spec": "simple-plist@^0.2.1",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/xcode",
   "author": {
     "name": "Joe Wollard"
   },
   "bugs": {
     "url": "https://github.com/wollardj/node-simple-plist/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "bplist-creator": "0.0.7",
     "bplist-parser": "0.1.1",
-    "plist": "^3.0.1"
+    "plist": "2.0.1"
   },
-  "deprecated": false,
   "description": "A wrapper utility for interacting with plist data.",
   "devDependencies": {
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
-    "husky": "^1.2.0",
-    "jest": "^23.6.0",
-    "lint-staged": "^8.1.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^1.15.3",
-    "rimraf": "^2.6.2"
+    "coffee-script": "^1.11.1",
+    "jest": "^16.0.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "71766db352326928cf3a807242ba762322636723",
+    "tarball": "https://registry.npmjs.org/simple-plist/-/simple-plist-0.2.1.tgz"
   },
   "files": [
     "simple-plist.js"
   ],
+  "gitHead": "977f4a2fdadefc53c27db370b292b4d2de68ca71",
   "homepage": "https://github.com/wollardj/node-simple-plist.git",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx run-s test",
-      "pre-push": "npx run-s test"
-    }
-  },
   "keywords": [
     "plist",
     "binary",
@@ -67,23 +81,28 @@
     "xml"
   ],
   "license": "MIT",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  },
   "main": "simple-plist.js",
+  "maintainers": [
+    {
+      "name": "wollardj",
+      "email": "wollardj@denison.edu"
+    },
+    {
+      "name": "appcelerator",
+      "email": "npmjs@appcelerator.com"
+    }
+  ],
   "name": "simple-plist",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wollardj/node-simple-plist.git"
   },
   "scripts": {
-    "clean": "rimraf __tests__/write-test* coverage",
-    "jest": "jest --coverage",
-    "test": "run-s clean jest"
+    "clean": "rm -rf *.js __tests__/*.js __tests__/write-test* coverage",
+    "prepublish": "npm test",
+    "test": "npm run-script clean && ./node_modules/.bin/coffee -c . && ./node_modules/.bin/jest --coverage"
   },
-  "version": "1.0.0"
+  "version": "0.2.1"
 }

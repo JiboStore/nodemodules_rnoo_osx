@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <CoreGraphics/CoreGraphics.h>
@@ -30,9 +32,3 @@ RCT_EXTERN CGFloat RCTInterpolateValue(CGFloat value,
 
 RCT_EXTERN CGFloat RCTRadiansToDegrees(CGFloat radians);
 RCT_EXTERN CGFloat RCTDegreesToRadians(CGFloat degrees);
-
-/**
- * Coefficient to slow down animations, respects the ios
- * simulator `Slow Animations (⌘T)` option.
- */
-RCT_EXTERN CGFloat RCTAnimationDragCoefficient(void);

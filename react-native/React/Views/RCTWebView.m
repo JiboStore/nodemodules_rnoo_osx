@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTWebView.h"
@@ -18,8 +20,7 @@
 #import "UIView+React.h"
 
 NSString *const RCTJSNavigationScheme = @"react-js-navigation";
-
-static NSString *const kPostMessageHost = @"postMessage";
+NSString *const RCTJSPostMessageHost = @"postMessage";
 
 @interface RCTWebView () <UIWebViewDelegate, RCTAutoInsetsProtocol>
 
@@ -50,11 +51,6 @@ static NSString *const kPostMessageHost = @"postMessage";
     _contentInset = UIEdgeInsetsZero;
     _webView = [[UIWebView alloc] initWithFrame:self.bounds];
     _webView.delegate = self;
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 /* __IPHONE_11_0 */
-    if ([_webView.scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-      _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-#endif
     [self addSubview:_webView];
   }
   return self;
@@ -244,20 +240,15 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
   }
 
-  if (isJSNavigation && [request.URL.host isEqualToString:kPostMessageHost]) {
+  if (isJSNavigation && [request.URL.host isEqualToString:RCTJSPostMessageHost]) {
     NSString *data = request.URL.query;
     data = [data stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-    data = [data stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+    data = [data stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     NSMutableDictionary<NSString *, id> *event = [self baseEvent];
     [event addEntriesFromDictionary: @{
       @"data": data,
     }];
-
-    NSString *source = @"document.dispatchEvent(new MessageEvent('message:received'));";
-
-    [_webView stringByEvaluatingJavaScriptFromString:source];
-
     _onMessage(event);
   }
 
@@ -309,28 +300,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
     #endif
     NSString *source = [NSString stringWithFormat:
-      @"(function() {"
-        "window.originalPostMessage = window.postMessage;"
-
-        "var messageQueue = [];"
-        "var messagePending = false;"
-
-        "function processQueue() {"
-          "if (!messageQueue.length || messagePending) return;"
-          "messagePending = true;"
-          "window.location = '%@://%@?' + encodeURIComponent(messageQueue.shift());"
-        "}"
-
-        "window.postMessage = function(data) {"
-          "messageQueue.push(String(data));"
-          "processQueue();"
-        "};"
-
-        "document.addEventListener('message:received', function(e) {"
-          "messagePending = false;"
-          "processQueue();"
-        "});"
-      "})();", RCTJSNavigationScheme, kPostMessageHost
+      @"window.originalPostMessage = window.postMessage;"
+      "window.postMessage = function(data) {"
+        "window.location = '%@://%@?' + encodeURIComponent(String(data));"
+      "};", RCTJSNavigationScheme, RCTJSPostMessageHost
     ];
     [webView stringByEvaluatingJavaScriptFromString:source];
   }

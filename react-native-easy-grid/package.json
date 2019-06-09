@@ -1,48 +1,76 @@
 {
-  "_from": "react-native-easy-grid@0.2.1",
-  "_id": "react-native-easy-grid@0.2.1",
-  "_inBundle": false,
-  "_integrity": "sha512-u90U4lf5L/PUmq7HoczFKgyElmBCpb3gu21TOWL7pq4gSH2Hz0EGm1Bgu0SQacO9v6jfQbS7JfE+xtMg6MHluQ==",
+  "_args": [
+    [
+      {
+        "raw": "react-native-easy-grid@0.1.15",
+        "scope": null,
+        "escapedName": "react-native-easy-grid",
+        "name": "react-native-easy-grid",
+        "rawSpec": "0.1.15",
+        "spec": "0.1.15",
+        "type": "version"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base"
+    ]
+  ],
+  "_from": "react-native-easy-grid@0.1.15",
+  "_id": "react-native-easy-grid@0.1.15",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react-native-easy-grid",
+  "_nodeVersion": "6.11.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-native-easy-grid-0.1.15.tgz_1501154556839_0.47523095714859664"
+  },
+  "_npmUser": {
+    "name": "geekyants",
+    "email": "npm@sahusoft.com"
+  },
+  "_npmVersion": "4.0.0",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "react-native-easy-grid@0.2.1",
-    "name": "react-native-easy-grid",
+    "raw": "react-native-easy-grid@0.1.15",
+    "scope": null,
     "escapedName": "react-native-easy-grid",
-    "rawSpec": "0.2.1",
-    "saveSpec": null,
-    "fetchSpec": "0.2.1"
+    "name": "react-native-easy-grid",
+    "rawSpec": "0.1.15",
+    "spec": "0.1.15",
+    "type": "version"
   },
   "_requiredBy": [
     "/native-base"
   ],
-  "_resolved": "https://registry.npmjs.org/react-native-easy-grid/-/react-native-easy-grid-0.2.1.tgz",
-  "_shasum": "23e386db0e4d0d46d7da30f7b628e28cd354d5ad",
-  "_spec": "react-native-easy-grid@0.2.1",
-  "_where": "/Development/web/rnoleole/client/golegole/node_modules/native-base",
+  "_resolved": "https://registry.npmjs.org/react-native-easy-grid/-/react-native-easy-grid-0.1.15.tgz",
+  "_shasum": "02939ae032d74662b50c9540d902c79866ba638a",
+  "_shrinkwrap": null,
+  "_spec": "react-native-easy-grid@0.1.15",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base",
   "bugs": {
     "url": "https://github.com/GeekyAnts/react-native-easy-grid/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "lodash": "4.17.11"
+    "lodash": "^4.11.1"
   },
-  "deprecated": false,
   "description": "Easy React Native Layout & Grid for the Dumb",
   "devDependencies": {
     "babel-eslint": "^6.0.4",
-    "babel-jest": "23.2.0",
-    "babel-preset-react-native": "4.0.0",
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "1.9.2",
     "eslint": "^2.9.0",
     "eslint-plugin-react": "^5.0.1",
     "eslint-plugin-react-native": "^1.0.0",
-    "jest": "23.3.0",
-    "react": "16.4.1",
-    "react-native": "0.56.0",
-    "react-test-renderer": "16.4.1"
+    "jest": "20.0.3",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.46.0",
+    "react-test-renderer": "16.0.0-alpha.12"
   },
+  "directories": {},
+  "dist": {
+    "shasum": "02939ae032d74662b50c9540d902c79866ba638a",
+    "tarball": "https://registry.npmjs.org/react-native-easy-grid/-/react-native-easy-grid-0.1.15.tgz"
+  },
+  "gitHead": "a3d4be5748c37754a2b8e8782f9607afd9ececba",
   "homepage": "https://github.com/GeekyAnts/react-native-easy-grid#readme",
   "jest": {
     "preset": "react-native",
@@ -79,8 +107,28 @@
     ]
   },
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "geekyants",
+      "email": "npm@sahusoft.com"
+    },
+    {
+      "name": "himanshu-sahusoft",
+      "email": "himanshu@sahusoft.com"
+    },
+    {
+      "name": "sankhadeeproy007",
+      "email": "sankhadeep@sahusoft.com"
+    },
+    {
+      "name": "shivrajk",
+      "email": "shivraj@sahusoft.com"
+    }
+  ],
   "name": "react-native-easy-grid",
+  "optionalDependencies": {},
   "private": false,
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GeekyAnts/react-native-easy-grid.git"
@@ -88,5 +136,5 @@
   "scripts": {
     "test": "jest"
   },
-  "version": "0.2.1"
+  "version": "0.1.15"
 }

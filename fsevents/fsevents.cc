@@ -6,6 +6,7 @@
 #include "nan.h"
 #include "uv.h"
 #include "v8.h"
+#include "pthread.h"
 #include "CoreFoundation/CoreFoundation.h"
 #include "CoreServices/CoreServices.h"
 #include <iostream>
@@ -13,12 +14,18 @@
 
 #include "src/storage.cc"
 namespace fse {
-  class FSEvents : public Nan::ObjectWrap {
+  class FSEvents : public node::ObjectWrap {
   public:
-    explicit FSEvents(const char *path);
+    FSEvents(const char *path, Nan::Callback *handler);
     ~FSEvents();
 
-    uv_mutex_t mutex;
+    // locking.cc
+    bool lockStarted;
+    pthread_mutex_t lockmutex;
+    void lockingStart();
+    void lock();
+    void unlock();
+    void lockingStop();
 
     // async.cc
     uv_async_t async;
@@ -27,20 +34,20 @@ namespace fse {
     void asyncStop();
 
     // thread.cc
-    uv_thread_t thread;
+    pthread_t thread;
     CFRunLoopRef threadloop;
     void threadStart();
-    static void threadRun(void *ctx);
+    static void *threadRun(void *ctx);
     void threadStop();
 
     // methods.cc - internal
-    Nan::AsyncResource async_resource;
+    Nan::Callback *handler;
     void emitEvent(const char *path, UInt32 flags, UInt64 id);
 
     // Common
     CFArrayRef paths;
     std::vector<fse_event*> events;
-    static void Initialize(v8::Local<v8::Object> exports);
+    static void Initialize(v8::Handle<v8::Object> exports);
 
     // methods.cc - exposed
     static NAN_METHOD(New);
@@ -52,37 +59,44 @@ namespace fse {
 
 using namespace fse;
 
-FSEvents::FSEvents(const char *path)
-   : async_resource("fsevents:FSEvents") {
+FSEvents::FSEvents(const char *path, Nan::Callback *handler): handler(handler) {
   CFStringRef dirs[] = { CFStringCreateWithCString(NULL, path, kCFStringEncodingUTF8) };
   paths = CFArrayCreate(NULL, (const void **)&dirs, 1, NULL);
   threadloop = NULL;
-  if (uv_mutex_init(&mutex)) abort();
+  lockingStart();
 }
 FSEvents::~FSEvents() {
+  std::cout << "YIKES" << std::endl;
+  lockingStop();
+  delete handler;
+  handler = NULL;
+
   CFRelease(paths);
-  uv_mutex_destroy(&mutex);
 }
 
 #ifndef kFSEventStreamEventFlagItemCreated
 #define kFSEventStreamEventFlagItemCreated 0x00000010
 #endif
 
+#include "src/locking.cc"
 #include "src/async.cc"
 #include "src/thread.cc"
 #include "src/constants.cc"
 #include "src/methods.cc"
 
-void FSEvents::Initialize(v8::Local<v8::Object> exports) {
-  v8::Isolate* isolate = exports->GetIsolate();
-  v8::Local<v8::Context> context = isolate->GetCurrentContext();
+void FSEvents::Initialize(v8::Handle<v8::Object> exports) {
   v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(FSEvents::New);
   tpl->SetClassName(Nan::New<v8::String>("FSEvents").ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  Nan::SetPrototypeTemplate(tpl, "start", Nan::New<v8::FunctionTemplate>(FSEvents::Start));
-  Nan::SetPrototypeTemplate(tpl, "stop", Nan::New<v8::FunctionTemplate>(FSEvents::Stop));
-  Nan::Set(exports, Nan::New<v8::String>("Constants").ToLocalChecked(), Constants());
-  Nan::Set(exports, Nan::New<v8::String>("FSEvents").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
+  tpl->PrototypeTemplate()->Set(
+           Nan::New<v8::String>("start").ToLocalChecked(),
+           Nan::New<v8::FunctionTemplate>(FSEvents::Start));
+  tpl->PrototypeTemplate()->Set(
+           Nan::New<v8::String>("stop").ToLocalChecked(),
+           Nan::New<v8::FunctionTemplate>(FSEvents::Stop));
+  exports->Set(Nan::New<v8::String>("Constants").ToLocalChecked(), Constants());
+  exports->Set(Nan::New<v8::String>("FSEvents").ToLocalChecked(),
+               tpl->GetFunction());
 }
 
 NODE_MODULE(fse, FSEvents::Initialize)

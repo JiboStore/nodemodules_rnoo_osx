@@ -1,23 +1,15 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
+#import <JavaScriptCore/JSBase.h>
 #import <React/RCTDefines.h>
-#import <React/RCTInspectorPackagerConnection.h>
 
 #if RCT_DEV
 
 @interface RCTInspectorDevServerHelper : NSObject
 
-+ (RCTInspectorPackagerConnection *)connectWithBundleURL:(NSURL *)bundleURL;
-+ (void)disableDebugger;
-+ (void)attachDebugger:(NSString *)owner
-         withBundleURL:(NSURL *)bundleURL
-              withView:(UIViewController *)view;
++ (void)connectForContext:(JSGlobalContextRef)context
+            withBundleURL:(NSURL *)bundleURL;
 @end
 
 #endif

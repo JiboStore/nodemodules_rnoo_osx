@@ -1,10 +1,8 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 package com.facebook.react.views.modal;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -33,6 +31,7 @@ import com.facebook.infer.annotation.Assertions;
    * and landscape on tablets.
    * This should only be called on the native modules/shadow nodes thread.
    */
+  @TargetApi(16)
   public static Point getModalHostSize(Context context) {
     WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     Display display = Assertions.assertNotNull(wm).getDefaultDisplay();

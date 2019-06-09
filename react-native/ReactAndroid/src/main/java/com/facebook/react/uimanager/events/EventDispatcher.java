@@ -1,13 +1,24 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 package com.facebook.react.uimanager.events;
 
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import android.util.LongSparseArray;
+
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -15,14 +26,7 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.modules.core.ChoreographerCompat;
 import com.facebook.react.modules.core.ReactChoreographer;
-import com.facebook.react.uimanager.common.UIManagerType;
 import com.facebook.systrace.Systrace;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Class responsible for dispatching UI events to JS. The main purpose of this class is to act as an
@@ -90,21 +94,19 @@ public class EventDispatcher implements LifecycleEventListener {
   private final DispatchEventsRunnable mDispatchEventsRunnable = new DispatchEventsRunnable();
   private final ArrayList<Event> mEventStaging = new ArrayList<>();
   private final ArrayList<EventDispatcherListener> mListeners = new ArrayList<>();
-  private final List<BatchEventDispatchedListener> mPostEventDispatchListeners = new ArrayList<>();
   private final ScheduleDispatchFrameCallback mCurrentFrameCallback =
     new ScheduleDispatchFrameCallback();
   private final AtomicInteger mHasDispatchScheduledCount = new AtomicInteger();
 
   private Event[] mEventsToDispatch = new Event[16];
   private int mEventsToDispatchSize = 0;
-  private volatile ReactEventEmitter mReactEventEmitter;
+  private volatile @Nullable RCTEventEmitter mRCTEventEmitter;
   private short mNextEventTypeId = 0;
   private volatile boolean mHasDispatchScheduled = false;
 
   public EventDispatcher(ReactApplicationContext reactContext) {
     mReactContext = reactContext;
     mReactContext.addLifecycleEventListener(this);
-    mReactEventEmitter = new ReactEventEmitter(mReactContext);
   }
 
   /**
@@ -124,15 +126,7 @@ public class EventDispatcher implements LifecycleEventListener {
           event.getEventName(),
           event.getUniqueID());
     }
-    maybePostFrameCallbackFromNonUI();
-  }
-
-  public void dispatchAllEvents() {
-    maybePostFrameCallbackFromNonUI();
-  }
-
-  private void maybePostFrameCallbackFromNonUI() {
-    if (mReactEventEmitter != null) {
+    if (mRCTEventEmitter != null) {
       // If the host activity is paused, the frame callback may not be currently
       // posted. Ensure that it is so that this event gets delivered promptly.
       mCurrentFrameCallback.maybePostFromNonUI();
@@ -158,16 +152,11 @@ public class EventDispatcher implements LifecycleEventListener {
     mListeners.remove(listener);
   }
 
-  public void addBatchEventDispatchedListener(BatchEventDispatchedListener listener) {
-    mPostEventDispatchListeners.add(listener);
-  }
-
-  public void removeBatchEventDispatchedListener(BatchEventDispatchedListener listener) {
-    mPostEventDispatchListeners.remove(listener);
-  }
-
   @Override
   public void onHostResume() {
+    if (mRCTEventEmitter == null) {
+      mRCTEventEmitter = mReactContext.getJSModule(RCTEventEmitter.class);
+    }
     mCurrentFrameCallback.maybePostFromNonUI();
   }
 
@@ -267,14 +256,6 @@ public class EventDispatcher implements LifecycleEventListener {
         (((long) coalescingKey) & 0xffff) << 48;
   }
 
-  public void registerEventEmitter(@UIManagerType int uiManagerType, RCTEventEmitter eventEmitter) {
-    mReactEventEmitter.register(uiManagerType, eventEmitter);
-  }
-
-  public void unregisterEventEmitter(@UIManagerType int uiManagerType) {
-    mReactEventEmitter.unregister(uiManagerType);
-  }
-
   private class ScheduleDispatchFrameCallback extends ChoreographerCompat.FrameCallback {
     private volatile boolean mIsPosted = false;
     private boolean mShouldStop = false;
@@ -293,7 +274,7 @@ public class EventDispatcher implements LifecycleEventListener {
       try {
         moveStagedEventsToDispatchQueue();
 
-        if (!mHasDispatchScheduled) {
+        if (mEventsToDispatchSize > 0 && !mHasDispatchScheduled) {
           mHasDispatchScheduled = true;
           Systrace.startAsyncFlow(
               Systrace.TRACE_TAG_REACT_JAVA_BRIDGE,
@@ -352,31 +333,28 @@ public class EventDispatcher implements LifecycleEventListener {
             "ScheduleDispatchFrameCallback",
             mHasDispatchScheduledCount.getAndIncrement());
         mHasDispatchScheduled = false;
-        Assertions.assertNotNull(mReactEventEmitter);
+        Assertions.assertNotNull(mRCTEventEmitter);
         synchronized (mEventsToDispatchLock) {
-          if (mEventsToDispatchSize > 0) {
-            // We avoid allocating an array and iterator, and "sorting" if we don't need to.
-            // This occurs when the size of mEventsToDispatch is zero or one.
-            if (mEventsToDispatchSize > 1) {
-              Arrays.sort(mEventsToDispatch, 0, mEventsToDispatchSize, EVENT_COMPARATOR);
-            }
-            for (int eventIdx = 0; eventIdx < mEventsToDispatchSize; eventIdx++) {
-              Event event = mEventsToDispatch[eventIdx];
-              // Event can be null if it has been coalesced into another event.
-              if (event == null) {
-                continue;
-              }
-              Systrace.endAsyncFlow(
-                  Systrace.TRACE_TAG_REACT_JAVA_BRIDGE, event.getEventName(), event.getUniqueID());
-              event.dispatch(mReactEventEmitter);
-              event.dispose();
-            }
-            clearEventsToDispatch();
-            mEventCookieToLastEventIdx.clear();
+          // We avoid allocating an array and iterator, and "sorting" if we don't need to.
+          // This occurs when the size of mEventsToDispatch is zero or one.
+          if (mEventsToDispatchSize > 1) {
+            Arrays.sort(mEventsToDispatch, 0, mEventsToDispatchSize, EVENT_COMPARATOR);
           }
-        }
-        for (BatchEventDispatchedListener listener : mPostEventDispatchListeners) {
-          listener.onBatchEventDispatched();
+          for (int eventIdx = 0; eventIdx < mEventsToDispatchSize; eventIdx++) {
+            Event event = mEventsToDispatch[eventIdx];
+            // Event can be null if it has been coalesced into another event.
+            if (event == null) {
+              continue;
+            }
+            Systrace.endAsyncFlow(
+                Systrace.TRACE_TAG_REACT_JAVA_BRIDGE,
+                event.getEventName(),
+                event.getUniqueID());
+            event.dispatch(mRCTEventEmitter);
+            event.dispose();
+          }
+          clearEventsToDispatch();
+          mEventCookieToLastEventIdx.clear();
         }
       } finally {
         Systrace.endSection(Systrace.TRACE_TAG_REACT_JAVA_BRIDGE);

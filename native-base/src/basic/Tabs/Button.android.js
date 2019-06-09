@@ -5,7 +5,8 @@ const { TouchableNativeFeedback, View } = ReactNative;
 const Button = props => {
   return (
     <TouchableNativeFeedback
-      delayPressIn={0} // eslint-disable-line new-cap
+      delayPressIn={0}
+      background={TouchableNativeFeedback.SelectableBackground()} // eslint-disable-line new-cap
       {...props}
     >
       {props.children}

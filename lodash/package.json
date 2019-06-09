@@ -1,40 +1,60 @@
 {
-  "_from": "lodash@^4.17.5",
-  "_id": "lodash@4.17.11",
-  "_inBundle": false,
-  "_integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==",
+  "_args": [
+    [
+      {
+        "raw": "lodash",
+        "scope": null,
+        "escapedName": "lodash",
+        "name": "lodash",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp"
+    ]
+  ],
+  "_from": "lodash@latest",
+  "_id": "lodash@4.17.4",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/lodash",
+  "_nodeVersion": "7.2.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/lodash-4.17.4.tgz_1483223634314_0.5332164366263896"
+  },
+  "_npmUser": {
+    "name": "jdalton",
+    "email": "john.david.dalton@gmail.com"
+  },
+  "_npmVersion": "2.15.11",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "lodash@^4.17.5",
-    "name": "lodash",
+    "raw": "lodash",
+    "scope": null,
     "escapedName": "lodash",
-    "rawSpec": "^4.17.5",
-    "saveSpec": null,
-    "fetchSpec": "^4.17.5"
+    "name": "lodash",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
   },
   "_requiredBy": [
-    "/@babel/core",
-    "/@babel/generator",
-    "/@babel/helper-define-map",
-    "/@babel/helper-module-transforms",
-    "/@babel/helper-regex",
-    "/@babel/plugin-transform-block-scoping",
-    "/@babel/register",
-    "/@babel/traverse",
-    "/@babel/types",
-    "/@react-native-community/cli",
-    "/async",
+    "#USER",
+    "/",
+    "/babel-plugin-react-transform",
     "/inquirer",
-    "/react-native",
-    "/react-proxy"
+    "/native-base-shoutem-theme",
+    "/react-native-easy-grid",
+    "/react-native-vector-icons",
+    "/react-proxy",
+    "/react-redux",
+    "/redux"
   ],
-  "_resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
-  "_shasum": "b39ea6229ef607ecd89e2c8df12536891cac9b8d",
-  "_spec": "lodash@^4.17.5",
-  "_where": "/Development/web/rnoleole/node_modules/react-native",
+  "_resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+  "_shasum": "78203a4d1c328ae1d86dca6460e369b57f4055ae",
+  "_shrinkwrap": null,
+  "_spec": "lodash",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp",
   "author": {
     "name": "John-David Dalton",
     "email": "john.david.dalton@gmail.com",
@@ -43,7 +63,6 @@
   "bugs": {
     "url": "https://github.com/lodash/lodash/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "John-David Dalton",
@@ -56,8 +75,14 @@
       "url": "https://mathiasbynens.be/"
     }
   ],
-  "deprecated": false,
+  "dependencies": {},
   "description": "Lodash modular utilities.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "78203a4d1c328ae1d86dca6460e369b57f4055ae",
+    "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+  },
   "homepage": "https://lodash.com/",
   "icon": "https://lodash.com/icon.svg",
   "keywords": [
@@ -67,13 +92,25 @@
   ],
   "license": "MIT",
   "main": "lodash.js",
+  "maintainers": [
+    {
+      "name": "jdalton",
+      "email": "john.david.dalton@gmail.com"
+    },
+    {
+      "name": "mathias",
+      "email": "mathias@qiwi.be"
+    }
+  ],
   "name": "lodash",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lodash/lodash.git"
   },
   "scripts": {
-    "test": "echo \"See https://travis-ci.org/lodash-archive/lodash-cli for testing details.\""
+    "test": "echo \"See https://travis-ci.org/lodash/lodash-cli for testing details.\""
   },
-  "version": "4.17.11"
+  "version": "4.17.4"
 }

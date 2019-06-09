@@ -1,39 +1,61 @@
 {
-  "_from": "react-tween-state@^0.1.5",
+  "_args": [
+    [
+      {
+        "raw": "react-tween-state@^0.1.5",
+        "scope": null,
+        "escapedName": "react-tween-state",
+        "name": "react-tween-state",
+        "rawSpec": "^0.1.5",
+        "spec": ">=0.1.5 <0.2.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base"
+    ]
+  ],
+  "_from": "react-tween-state@>=0.1.5 <0.2.0",
   "_id": "react-tween-state@0.1.5",
-  "_inBundle": false,
-  "_integrity": "sha1-6YsGZVHvuTy5LdG+FJlcLj3q4zk=",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react-tween-state",
+  "_nodeVersion": "5.5.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-tween-state-0.1.5.tgz_1461887620732_0.27743913931772113"
+  },
+  "_npmUser": {
+    "name": "chenglou",
+    "email": "chenglou92@gmail.com"
+  },
+  "_npmVersion": "3.5.3",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
     "raw": "react-tween-state@^0.1.5",
-    "name": "react-tween-state",
+    "scope": null,
     "escapedName": "react-tween-state",
+    "name": "react-tween-state",
     "rawSpec": "^0.1.5",
-    "saveSpec": null,
-    "fetchSpec": "^0.1.5"
+    "spec": ">=0.1.5 <0.2.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/native-base"
   ],
   "_resolved": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz",
   "_shasum": "e98b066551efb93cb92dd1be14995c2e3deae339",
+  "_shrinkwrap": null,
   "_spec": "react-tween-state@^0.1.5",
-  "_where": "/Development/web/rnoleole/client/golegole/node_modules/native-base",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/native-base",
   "author": {
     "name": "Cheng Lou"
   },
   "bugs": {
     "url": "https://github.com/chenglou/react-tween-state/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "raf": "^3.1.0",
     "tween-functions": "^1.0.1"
   },
-  "deprecated": false,
   "description": "React animation.",
   "devDependencies": {
     "babel-core": "^5.6.1",
@@ -46,6 +68,11 @@
   "directories": {
     "examples": "examples"
   },
+  "dist": {
+    "shasum": "e98b066551efb93cb92dd1be14995c2e3deae339",
+    "tarball": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz"
+  },
+  "gitHead": "5738c88fadcf5b4e9d9e32115bc702427c02fe22",
   "homepage": "https://github.com/chenglou/react-tween-state",
   "keywords": [
     "react",
@@ -59,7 +86,15 @@
   ],
   "license": "BSD",
   "main": "lib/index.js",
+  "maintainers": [
+    {
+      "name": "chenglou",
+      "email": "chenglou92@gmail.com"
+    }
+  ],
   "name": "react-tween-state",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chenglou/react-tween-state.git"

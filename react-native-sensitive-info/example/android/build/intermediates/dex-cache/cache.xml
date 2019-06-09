@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f7913f83e5e24164f34691832e79427a369d88a9">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b5142f3a1d12dd8e957e4f58666913889e489c33/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_7cd8cb943b3580ad59491eadea2d5927b2f740dc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1cfcae680320a50574e710635cfb63ab90e467c4">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b5142f3a1d12dd8e957e4f58666913889e489c33/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/.android/build-cache/88949e763c59d00362fb3db0e1d17e87f94149bd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="af9665a44df26b4098e24c934c1109507845ef5e">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2f6fd709497586e15714fd9ffe94716f0bcd23d3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/.android/build-cache/88949e763c59d00362fb3db0e1d17e87f94149bd/output/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="dcac634e137395f79693ec760f081a86eb2bd84e">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/infer-annotations-1.5_6d3edafa149984da74a03ada4e7baa7c539eee68/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/mateus/Github/react-native-sensitive-info/example/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_7cd8cb943b3580ad59491eadea2d5927b2f740dc/classes.dex" />
+    </item>
+
+</items>

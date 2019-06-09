@@ -1,8 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import "RCTCxxUtils.h"
@@ -10,17 +12,34 @@
 #import <React/RCTFollyConvert.h>
 #import <React/RCTModuleData.h>
 #import <React/RCTUtils.h>
-#import <cxxreact/CxxNativeModule.h>
-#import <jsi/jsi.h>
+#include <cxxreact/CxxNativeModule.h>
+#include <jschelpers/Value.h>
 
 #import "DispatchMessageQueueThread.h"
 #import "RCTCxxModule.h"
 #import "RCTNativeModule.h"
 
+using namespace facebook::react;
+
+@implementation RCTConvert (folly)
+
++ (folly::dynamic)folly_dynamic:(id)json;
+{
+  if (json == nil || json == (id)kCFNull) {
+    return nullptr;
+  } else {
+    folly::dynamic dyn = convertIdToFollyDynamic(json);
+     if (dyn == nil) {
+       RCTAssert(false, @"RCTConvert input json is of an impossible type");
+     }
+     return dyn;
+  }
+}
+
+@end
+
 namespace facebook {
 namespace react {
-
-using facebook::jsi::JSError;
 
 std::vector<std::unique_ptr<NativeModule>> createNativeModules(NSArray<RCTModuleData *> *modules, RCTBridge *bridge, const std::shared_ptr<Instance> &instance)
 {
@@ -39,14 +58,39 @@ std::vector<std::unique_ptr<NativeModule>> createNativeModules(NSArray<RCTModule
   return nativeModules;
 }
 
+JSContext *contextForGlobalContextRef(JSGlobalContextRef contextRef)
+{
+  static std::mutex s_mutex;
+  static NSMapTable *s_contextCache;
+
+  if (!contextRef) {
+    return nil;
+  }
+
+  // Adding our own lock here, since JSC internal ones are insufficient
+  std::lock_guard<std::mutex> lock(s_mutex);
+  if (!s_contextCache) {
+    NSPointerFunctionsOptions keyOptions = NSPointerFunctionsOpaqueMemory | NSPointerFunctionsOpaquePersonality;
+    NSPointerFunctionsOptions valueOptions = NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPersonality;
+    s_contextCache = [[NSMapTable alloc] initWithKeyOptions:keyOptions valueOptions:valueOptions capacity:0];
+  }
+
+  JSContext *ctx = [s_contextCache objectForKey:(__bridge id)contextRef];
+  if (!ctx) {
+    ctx = [JSC_JSContext(contextRef) contextWithJSGlobalContextRef:contextRef];
+    [s_contextCache setObject:ctx forKey:(__bridge id)contextRef];
+  }
+  return ctx;
+}
+
 static NSError *errorWithException(const std::exception &e)
 {
   NSString *msg = @(e.what());
   NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
 
-  const auto *jsError = dynamic_cast<const JSError*>(&e);
-  if (jsError) {
-    errorInfo[RCTJSRawStackTraceKey] = @(jsError->getStack().c_str());
+  const JSException *jsException = dynamic_cast<const JSException*>(&e);
+  if (jsException) {
+    errorInfo[RCTJSRawStackTraceKey] = @(jsException->getStack().c_str());
     msg = [@"Unhandled JS Exception: " stringByAppendingString:msg];
   }
 
@@ -65,8 +109,7 @@ static NSError *errorWithException(const std::exception &e)
   return [NSError errorWithDomain:RCTErrorDomain code:1 userInfo:errorInfo];
 }
 
-NSError *tryAndReturnError(const std::function<void()>& func)
-{
+NSError *tryAndReturnError(const std::function<void()>& func) {
   try {
     @try {
       func();
@@ -90,8 +133,7 @@ NSError *tryAndReturnError(const std::function<void()>& func)
   }
 }
 
-NSString *deriveSourceURL(NSURL *url)
-{
+NSString *deriveSourceURL(NSURL *url) {
   NSString *sourceUrl;
   if (url.isFileURL) {
     // Url will contain only path to resource (i.g. file:// will be removed)
