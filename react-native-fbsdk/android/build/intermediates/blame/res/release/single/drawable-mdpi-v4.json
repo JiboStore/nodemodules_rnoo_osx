@@ -16,12 +16,12 @@
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable-mdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png",
-        "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable-mdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/com_facebook_button_icon_white.png",
         "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable-mdpi-v4/com_facebook_button_icon_white.png"
+    },
+    {
+        "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable-mdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_btn_radio_to_on_mtrl_015.png",
@@ -52,12 +52,12 @@
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable-mdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
-        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/com_facebook_button_send_icon_blue.png",
-        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-share/4.28.0/res/drawable-mdpi-v4/com_facebook_button_send_icon_blue.png"
-    },
-    {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/com_facebook_button_icon_white.png",
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable-mdpi-v4/com_facebook_button_icon_white.png"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/com_facebook_button_send_icon_blue.png",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-share/4.28.0/res/drawable-mdpi-v4/com_facebook_button_send_icon_blue.png"
     },
     {
         "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png",

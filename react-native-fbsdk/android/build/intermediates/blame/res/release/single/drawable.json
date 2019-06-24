@@ -24,12 +24,12 @@
         "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable/com_facebook_button_icon.xml"
     },
     {
-        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
-        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
-    },
-    {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/abc_ic_search_api_material.xml",
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
     },
     {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_button_send_background.xml",
@@ -52,12 +52,12 @@
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_btn_check_material.xml"
     },
     {
-        "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_auth_dialog_cancel_background.xml",
-        "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable/com_facebook_auth_dialog_cancel_background.xml"
-    },
-    {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/abc_list_selector_background_transition_holo_light.xml",
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_auth_dialog_cancel_background.xml",
+        "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable/com_facebook_auth_dialog_cancel_background.xml"
     },
     {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_button_icon.xml",
@@ -128,12 +128,12 @@
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_cab_background_internal_bg.xml"
     },
     {
-        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_button_like_background.xml",
-        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable/com_facebook_button_like_background.xml"
-    },
-    {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/abc_switch_thumb_material.xml",
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_button_like_background.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.28.0/res/drawable/com_facebook_button_like_background.xml"
     },
     {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-fbsdk/android/build/intermediates/res/merged/release/drawable/com_facebook_button_login_logo.xml",

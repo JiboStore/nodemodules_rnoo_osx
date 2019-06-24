@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/anim/abc_grow_fade_in_from_bottom.xml",
-        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/anim/abc_grow_fade_in_from_bottom.xml"
-    },
-    {
         "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/anim/fade_out.xml",
         "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/exploded-aar/com.facebook.react/react-native/0.47.2/res/anim/fade_out.xml"
+    },
+    {
+        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-device-info/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/anim/abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-device-info/android/build/intermediates/res/merged/release/anim/slide_up.xml",
