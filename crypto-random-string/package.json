@@ -1,28 +1,51 @@
 {
-  "_from": "crypto-random-string",
-  "_id": "crypto-random-string@3.0.1",
-  "_inBundle": false,
-  "_integrity": "sha512-dUL0cJ4PBLanJGJQBHQUkvZ3C4q13MXzl54oRqAIiJGiNkOZ4JDwkg/SBo7daGghzlJv16yW1p/4lIQukmbedA==",
+  "_args": [
+    [
+      {
+        "raw": "crypto-random-string@^1.0.0",
+        "scope": null,
+        "escapedName": "crypto-random-string",
+        "name": "crypto-random-string",
+        "rawSpec": "^1.0.0",
+        "spec": ">=1.0.0 <2.0.0",
+        "type": "range"
+      },
+      "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/unique-string"
+    ]
+  ],
+  "_from": "crypto-random-string@>=1.0.0 <2.0.0",
+  "_id": "crypto-random-string@1.0.0",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/crypto-random-string",
+  "_nodeVersion": "4.6.1",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/crypto-random-string-1.0.0.tgz_1479096882597_0.12821740517392755"
+  },
+  "_npmUser": {
+    "name": "sindresorhus",
+    "email": "sindresorhus@gmail.com"
+  },
+  "_npmVersion": "2.15.9",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "crypto-random-string",
-    "name": "crypto-random-string",
+    "raw": "crypto-random-string@^1.0.0",
+    "scope": null,
     "escapedName": "crypto-random-string",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "name": "crypto-random-string",
+    "rawSpec": "^1.0.0",
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "#USER",
-    "/"
+    "/unique-string"
   ],
-  "_resolved": "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-3.0.1.tgz",
-  "_shasum": "29d7dc759d577a768afb3b7b2765dd9bd7ffe36a",
-  "_spec": "crypto-random-string",
-  "_where": "/Development/web/rnoleole/client/golegole",
+  "_resolved": "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz",
+  "_shasum": "a230f64f568310e1498009940790ec99545bca7e",
+  "_shrinkwrap": null,
+  "_spec": "crypto-random-string@^1.0.0",
+  "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/unique-string",
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
@@ -31,28 +54,30 @@
   "bugs": {
     "url": "https://github.com/sindresorhus/crypto-random-string/issues"
   },
-  "bundleDependencies": false,
-  "dependencies": {
-    "type-fest": "^0.5.2"
-  },
-  "deprecated": false,
+  "dependencies": {},
   "description": "Generate a cryptographically strong random string",
   "devDependencies": {
-    "ava": "^2.1.0",
-    "tsd": "^0.7.3",
-    "xo": "^0.24.0"
+    "ava": "*",
+    "xo": "*"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "a230f64f568310e1498009940790ec99545bca7e",
+    "tarball": "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=4"
   },
   "files": [
-    "index.js",
-    "index.d.ts"
+    "index.js"
   ],
+  "gitHead": "21960c996c3f77cf5f7bf6765e837e7c8a07e200",
   "homepage": "https://github.com/sindresorhus/crypto-random-string#readme",
   "keywords": [
     "random",
     "string",
+    "str",
+    "rand",
     "text",
     "id",
     "identifier",
@@ -64,13 +89,24 @@
     "hex"
   ],
   "license": "MIT",
+  "maintainers": [
+    {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    }
+  ],
   "name": "crypto-random-string",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sindresorhus/crypto-random-string.git"
   },
   "scripts": {
-    "test": "xo && ava && tsd"
+    "test": "xo && ava"
   },
-  "version": "3.0.1"
+  "version": "1.0.0",
+  "xo": {
+    "esnext": true
+  }
 }
