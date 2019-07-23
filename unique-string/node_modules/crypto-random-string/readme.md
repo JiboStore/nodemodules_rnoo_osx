@@ -1,6 +1,6 @@
 # crypto-random-string [![Build Status](https://travis-ci.org/sindresorhus/crypto-random-string.svg?branch=master)](https://travis-ci.org/sindresorhus/crypto-random-string)
 
-> Generate a [cryptographically strong](https://en.wikipedia.org/wiki/Strong_cryptography) random string
+> Generate a [cryptographically strong](https://en.m.wikipedia.org/wiki/Strong_cryptography) random string
 
 Can be useful for creating an identifier, slug, salt, fixture, etc.
 
@@ -8,7 +8,7 @@ Can be useful for creating an identifier, slug, salt, fixture, etc.
 ## Install
 
 ```
-$ npm install crypto-random-string
+$ npm install --save crypto-random-string
 ```
 
 
@@ -17,56 +17,20 @@ $ npm install crypto-random-string
 ```js
 const cryptoRandomString = require('crypto-random-string');
 
-cryptoRandomString({length: 10});
+cryptoRandomString(10);
 //=> '2cf05d94db'
-
-cryptoRandomString({length: 10, type: 'base64'});
-//=> 'YMiMbaQl6I'
-
-cryptoRandomString({length: 10, type: 'url-safe'});
-//=> 'YN-tqc8pOw'
-
-cryptoRandomString({length: 10, characters: '1234567890'});
-//=> '1791935639'
 ```
 
 
 ## API
 
-### cryptoRandomString(options)
+### cryptoRandomString(length)
 
-Returns a randomized string. [Hex](https://en.wikipedia.org/wiki/Hexadecimal) by default.
+#### length
 
-#### options
-
-Type: `object`
-
-##### length
-
-*Required*<br>
 Type: `number`
 
 Length of the returned string.
-
-##### type
-
-Type: `string`<br>
-Default: `'hex'`<br>
-Values: `'hex'` `'base64'` `'url-safe'`
-
-Use only characters from a predefined set of allowed characters.
-
-Cannot be set at the same time as the `characters` option.
-
-##### characters
-
-Type: `string`<br>
-Minimum length: `1`<br>
-Maximum length: `65536`
-
-Use only characters from a custom set of allowed characters.
-
-Cannot be set at the same time as the `type` option.
 
 
 ## Related
