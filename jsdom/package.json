@@ -48,30 +48,7 @@
   "_where": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/jest-environment-jsdom",
   "browser": {
     "canvas": false,
-    "vm": "vm-browserify",
-    "zlib": "browserify-zlib",
-    "console": "console-browserify",
-    "constants": "constants-browserify",
-    "crypto": "react-native-crypto",
-    "dns": "dns.js",
-    "net": "react-native-tcp",
-    "domain": "domain-browser",
-    "http": "@tradle/react-native-http",
-    "https": "https-browserify",
-    "os": "react-native-os",
-    "path": "path-browserify",
-    "querystring": "querystring-es3",
-    "fs": "react-native-level-fs",
-    "_stream_transform": "readable-stream/transform",
-    "_stream_readable": "readable-stream/readable",
-    "_stream_writable": "readable-stream/writable",
-    "_stream_duplex": "readable-stream/duplex",
-    "_stream_passthrough": "readable-stream/passthrough",
-    "dgram": "react-native-udp",
-    "stream": "stream-browserify",
-    "timers": "timers-browserify",
-    "tty": "tty-browserify",
-    "tls": false
+    "vm": "./lib/jsdom/vm-shim.js"
   },
   "bugs": {
     "url": "https://github.com/tmpvar/jsdom/issues"
@@ -181,32 +158,5 @@
     "test-wpt": "mocha test/web-platform-tests/index.js",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt"
   },
-  "version": "9.12.0",
-  "react-native": {
-    "canvas": false,
-    "vm": "vm-browserify",
-    "zlib": "browserify-zlib",
-    "console": "console-browserify",
-    "constants": "constants-browserify",
-    "crypto": "react-native-crypto",
-    "dns": "dns.js",
-    "net": "react-native-tcp",
-    "domain": "domain-browser",
-    "http": "@tradle/react-native-http",
-    "https": "https-browserify",
-    "os": "react-native-os",
-    "path": "path-browserify",
-    "querystring": "querystring-es3",
-    "fs": "react-native-level-fs",
-    "_stream_transform": "readable-stream/transform",
-    "_stream_readable": "readable-stream/readable",
-    "_stream_writable": "readable-stream/writable",
-    "_stream_duplex": "readable-stream/duplex",
-    "_stream_passthrough": "readable-stream/passthrough",
-    "dgram": "react-native-udp",
-    "stream": "stream-browserify",
-    "timers": "timers-browserify",
-    "tty": "tty-browserify",
-    "tls": false
-  }
+  "version": "9.12.0"
 }
