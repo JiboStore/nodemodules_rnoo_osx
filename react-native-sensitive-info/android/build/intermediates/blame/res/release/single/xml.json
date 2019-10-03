@@ -1,10 +1,6 @@
 [
     {
-        "merged": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-sensitive-info/android/build/intermediates/res/merged/release/xml/preferences.xml",
-        "source": "/Development/hakim/github/mangafun-react-native-auth/client/MangafunApp/node_modules/react-native-sensitive-info/android/build/intermediates/exploded-aar/com.facebook.react/react-native/0.20.1/res/xml/preferences.xml"
-    },
-    {
         "merged": "/Development/web/rnoleole/client/golegole/node_modules/react-native-sensitive-info/android/build/intermediates/res/merged/release/xml/preferences.xml",
-        "source": "/Development/web/rnoleole/client/golegole/node_modules/react-native-sensitive-info/android/build/intermediates/exploded-aar/com.facebook.react/react-native/0.20.1/res/xml/preferences.xml"
+        "source": "/Users/hakimhauston/.gradle/caches/transforms-2/files-2.1/927ae0717d439efe4398c5ded9124a9a/res/xml/preferences.xml"
     }
 ]
