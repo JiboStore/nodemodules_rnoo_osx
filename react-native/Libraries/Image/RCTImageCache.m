@@ -25,7 +25,7 @@ static NSString *RCTCacheKeyForImage(NSString *imageTag, CGSize size, CGFloat sc
                                      RCTResizeMode resizeMode, NSString *responseDate)
 {
     return [NSString stringWithFormat:@"%@|%g|%g|%g|%zd|%@",
-            imageTag, size.width, size.height, scale, resizeMode, responseDate];
+            imageTag, size.width, size.height, scale, (long)resizeMode, responseDate];
 }
 
 @implementation RCTImageCache
