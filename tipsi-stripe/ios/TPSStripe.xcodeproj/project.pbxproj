@@ -11,7 +11,7 @@
 		3A228EB21DC52E54007BB9D0 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A228EB11DC52E54007BB9D0 /* PassKit.framework */; };
 		3A4EF3251DC8F90100A7C0BD /* TPSCardFieldManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EF3241DC8F90100A7C0BD /* TPSCardFieldManager.m */; };
 		3A4EF3281DC8FD4600A7C0BD /* TPSCardField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EF3271DC8FD4600A7C0BD /* TPSCardField.m */; };
-		3C0CB3831E6D765D00CF5D16 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0CB3821E6D765D00CF5D16 /* Stripe.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8B9E74ED2393C4AC00D59C35 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9E74EC2393C4AC00D59C35 /* Stripe.framework */; };
 		B81C8CDE1F978E320021EB09 /* TPSError.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C8CDD1F978E320021EB09 /* TPSError.m */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +36,7 @@
 		3A4EF3241DC8F90100A7C0BD /* TPSCardFieldManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSCardFieldManager.m; sourceTree = "<group>"; };
 		3A4EF3261DC8FD4600A7C0BD /* TPSCardField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSCardField.h; sourceTree = "<group>"; };
 		3A4EF3271DC8FD4600A7C0BD /* TPSCardField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSCardField.m; sourceTree = "<group>"; };
-		3C0CB3821E6D765D00CF5D16 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9E74EC2393C4AC00D59C35 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = "<group>"; };
 		B81C8CDC1F978E320021EB09 /* TPSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSError.h; sourceTree = "<group>"; };
 		B81C8CDD1F978E320021EB09 /* TPSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSError.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,8 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C0CB3831E6D765D00CF5D16 /* Stripe.framework in Frameworks */,
 				3A228EB21DC52E54007BB9D0 /* PassKit.framework in Frameworks */,
+				8B9E74ED2393C4AC00D59C35 /* Stripe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +57,7 @@
 		3A228EB01DC52E54007BB9D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3C0CB3821E6D765D00CF5D16 /* Stripe.framework */,
+				8B9E74EC2393C4AC00D59C35 /* Stripe.framework */,
 				3A228EB11DC52E54007BB9D0 /* PassKit.framework */,
 			);
 			name = Frameworks;
@@ -268,6 +268,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"${BUILT_PRODUCTS_DIR}/**",
 					"$BUILD_DIR/$CONFIGURATION$EFFECTIVE_PLATFORM_NAME/Stripe/**",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public/Stripe",
+					"$(SRCROOT)/../../React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -281,6 +289,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"${BUILT_PRODUCTS_DIR}/**",
 					"$BUILD_DIR/$CONFIGURATION$EFFECTIVE_PLATFORM_NAME/Stripe/**",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public/Stripe",
+					"$(SRCROOT)/../../React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

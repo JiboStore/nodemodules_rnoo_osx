@@ -192,12 +192,14 @@
     if (!_onChange) {
         return;
     }
+    NSNumber *expMonth = [NSNumber numberWithUnsignedInteger:_paymentCardTextField.cardParams.expMonth];
+    NSNumber *expYear = [NSNumber numberWithUnsignedInteger:_paymentCardTextField.cardParams.expYear];
     _onChange(@{
                 @"valid": @(_paymentCardTextField.isValid),
                 @"params": @{
                         @"number": _paymentCardTextField.cardParams.number?:@"",
-                        @"expMonth": @(_paymentCardTextField.cardParams.expMonth),
-                        @"expYear": @(_paymentCardTextField.cardParams.expYear),
+                        @"expMonth": expMonth,
+                        @"expYear": expYear,
                         @"cvc": _paymentCardTextField.cardParams.cvc?:@""
                         }
                 });
