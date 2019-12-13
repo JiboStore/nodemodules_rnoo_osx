@@ -1,27 +1,24 @@
 {
-  "_from": "tipsi-stripe",
-  "_id": "tipsi-stripe@7.5.1",
+  "_from": "github:tipsi/tipsi-stripe#10026e9",
+  "_id": "tipsi-stripe@8.0.0-beta.9",
   "_inBundle": false,
-  "_integrity": "sha512-dSdyY/1GR5JmmddS9K8nBR3bAkNhBsMpUGKjAuyXvyHOXJIwkdzuWDa86yMLPAC+JLBP4HzB2cIuEYH4A6KI4g==",
   "_location": "/tipsi-stripe",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "tipsi-stripe",
+    "type": "git",
+    "raw": "tipsi-stripe@github:tipsi/tipsi-stripe#10026e9",
     "name": "tipsi-stripe",
     "escapedName": "tipsi-stripe",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "rawSpec": "github:tipsi/tipsi-stripe#10026e9",
+    "saveSpec": "github:tipsi/tipsi-stripe#10026e9",
+    "fetchSpec": null,
+    "gitCommittish": "10026e9"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/tipsi-stripe/-/tipsi-stripe-7.5.1.tgz",
-  "_shasum": "529434e0bbd0510eef68f6b1ff46c6d30f5a672f",
-  "_spec": "tipsi-stripe",
+  "_resolved": "github:tipsi/tipsi-stripe#10026e90b1e438eed4ac1149bb4c9f4c71cba3d4",
+  "_spec": "tipsi-stripe@github:tipsi/tipsi-stripe#10026e9",
   "_where": "/Development/web/rnoleole/client/golegole",
   "author": {
     "name": "Tipsi"
@@ -31,11 +28,20 @@
   },
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "React Native Stripe binding for iOS/Andriod platforms",
+  "description": "React Native Stripe binding for iOS/Android platforms",
   "devDependencies": {
-    "eslint": "4.19.1",
-    "eslint-config-tipsi": "2.0.3",
+    "babel-eslint": "^10.0.2",
+    "docusaurus": "^1.11.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-tipsi": "2.x",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "esm": "3.0.28",
+    "prettier": "1.18.x",
     "prop-types": "15.6.1",
     "tape": "4.9.0"
   },
@@ -69,8 +75,10 @@
     "ci": "scripts/local-ci.sh",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "prettier": "prettier",
+    "prettier:js": "prettier --write src/*.{js,jsx} src/**/*.{js,jsx} example/src/*.{js,jsx} example/src/**/*.{js,jsx}",
     "start-docs": "npm start --prefix website/docs",
     "test": "tape -r esm src/**/*.test.js"
   },
-  "version": "7.5.1"
+  "version": "8.0.0-beta.9"
 }
