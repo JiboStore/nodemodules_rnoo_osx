@@ -27,15 +27,15 @@ function findMatchingSimulator(simulators, simulatorName) {
   var match;
   for (let version in devices) {
     // Making sure the version of the simulator is an iOS (Removes Apple Watch, etc)
-    if (version.indexOf('iOS') !== 0) {
-      continue;
-    }
+    //if (version.indexOf('iOS') !== 0) {
+    //  continue;
+    //}
     for (let i in devices[version]) {
       let simulator = devices[version][i];
       // Skipping non-available simulator
-      if (simulator.availability !== '(available)') {
-        continue;
-      }
+      //if (simulator.availability !== '(available)') {
+      //  continue;
+      //}
       // If there is a booted simulator, we'll use that as instruments will not boot a second simulator
       if (simulator.state === 'Booted') {
         if (simulatorName !== null) {
